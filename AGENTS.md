@@ -126,6 +126,13 @@ If tests exist: `npm run check && npm test && npm run build`
 - Before creating a PR, run the project validation command: `npm run check && npm test && npm run build`.
 - If new test-related devDependencies are required (for example `@testing-library/jest-dom` or `@testing-library/user-event`), declare them in `package.json` under `devDependencies` and add or update the test setup file (see `.vitest.setup.ts` or `src/test/setup.ts`) so the library matchers and globals are configured.
 
+## Backend (amicats-api)
+
+- Chamadas à API só via `api()` de `src/integrations/api/client.ts` e query options/mutations em `src/integrations/api/*.queries.ts`. Tipos em `types.ts` espelham o OpenAPI da API (`<API>/docs`).
+- Área logada: rotas em `src/routes/$locale/app/` (`_painel` = layout protegido; `exigirLogin`/`exigirCargo` de `guards.ts` no `beforeLoad`). Componentes em `src/components/app/`.
+- Cargos: `adm` ⊃ `voluntario` ⊃ `cliente` (público). Vocabulário em `../amicats-api/GLOSSARY.md`.
+- Roadmap vivo em `docs/ROADMAP.md`: atualize ao entregar uma feature.
+
 ## Generated files — do not edit
 
 - `src/routeTree.gen.ts`

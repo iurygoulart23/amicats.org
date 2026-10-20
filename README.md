@@ -28,6 +28,16 @@ npm install
 npm run dev        # http://localhost:3000
 ```
 
+### Backend (amicats-api)
+
+O catálogo de gatos da home e a área logada (`/$locale/app`) consomem a [`amicats-api`](../amicats-api). Para rodar o site completo:
+
+1. Suba a API seguindo o README dela (`docker compose up -d`, `npm run db:migrate`, `npm run db:seed`, `npm run dev`).
+2. Aqui, copie `.env.example` para `.env` e ajuste `VITE_API_URL` se a API não estiver em `http://localhost:3333`.
+3. `npm run dev` e acesse `http://localhost:3000/pt-BR/app` (adm inicial: `SEED_ADMIN_EMAIL` / `SEED_ADMIN_SENHA` do `.env` da API).
+
+A área logada renderiza só no navegador (`ssr: false`) porque depende do cookie de sessão da API. O código de integração fica em `src/integrations/api/` e os componentes em `src/components/app/`. Roadmap da plataforma: [`docs/ROADMAP.md`](docs/ROADMAP.md).
+
 ### Scripts Disponíveis
 
 | Comando                   | Descrição                 |
