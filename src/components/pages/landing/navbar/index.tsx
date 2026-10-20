@@ -132,6 +132,14 @@ export function Navbar({
           </div>
 
           <div className="navbar-end flex-1 flex justify-end items-center gap-3 pr-4">
+            <Link
+              to="/$locale/app"
+              params={{ locale }}
+              className="hidden lg:inline-flex btn btn-ghost btn-md"
+            >
+              <Trans>Entrar</Trans>
+            </Link>
+
             {/* CTA shown on md+ inline in nav; on mobile it's inside the dropdown */}
             <Link
               to={`/${locale}/quero-ajudar/`}
@@ -213,6 +221,15 @@ export function Navbar({
                         onClick={() => setMobileOpen(false)}
                       >
                         <Trans>Voluntários</Trans>
+                      </Link>
+                    </li>
+                    <li>
+                      <Link
+                        to="/$locale/app"
+                        params={{ locale }}
+                        onClick={() => setMobileOpen(false)}
+                      >
+                        <Trans>Entrar</Trans>
                       </Link>
                     </li>
                     <li className={cn('border-t border-base-200 pt-2')}>
