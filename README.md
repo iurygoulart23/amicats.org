@@ -1,0 +1,81 @@
+# amicats-api
+
+Backend da plataforma Amicats: contas e cargos, gestão dos gatos do abrigo (fotos, tags, histórico de saúde) e catálogo público consumido pelo site [`amicats.org`](https://github.com/ongamicats/amicats.org).
+
+**Stack:** Node 22, TypeScript, Fastify 5, Prisma 6, PostgreSQL 16, zod 4, Vitest.
+
+Vocabulário do domínio em [`GLOSSARY.md`](./GLOSSARY.md). Decisões de arquitetura em [`docs/adr/`](./docs/adr/).
+
+## Rodando localmente
+
+```bash
+nvm use                     # Node 22 (.nvmrc)
+npm ci
+cp .env.example .env        # ajuste se precisar
+docker compose up -d        # Postgres em localhost:5433
+npm run db:migrate          # aplica as migrations
+npm run db:seed             # adm inicial + tags de doenças + os 20 gatos do site
+npm run dev                 # http://localhost:3333 · docs em http://localhost:3333/docs
+```
+
+O adm inicial usa `SEED_ADMIN_EMAIL` / `SEED_ADMIN_SENHA` do `.env`. Sem `RESEND_API_KEY`, os e-mails (convite, redefinição de senha) não são enviados: o conteúdo, com o link, aparece no log da API.
+
+### Banco temporário (testes manuais)
+
+Para testar sem mexer no banco de desenvolvimento, use um Postgres descartável (dados em memória, apagados ao parar), já com migrations e seed:
+
+```bash
+npm run db:temp                                                   # sobe na porta 5434
+DATABASE_URL=postgresql://amicats:amicats@localhost:5434/amicats npm run dev
+npm run db:temp:stop                                              # apaga tudo
+```
+
+## Testes
+
+```bash
+docker compose up -d
+npm test
+```
+
+Os testes sobem o app com `app.inject()` contra o banco `amicats_test` (criado e migrado automaticamente a partir de `.env.test`), com e-mail e storage falsos. Rotas internas novas devem entrar na matriz de `src/plugins/permissoes.test.ts`.
+
+## Cargos
+
+| Cargo        | Quem é               | Pode                                                                                         |
+| ------------ | -------------------- | -------------------------------------------------------------------------------------------- |
+| `adm`        | administração da ONG | tudo, incluindo gerenciar contas, cargos e tags, e excluir gatos                             |
+| `voluntario` | voluntário do abrigo | cadastrar e editar gatos, fotos, tags do gato e histórico de saúde                           |
+| `cliente`    | público              | ver o catálogo, editar a própria conta (e, nas próximas fases, apadrinhar e assinar o clube) |
+
+Os cargos são em camadas (adm ⊃ voluntário ⊃ cliente): voluntários e adms também podem fazer tudo o que um cliente faz.
+
+## Estrutura
+
+```txt
+src/
+  app.ts            # buildApp(deps): plugins, hooks e módulos (usado pelos testes)
+  server.ts         # liga as dependências reais e sobe o servidor
+  env.ts            # variáveis de ambiente validadas com zod
+  domain/           # regras puras (cargos, gato)
+  lib/              # adapters: senha, tokens, mailer (Resend), storage (B2/S3)
+  plugins/auth.ts   # sessão por cookie → request.usuario, exigirCargo()
+  modules/          # auth, users, gatos, tags, saude, fotos, publico
+prisma/             # schema, migrations e seed
+test/               # setup do Vitest e helpers (fakes, login)
+```
+
+## Fotos (Backblaze B2)
+
+O navegador envia o arquivo direto para o bucket:
+
+1. `POST /gatos/:id/fotos/upload-url` devolve uma URL pré-assinada, válida por 10 minutos.
+2. O navegador faz `PUT` do arquivo nessa URL.
+3. `POST /gatos/:id/fotos` com a `key` registra a foto.
+
+O bucket precisa de uma regra de CORS que libere `PUT` vindo da origem do site. Sem as variáveis `S3_*`, as rotas de upload respondem 503.
+
+## Deploy
+
+- **Banco:** Postgres gerenciado (ex.: Neon). Use a connection string com `sslmode=require` em `DATABASE_URL`.
+- **API:** a imagem do `Dockerfile` aplica as migrations pendentes ao iniciar e sobe na porta `PORT`. Roda em Cloud Run, Render, Railway ou similar.
+- **Produção:** configure `WEB_ORIGIN=https://amicats.org`, `COOKIE_DOMAIN=.amicats.org` e `COOKIE_SECURE=true`, e publique a API em `api.amicats.org`. O cookie depende de site e API estarem no mesmo domínio (ver ADR 0001).
