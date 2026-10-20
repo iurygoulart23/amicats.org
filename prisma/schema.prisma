@@ -1,0 +1,154 @@
+// Campos de domínio com valores fixos (cargo, status, sexo…) são String no banco
+// e validados por zod na API: o projeto não usa enum (ver src/domain).
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id           String   @id @default(uuid()) @db.Uuid
+  nome         String
+  email        String   @unique
+  senhaHash    String?  @map("senha_hash")
+  /// 'adm' | 'voluntario' (voluntário) | 'cliente'
+  cargo        String   @default("cliente")
+  telefone     String?
+  ativo        Boolean  @default(true)
+  criadoEm     DateTime @default(now()) @map("criado_em")
+  atualizadoEm DateTime @updatedAt @map("atualizado_em")
+
+  sessions       Session[]
+  resetTokens    PasswordResetToken[]
+  gatosCriados   Gato[]               @relation("GatoCriadoPor")
+  registrosSaude RegistroSaude[]
+
+  @@map("users")
+}
+
+model Session {
+  /// SHA-256 do token; o token puro só existe no cookie do navegador
+  id        String   @id
+  userId    String   @map("user_id") @db.Uuid
+  expiraEm  DateTime @map("expira_em")
+  criadoEm  DateTime @default(now()) @map("criado_em")
+  userAgent String?  @map("user_agent")
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
+  @@map("sessions")
+}
+
+model PasswordResetToken {
+  tokenHash String    @id @map("token_hash")
+  userId    String    @map("user_id") @db.Uuid
+  expiraEm  DateTime  @map("expira_em")
+  usadoEm   DateTime? @map("usado_em")
+  criadoEm  DateTime  @default(now()) @map("criado_em")
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
+  @@map("password_reset_tokens")
+}
+
+model Gato {
+  id                  String    @id @default(uuid()) @db.Uuid
+  nome                String
+  slug                String    @unique
+  dataNascimentoAprox DateTime? @map("data_nascimento_aprox") @db.Date
+  /// 'dia' | 'mes' | 'ano'
+  precisaoNascimento  String    @default("ano") @map("precisao_nascimento")
+  /// 'macho' | 'femea' | 'desconhecido'
+  sexo                String    @default("desconhecido")
+  /// 'disponivel' | 'apadrinhado' | 'adotado' | 'em_tratamento' | 'falecido'
+  status              String    @default("disponivel")
+  castrado            Boolean   @default(false)
+  descricaoPt         String    @default("") @map("descricao_pt")
+  descricaoEn         String?   @map("descricao_en")
+  /// Observações internas: nunca expostas no catálogo público
+  observacoes         String    @default("")
+  publicado           Boolean   @default(false)
+  criadoPorId         String?   @map("criado_por_id") @db.Uuid
+  criadoEm            DateTime  @default(now()) @map("criado_em")
+  atualizadoEm        DateTime  @updatedAt @map("atualizado_em")
+
+  criadoPor      User?           @relation("GatoCriadoPor", fields: [criadoPorId], references: [id], onDelete: SetNull)
+  fotos          GatoFoto[]
+  tags           GatoTag[]
+  registrosSaude RegistroSaude[]
+
+  @@index([status])
+  @@index([publicado])
+  @@map("gatos")
+}
+
+model GatoFoto {
+  id         String   @id @default(uuid()) @db.Uuid
+  gatoId     String   @map("gato_id") @db.Uuid
+  /// Chave no bucket; vazia para fotos legadas cadastradas só por URL
+  storageKey String?  @map("storage_key")
+  url        String
+  ordem      Int      @default(0)
+  capa       Boolean  @default(false)
+  criadoEm   DateTime @default(now()) @map("criado_em")
+
+  gato Gato @relation(fields: [gatoId], references: [id], onDelete: Cascade)
+
+  @@index([gatoId])
+  @@map("gato_fotos")
+}
+
+model Tag {
+  id       String   @id @default(uuid()) @db.Uuid
+  nome     String   @unique
+  /// 'doenca' | 'comportamento' | 'cuidado'
+  tipo     String   @default("doenca")
+  cor      String?
+  criadoEm DateTime @default(now()) @map("criado_em")
+
+  gatos          GatoTag[]
+  registrosSaude RegistroSaude[]
+
+  @@map("tags")
+}
+
+model GatoTag {
+  gatoId   String   @map("gato_id") @db.Uuid
+  tagId    String   @map("tag_id") @db.Uuid
+  /// false = condição que o gato já teve (histórico), true = atual
+  ativa    Boolean  @default(true)
+  criadoEm DateTime @default(now()) @map("criado_em")
+
+  gato Gato @relation(fields: [gatoId], references: [id], onDelete: Cascade)
+  tag  Tag  @relation(fields: [tagId], references: [id], onDelete: Cascade)
+
+  @@id([gatoId, tagId])
+  @@map("gato_tags")
+}
+
+model RegistroSaude {
+  id              String    @id @default(uuid()) @db.Uuid
+  gatoId          String    @map("gato_id") @db.Uuid
+  tagId           String?   @map("tag_id") @db.Uuid
+  titulo          String
+  dataInicio      DateTime  @map("data_inicio") @db.Date
+  /// Vazia = condição ainda em curso
+  dataFim         DateTime? @map("data_fim") @db.Date
+  observacao      String    @default("")
+  registradoPorId String?   @map("registrado_por_id") @db.Uuid
+  criadoEm        DateTime  @default(now()) @map("criado_em")
+  atualizadoEm    DateTime  @updatedAt @map("atualizado_em")
+
+  gato          Gato  @relation(fields: [gatoId], references: [id], onDelete: Cascade)
+  tag           Tag?  @relation(fields: [tagId], references: [id], onDelete: SetNull)
+  registradoPor User? @relation(fields: [registradoPorId], references: [id], onDelete: SetNull)
+
+  @@index([gatoId])
+  @@map("registros_saude")
+}
