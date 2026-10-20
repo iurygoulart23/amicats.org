@@ -44,16 +44,16 @@ msgid "A AmiCat's nasceu do desejo genuíno de mudar o destino de centenas de fe
 msgstr "AmiCat's was born from a genuine desire to change the fate of hundreds of cats on the streets of Campo Grande. We are passionate volunteers who dedicate time and resources to rescue, treat, and find loving homes. We believe every life matters and that love can heal the deepest wounds."
 
 #: src/components/pages/landing/adote/index.tsx
-msgid "A diva do abrigo, linda e sabedora disso. Merece uma vida de estrela! ⭐"
-msgstr ""
+#~ msgid "A diva do abrigo, linda e sabedora disso. Merece uma vida de estrela! ⭐"
+#~ msgstr ""
 
 #: src/components/pages/landing/adote/index.tsx
-msgid "A estrela mais brilhante do abrigo, ilumina qualquer lar com sua presença."
-msgstr ""
+#~ msgid "A estrela mais brilhante do abrigo, ilumina qualquer lar com sua presença."
+#~ msgstr ""
 
 #: src/components/pages/landing/adote/index.tsx
-msgid "A fofura do abrigo, distribuidor de amor. Esqueceu de desligar a fofura!"
-msgstr ""
+#~ msgid "A fofura do abrigo, distribuidor de amor. Esqueceu de desligar a fofura!"
+#~ msgstr ""
 
 # Adote descriptions
 #: src/components/pages/landing/adote/index.tsx
@@ -68,21 +68,26 @@ msgstr ""
 msgid "A parceria fortalece nosso trabalho e dá visibilidade à sua marca com propósito."
 msgstr "Partnership strengthens our work and gives visibility to your purpose-driven brand."
 
+#: src/routes/$locale/app/_painel/admin/usuarios/index.tsx
+msgid "A pessoa recebe um e-mail com o link para definir a própria senha."
+msgstr "The person will receive an email with a link to set their own password."
+
 #: src/components/pages/landing/adote/index.tsx
 #~ msgid "A Princesa da Ong, padeira de mão cheia, amor silencioso."
 #~ msgstr "The shelter's princess, a talented baker, a quiet love."
 
 #: src/components/pages/landing/adote/index.tsx
-msgid "A princesa mais charmosa do abrigo, digna de um conto de fadas."
-msgstr ""
+#~ msgid "A princesa mais charmosa do abrigo, digna de um conto de fadas."
+#~ msgstr ""
 
 #: src/routes/$locale/seja-um-parceiro/index.tsx
 msgid "A satisfação de contribuir para uma causa importante"
 msgstr "The satisfaction of contributing to an important cause"
 
+#: src/components/app/app-shell/index.tsx
 #: src/components/pages/landing/navbar/index.tsx
 msgid "Abrir menu"
-msgstr ""
+msgstr "Open menu"
 
 #: src/components/pages/landing/footer/index.tsx
 msgid "Abrir WhatsApp"
@@ -104,6 +109,18 @@ msgstr "Follow the journey"
 #~ msgid "Acompanhe o desenvolvimento do gatinho que você está ajudando através de fotos e mensagens"
 #~ msgstr "Follow the kitten's progress through photos and messages"
 
+#: src/routes/$locale/app/_painel/admin/tags.tsx
+msgid "Adicionar"
+msgstr "Add"
+
+#: src/routes/$locale/app/_painel/admin/usuarios/index.tsx
+msgid "Adicionar pessoa"
+msgstr "Add person"
+
+#: src/hooks/use-rotulos.ts
+msgid "Administração"
+msgstr "Administration"
+
 #: src/routes/$locale/como-funciona/index.tsx
 msgid "Adoção"
 msgstr "Adoption"
@@ -120,6 +137,10 @@ msgstr "Adoption is a lifelong commitment to care. See the steps below."
 msgid "Adoção envolve custos veterinários, alimentação e atenção diária — é um compromisso para os próximos anos."
 msgstr "Adoption involves veterinary costs, food, and daily attention — it's a commitment for years to come."
 
+#: src/hooks/use-rotulos.ts
+msgid "Adotado"
+msgstr "Adopted"
+
 #: src/routes/$locale/como-funciona/-components/adocao.tsx
 msgid "Adotar com responsabilidade"
 msgstr "Adopt responsibly"
@@ -135,12 +156,16 @@ msgid "Agendaremos contato e visita quando necessário"
 msgstr "We will schedule contact and a visit when necessary"
 
 #: src/components/pages/landing/adote/index.tsx
-msgid "Ágil e veloz, o atleta do abrigo. Vida boa é correr e brincar sem parar!"
-msgstr ""
+#~ msgid "Ágil e veloz, o atleta do abrigo. Vida boa é correr e brincar sem parar!"
+#~ msgstr ""
 
 #: src/routes/$locale/como-funciona/-components/adocao.tsx
 msgid "Aguarde a avaliação"
 msgstr "Wait for the evaluation"
+
+#: src/routes/$locale/app/login.tsx
+msgid "Ainda não tem conta?"
+msgstr "Don't have an account yet?"
 
 #: src/routes/$locale/como-funciona/-components/apadrinhamento.tsx
 msgid "Ajude continuamente, sem precisar adotar"
@@ -150,13 +175,21 @@ msgstr "Provide ongoing help without adopting"
 msgid "Ajude na limpeza e organização da ONG aos sábados e domingos à tarde"
 msgstr "Help with the shelter's cleaning and organization on Saturday and Sunday afternoons"
 
+#: src/components/app/alerta-erro/index.tsx
+msgid "Algo deu errado. Tente novamente."
+msgstr "Something went wrong. Please try again."
+
 #: src/routes/$locale/seja-um-parceiro/index.tsx
 msgid "Alinhe divulgação e apoio"
 msgstr "Align promotion and support"
 
+#: src/routes/$locale/app/_painel/admin/usuarios/$userId.tsx
+msgid "Alterações salvas."
+msgstr "Changes saved."
+
 #: src/components/pages/landing/adote/index.tsx
-msgid "Ama um carinho e adora um abraço, galã de novela."
-msgstr "Loves affection and adores hugs, a soap-opera heartthrob."
+#~ msgid "Ama um carinho e adora um abraço, galã de novela."
+#~ msgstr "Loves affection and adores hugs, a soap-opera heartthrob."
 
 #: src/routes/$locale/seja-um-parceiro/index.tsx
 #~ msgid "amicatsong@gmail.com"
@@ -176,13 +209,25 @@ msgstr "Previous"
 msgid "Antes de começar"
 msgstr "Before you start"
 
+#: src/hooks/use-rotulos.ts
+msgid "Apadrinhado"
+msgstr "Sponsored"
+
 #: src/routes/$locale/como-funciona/index.tsx
 msgid "Apadrinhamento"
 msgstr "Sponsorship"
 
+#: src/routes/$locale/app/_painel/index.tsx
+msgid "Apadrinhamento e Clube Amicats"
+msgstr "Sponsorship and Amicats Club"
+
 #: src/components/layout/ui/gato-card/index.tsx
 msgid "Apadrinhe"
 msgstr "Sponsor"
+
+#: src/routes/$locale/app/_painel/index.tsx
+msgid "Apadrinhe um gatinho ou assine o clube. Em breve!"
+msgstr "Sponsor a kitty or join the club. Coming soon!"
 
 #: src/routes/$locale/quero-ajudar/index.tsx
 #~ msgid "Apoie financeiramente um gatinho sem precisar adotar — receba atualizações e participe da rotina."
@@ -204,9 +249,17 @@ msgstr "Cat litter"
 msgid "Arranhadores"
 msgstr "Scratching posts"
 
+#: src/routes/$locale/app/_painel/admin/tags.tsx
+msgid "As tags marcam doenças, comportamentos e cuidados dos gatos e servem de filtro na lista."
+msgstr "Tags mark the cats' illnesses, behaviors and care needs, and work as filters in the list."
+
 #: src/components/pages/landing/footer/index.tsx
 msgid "Atendimento por WhatsApp e E-mail"
 msgstr "Support via WhatsApp and Email"
+
+#: src/routes/$locale/app/_painel/admin/usuarios/index.tsx
+msgid "Ativa"
+msgstr "Active"
 
 #: src/routes/$locale/como-funciona/-components/voluntariado.tsx
 msgid "Atividades em grupo, escalas de atividade e acompanhamento da equipe — sua ajuda será coordenada para gerar o maior impacto."
@@ -225,21 +278,60 @@ msgstr "Help with social media, fundraising, adoption fairs, and events"
 #~ msgstr "Evaluation"
 
 #: src/components/pages/landing/adote/index.tsx
-msgid "Aventureiro e curioso, adora explorar cada cantinho. Seu novo melhor amigo!"
-msgstr ""
+#~ msgid "Aventureiro e curioso, adora explorar cada cantinho. Seu novo melhor amigo!"
+#~ msgstr ""
 
 #: src/components/pages/landing/certificados/index.tsx
 msgid "Bem-Estar Animal"
 msgstr "Animal Welfare Certification"
+
+#: src/routes/$locale/app/_painel/gatos/index.tsx
+#: src/routes/$locale/app/_painel/gatos/index.tsx
+msgid "Buscar por nome"
+msgstr "Search by name"
+
+#: src/routes/$locale/app/_painel/admin/usuarios/index.tsx
+#: src/routes/$locale/app/_painel/admin/usuarios/index.tsx
+msgid "Buscar por nome ou e-mail"
+msgstr "Search by name or email"
 
 # O Abrigo section
 #: src/components/pages/landing/o-abrigo/index.tsx
 msgid "Cada dia no abrigo é uma jornada de amor, dedicação e superação. Enfrentamos desafios constantes, mas cada vida salva nos motiva a continuar."
 msgstr "Each day at the shelter is a journey of love, dedication, and resilience. We face constant challenges, but every life saved motivates us to keep going."
 
+#: src/routes/$locale/app/_painel/gatos/index.tsx
+#: src/routes/$locale/app/_painel/gatos/novo.tsx
+msgid "Cadastrar gato"
+msgstr "Add cat"
+
+#: src/routes/$locale/app/login.tsx
+msgid "Cadastre-se"
+msgstr "Sign up"
+
+#: src/routes/$locale/app/_painel/index.tsx
+msgid "Cadastro, fotos, tags e histórico de saúde."
+msgstr "Records, photos, tags and health history."
+
 #: src/components/pages/landing/footer/index.tsx
 msgid "Campo Grande, MS"
 msgstr "Campo Grande, MS"
+
+#: src/components/app/gato-saude/index.tsx
+msgid "Cancelar"
+msgstr "Cancel"
+
+#: src/components/app/gato-fotos/index.tsx
+#: src/components/app/gato-fotos/index.tsx
+msgid "Capa"
+msgstr "Cover"
+
+#: src/routes/$locale/app/_painel/admin/usuarios/$userId.tsx
+#: src/routes/$locale/app/_painel/admin/usuarios/index.tsx
+#: src/routes/$locale/app/_painel/admin/usuarios/index.tsx
+#: src/routes/$locale/app/_painel/admin/usuarios/index.tsx
+msgid "Cargo"
+msgstr "Role"
 
 #: src/routes/$locale/quero-ajudar/-components/items-donation-card.tsx
 msgid "Casinhas e tocas"
@@ -248,6 +340,10 @@ msgstr "Cat houses and beds"
 #: src/components/pages/landing/o-abrigo/index.tsx
 msgid "Casos Complexos"
 msgstr "Complex Cases"
+
+#: src/components/app/gato-form/index.tsx
+msgid "Castrado"
+msgstr "Neutered"
 
 #: src/components/pages/landing/certificados/index.tsx
 msgid "Certificação de Bem-Estar Animal"
@@ -269,9 +365,17 @@ msgstr "Make sure your availability aligns with the needs and that you follow an
 msgid "Certifique-se de que todos na residência concordam, que o ambiente é seguro e que você tem disponibilidade para os cuidados."
 msgstr "Ensure everyone in the household agrees, the environment is safe, and that you have availability to provide care."
 
+#: src/hooks/use-rotulos.ts
+msgid "Cliente"
+msgstr "Client"
+
 #: src/routes/$locale/quero-ajudar/-components/items-donation-card.tsx
 msgid "Cobertores e mantas"
 msgstr "Blankets and throws"
+
+#: src/routes/$locale/app/cadastro.tsx
+msgid "Com uma conta você acompanha os gatinhos e, em breve, poderá apadrinhar e participar do Clube Amicats."
+msgstr "With an account you can follow the kitties and, soon, sponsor them and join the Amicats Club."
 
 #: src/routes/$locale/seja-um-parceiro/index.tsx
 #~ msgid "Combinamos como a marca será divulgada e mensuramos o impacto."
@@ -335,6 +439,10 @@ msgstr "Complete the adoption form"
 #~ msgid "Complete o formulário de adoção com todas as informações solicitadas"
 #~ msgstr "Complete the adoption form with all requested information"
 
+#: src/hooks/use-rotulos.ts
+msgid "Comportamento"
+msgstr "Behavior"
+
 #: src/routes/$locale/como-funciona/-components/adocao.tsx
 msgid "Compromissos de longo prazo"
 msgstr "Long-term commitments"
@@ -343,6 +451,10 @@ msgstr "Long-term commitments"
 msgid "Conheça as modalidades de parceria que oferecemos."
 msgstr ""
 
+#: src/routes/$locale/app/_painel/index.tsx
+msgid "Conheça os gatinhos"
+msgstr "Meet the kitties"
+
 #: src/routes/$locale/como-funciona/-components/apadrinhamento.tsx
 #~ msgid "Conheça os gatinhos disponíveis e escolha aquele que tocou seu coração"
 #~ msgstr "Meet the available kittens and choose the one that touched your heart"
@@ -350,6 +462,10 @@ msgstr ""
 #: src/components/pages/landing/o-abrigo/index.tsx
 msgid "Conscientização"
 msgstr "Awareness"
+
+#: src/routes/$locale/app/_painel/admin/usuarios/$userId.tsx
+msgid "Conta ativa (desativar encerra o acesso na hora)"
+msgstr "Active account (deactivating ends access immediately)"
 
 #: src/components/pages/landing/footer/index.tsx
 msgid "Contato"
@@ -379,6 +495,14 @@ msgstr "Talk with the team"
 msgid "Converse com a equipe / visita"
 msgstr "Talk with the team / visit"
 
+#: src/routes/$locale/app/_painel/admin/usuarios/$userId.tsx
+msgid "Convite enviado!"
+msgstr "Invitation sent!"
+
+#: src/routes/$locale/app/_painel/admin/usuarios/index.tsx
+msgid "Convite pendente"
+msgstr "Invitation pending"
+
 #: src/components/pages/landing/voluntarios/index.tsx
 msgid "Coordenação de Redes & Cuidados"
 msgstr "Network & Care Coordination"
@@ -405,6 +529,32 @@ msgstr "Copy PIX"
 msgid "Copyright © {0} - AmiCat's - Todos os direitos reservados"
 msgstr "Copyright © {0} - AmiCat's - All rights reserved"
 
+#: src/routes/$locale/app/cadastro.tsx
+#: src/routes/$locale/app/cadastro.tsx
+msgid "Criar conta"
+msgstr "Create account"
+
+#: src/routes/$locale/app/_painel/admin/usuarios/index.tsx
+msgid "Criar e enviar convite"
+msgstr "Create and send invitation"
+
+#: src/hooks/use-rotulos.ts
+msgid "Cuidado"
+msgstr "Care"
+
+#: src/routes/$locale/app/_painel/gatos/$gatoId.tsx
+msgid "Dados"
+msgstr "Details"
+
+#: src/routes/$locale/app/_painel/gatos/$gatoId.tsx
+#: src/routes/$locale/app/_painel/minha-conta.tsx
+msgid "Dados salvos."
+msgstr "Details saved."
+
+#: src/hooks/use-rotulos.ts
+msgid "Data exata"
+msgstr "Exact date"
+
 #: src/routes/$locale/quero-ajudar/-components/items-donation-card.tsx
 msgid "Decoração"
 msgstr "Decor"
@@ -429,6 +579,14 @@ msgstr "Set an amount that fits your budget"
 msgid "Definimos como sua marca será divulgada e como a parceria será comunicada ao público."
 msgstr "We define how your brand will be promoted and how the partnership will be communicated to the public."
 
+#: src/routes/$locale/app/redefinir-senha.tsx
+msgid "Definir nova senha"
+msgstr "Set a new password"
+
+#: src/components/app/gato-saude/index.tsx
+msgid "Deixe vazio se ainda está em curso."
+msgstr "Leave empty if it is still ongoing."
+
 #: src/routes/$locale/como-funciona/-components/adocao.tsx
 #~ msgid "Demanda cuidados, atenção e interação diária"
 #~ msgstr "Requires daily care, attention, and interaction"
@@ -437,35 +595,28 @@ msgstr "We define how your brand will be promoted and how the partnership will b
 msgid "Demonstre interesse"
 msgstr "Express interest"
 
+#: src/routes/$locale/app/_painel/admin/usuarios/index.tsx
+msgid "Desativada"
+msgstr "Deactivated"
+
 #: src/routes/$locale/seja-um-parceiro/index.tsx
 msgid "Descontos"
 msgstr "Discounts"
+
+#: src/components/app/gato-form/index.tsx
+msgid "Descrição para o site (inglês)"
+msgstr "Website description (English)"
+
+#: src/components/app/gato-form/index.tsx
+msgid "Descrição para o site (português)"
+msgstr "Website description (Portuguese)"
 
 #: src/routes/$locale/como-funciona/-components/adocao.tsx
 #~ msgid "Deve ser alimentado exclusivamente com ração de qualidade apropriada"
 #~ msgstr "Should be fed exclusively with appropriate quality kibble"
 
 #: src/components/layout/ui/gato-card/index.tsx
-#: src/components/pages/landing/adote/index.tsx
-#: src/components/pages/landing/adote/index.tsx
-#: src/components/pages/landing/adote/index.tsx
-#: src/components/pages/landing/adote/index.tsx
-#: src/components/pages/landing/adote/index.tsx
-#: src/components/pages/landing/adote/index.tsx
-#: src/components/pages/landing/adote/index.tsx
-#: src/components/pages/landing/adote/index.tsx
-#: src/components/pages/landing/adote/index.tsx
-#: src/components/pages/landing/adote/index.tsx
-#: src/components/pages/landing/adote/index.tsx
-#: src/components/pages/landing/adote/index.tsx
-#: src/components/pages/landing/adote/index.tsx
-#: src/components/pages/landing/adote/index.tsx
-#: src/components/pages/landing/adote/index.tsx
-#: src/components/pages/landing/adote/index.tsx
-#: src/components/pages/landing/adote/index.tsx
-#: src/components/pages/landing/adote/index.tsx
-#: src/components/pages/landing/adote/index.tsx
-#: src/components/pages/landing/adote/index.tsx
+#: src/hooks/use-rotulos.ts
 msgid "Disponível"
 msgstr "Available"
 
@@ -510,8 +661,8 @@ msgstr "Donations"
 #~ msgstr "Donations, discounts, sponsorships or joint actions."
 
 #: src/components/pages/landing/adote/index.tsx
-msgid "Doce e carinhosa, faz ronronar de felicidade só de ver você chegar."
-msgstr ""
+#~ msgid "Doce e carinhosa, faz ronronar de felicidade só de ver você chegar."
+#~ msgstr ""
 
 #: src/routes/$locale/quero-ajudar/-components/items-donation-card.tsx
 msgid "Doe itens em bom estado para nosso bazar beneficente:"
@@ -525,9 +676,34 @@ msgstr "Donate by boleto"
 msgid "Doe Seu Tempo"
 msgstr "Donate Your Time"
 
+#: src/hooks/use-rotulos.ts
+msgid "Doença"
+msgstr "Illness"
+
+#: src/components/app/gato-saude/index.tsx
+msgid "Doença ou condição"
+msgstr "Illness or condition"
+
+#: src/routes/$locale/app/_painel/index.tsx
+msgid "Doenças, comportamentos e cuidados usados nos gatos."
+msgstr "Illnesses, behaviors and care needs used on cats."
+
 #: src/routes/$locale/como-funciona/-components/adocao.tsx
 #~ msgid "É imprescindível considerar que um gato:"
 #~ msgstr "It is essential to consider that a cat:"
+
+#: src/routes/$locale/app/_painel/admin/usuarios/index.tsx
+#: src/routes/$locale/app/_painel/admin/usuarios/index.tsx
+#: src/routes/$locale/app/cadastro.tsx
+#: src/routes/$locale/app/esqueci-senha.tsx
+#: src/routes/$locale/app/login.tsx
+msgid "E-mail"
+msgstr "Email"
+
+#: src/components/app/gato-saude/index.tsx
+#: src/components/app/gato-saude/index.tsx
+msgid "Editar registro"
+msgstr "Edit record"
 
 #: src/components/pages/landing/o-abrigo/index.tsx
 msgid "Educar sobre a posse responsável e a importância da castração é essencial para reduzir o abandono. Trabalhamos continuamente para mudar mentalidades e construir uma comunidade mais compassiva."
@@ -541,9 +717,19 @@ msgstr "Educating about responsible pet ownership and the importance of spaying 
 msgid "Eletrônicos funcionando"
 msgstr "Working electronics"
 
+#: src/routes/$locale/app/_painel/index.tsx
+#: src/routes/$locale/quero-ajudar/-components/donation-card.tsx
 #: src/routes/$locale/quero-ajudar/-components/donation-card.tsx
 msgid "Em breve"
 msgstr "Soon"
+
+#: src/components/app/gato-saude/index.tsx
+msgid "Em curso"
+msgstr "Ongoing"
+
+#: src/hooks/use-rotulos.ts
+msgid "Em tratamento"
+msgstr "In treatment"
 
 #: src/routes/$locale/quero-ajudar/index.tsx
 #~ msgid "Empresas e profissionais podem apoiar com recursos, serviços e divulgação."
@@ -557,13 +743,26 @@ msgstr "Companies interested in holding fundraising events or joint actions"
 msgid "Empresas que desejam apoiar a ONG através de doações financeiras, produtos ou serviços"
 msgstr "Companies that want to support the NGO through financial donations, products, or services"
 
+#: src/components/app/gato-saude/index.tsx
+msgid "Encerrado"
+msgstr "Resolved"
+
 #: src/routes/$locale/como-funciona/-components/apadrinhamento.tsx
 msgid "Encontre um gato para apoiar"
 msgstr "Find a cat to support"
 
 #: src/components/pages/landing/adote/index.tsx
-msgid "Energia contagiante e alegria de viver. Vai trazer vida para sua casa!"
-msgstr ""
+#~ msgid "Energia contagiante e alegria de viver. Vai trazer vida para sua casa!"
+#~ msgstr ""
+
+#: src/components/pages/landing/navbar/index.tsx
+#: src/components/pages/landing/navbar/index.tsx
+#: src/routes/$locale/app/cadastro.tsx
+#: src/routes/$locale/app/login.tsx
+#: src/routes/$locale/app/login.tsx
+#: src/routes/$locale/app/redefinir-senha.tsx
+msgid "Entrar"
+msgstr "Sign in"
 
 #: src/routes/$locale/quero-ajudar/-components/voluntarie-card.tsx
 msgid "Entrar em contato"
@@ -580,6 +779,14 @@ msgstr "Contact via WhatsApp"
 #: src/routes/$locale/como-funciona/-components/voluntariado.tsx
 msgid "Entre na rotina"
 msgstr "Enter the routine"
+
+#: src/components/app/gato-fotos/index.tsx
+msgid "Enviar fotos"
+msgstr "Upload photos"
+
+#: src/routes/$locale/app/esqueci-senha.tsx
+msgid "Enviar link"
+msgstr "Send link"
 
 #: src/routes/$locale/seja-um-parceiro/index.tsx
 msgid "Envie um e-mail para iniciarmos a conversa sobre possibilidades e objetivos."
@@ -606,6 +813,11 @@ msgstr "Choose a kitten"
 #~ msgid "Escolha um Gatinho"
 #~ msgstr "Choose a Kitten"
 
+#: src/routes/$locale/app/esqueci-senha.tsx
+#: src/routes/$locale/app/login.tsx
+msgid "Esqueci minha senha"
+msgstr "I forgot my password"
+
 #: src/routes/$locale/seja-um-parceiro/index.tsx
 #~ msgid "Estamos construindo nossa rede de parceiros"
 #~ msgstr "We are building our network of partners"
@@ -626,6 +838,38 @@ msgstr "Events"
 msgid "Eventos & Adoção"
 msgstr "Events & Adoption"
 
+#: src/routes/$locale/app/_painel/gatos/$gatoId.tsx
+msgid "Excluir"
+msgstr "Delete"
+
+#: src/routes/$locale/app/_painel/admin/tags.tsx
+msgid "Excluir a tag? Ela sai de todos os gatos."
+msgstr "Delete this tag? It will be removed from all cats."
+
+#: src/components/app/gato-fotos/index.tsx
+msgid "Excluir esta foto?"
+msgstr "Delete this photo?"
+
+#: src/routes/$locale/app/_painel/gatos/$gatoId.tsx
+msgid "Excluir este gato e todo o histórico dele? Essa ação não pode ser desfeita."
+msgstr "Delete this cat and its entire history? This cannot be undone."
+
+#: src/components/app/gato-saude/index.tsx
+msgid "Excluir este registro?"
+msgstr "Delete this record?"
+
+#: src/components/app/gato-fotos/index.tsx
+msgid "Excluir foto"
+msgstr "Delete photo"
+
+#: src/components/app/gato-saude/index.tsx
+msgid "Excluir registro"
+msgstr "Delete record"
+
+#: src/routes/$locale/app/_painel/admin/tags.tsx
+msgid "Excluir tag"
+msgstr "Delete tag"
+
 #: src/routes/$locale/quero-ajudar/-components/voluntarie-card.tsx
 msgid "Existem várias formas de contribuir como voluntário"
 msgstr "There are many ways to contribute as a volunteer"
@@ -643,6 +887,22 @@ msgstr "Log in"
 #~ msgid "Fale Conosco"
 #~ msgstr "Contact Us"
 
+#: src/hooks/use-rotulos.ts
+msgid "Falecido"
+msgstr "Deceased"
+
+#: src/components/app/app-shell/index.tsx
+msgid "Fechar menu"
+msgstr "Close menu"
+
+#: src/hooks/use-rotulos.ts
+msgid "Fêmea"
+msgstr "Female"
+
+#: src/components/app/gato-saude/index.tsx
+msgid "Fim"
+msgstr "End"
+
 #: src/routes/$locale/como-funciona/-components/adocao.tsx
 msgid "Finalize a adoção"
 msgstr "Finalize the adoption"
@@ -656,8 +916,12 @@ msgid "Financiamento Coletivo"
 msgstr "Crowdfunding"
 
 #: src/components/pages/landing/adote/index.tsx
-msgid "Fortão e corajoso, mas com um coração gigante. O Rocky felino! 🥊"
-msgstr ""
+#~ msgid "Fortão e corajoso, mas com um coração gigante. O Rocky felino! 🥊"
+#~ msgstr ""
+
+#: src/routes/$locale/app/_painel/gatos/$gatoId.tsx
+msgid "Fotos"
+msgstr "Photos"
 
 #: src/routes/$locale/como-funciona/-components/apadrinhamento.tsx
 msgid "Fotos e notícias do gatinho"
@@ -670,6 +934,25 @@ msgstr "Founder"
 #: src/components/pages/landing/adote/index.tsx
 msgid "Gatinhos Disponíveis"
 msgstr "Available Kittens"
+
+#: src/routes/$locale/app/_painel/gatos/index.tsx
+msgid "Gato"
+msgstr "Cat"
+
+#: src/routes/$locale/app/_painel/gatos/index.tsx
+msgid "gato(s)"
+msgstr "cat(s)"
+
+#: src/components/app/app-shell/index.tsx
+#: src/routes/$locale/app/_painel/gatos/$gatoId.tsx
+#: src/routes/$locale/app/_painel/gatos/novo.tsx
+msgid "Gatos"
+msgstr "Cats"
+
+#: src/routes/$locale/app/_painel/gatos/index.tsx
+#: src/routes/$locale/app/_painel/index.tsx
+msgid "Gatos do abrigo"
+msgstr "Shelter cats"
 
 #: src/routes/$locale/seja-um-parceiro/index.tsx
 #~ msgid "Gostaria de me tornar um parceiro"
@@ -701,6 +984,11 @@ msgstr "Language"
 msgid "Iniciamos as ações previstas e acompanhamos o impacto e a comunicação."
 msgstr "We start the planned activities and monitor impact and communication."
 
+#: src/components/app/app-shell/index.tsx
+#: src/components/app/gato-saude/index.tsx
+msgid "Início"
+msgstr "Home"
+
 # Footer / partner additions
 #: src/components/pages/landing/footer/index.tsx
 msgid "Institucional"
@@ -713,6 +1001,14 @@ msgstr "Items for the Bazaar"
 #: src/routes/$locale/quero-ajudar/-components/items-donation-card.tsx
 msgid "Itens para os Gatos"
 msgstr "Items for the Cats"
+
+#: src/routes/$locale/app/cadastro.tsx
+msgid "Já tem conta?"
+msgstr "Already have an account?"
+
+#: src/components/app/gato-tags/index.tsx
+msgid "Já teve"
+msgstr "Had it before"
 
 #: src/routes/$locale/seja-um-parceiro/index.tsx
 msgid "Jornada para se tornar parceiro"
@@ -747,6 +1043,14 @@ msgstr "Take your new friend home safely"
 msgid "Limpeza e Organização"
 msgstr "Cleaning and Organization"
 
+#: src/components/app/gato-saude/index.tsx
+msgid "Linha do tempo de saúde"
+msgstr "Health timeline"
+
+#: src/routes/$locale/app/redefinir-senha.tsx
+msgid "Link inválido. Peça um novo."
+msgstr "Invalid link. Please request a new one."
+
 #: src/components/pages/landing/footer/index.tsx
 #~ msgid "Links Rápidos"
 #~ msgstr "Quick Links"
@@ -759,6 +1063,10 @@ msgstr "Books"
 msgid "Logo destacado em nosso site e materiais de comunicação"
 msgstr "Logo featured on our website and communication materials"
 
+#: src/hooks/use-rotulos.ts
+msgid "Macho"
+msgstr "Male"
+
 #: src/components/pages/landing/o-abrigo/index.tsx
 msgid "Manter o abrigo ativo requer recursos contínuos para alimentação, medicamentos, cuidados veterinários e infraestrutura. Dependemos inteiramente de doações e da generosidade da comunidade."
 msgstr "Keeping the shelter running requires continuous resources for food, medication, veterinary care, and infrastructure. We rely entirely on donations and the generosity of the community."
@@ -767,9 +1075,28 @@ msgstr "Keeping the shelter running requires continuous resources for food, medi
 msgid "Médicos veterinários, auxiliares veterinários e outros profissionais da área"
 msgstr "Veterinarians, veterinary assistants, and other professionals in the field"
 
+#: src/components/app/app-shell/index.tsx
+msgid "Menu da área logada"
+msgstr "Members area menu"
+
 #: src/components/layout/ui/language-select/index.tsx
 #~ msgid "Menu de idiomas"
 #~ msgstr "Language menu"
+
+#: src/hooks/use-rotulos.ts
+msgid "Mês aproximado"
+msgstr "Approximate month"
+
+#: src/components/app/app-shell/index.tsx
+#: src/routes/$locale/app/_painel/minha-conta.tsx
+msgid "Minha conta"
+msgstr "My account"
+
+#: src/routes/$locale/app/_painel/minha-conta.tsx
+#: src/routes/$locale/app/cadastro.tsx
+#: src/routes/$locale/app/redefinir-senha.tsx
+msgid "Mínimo de 8 caracteres."
+msgstr "At least 8 characters."
 
 #: src/routes/$locale/quero-ajudar/-components/items-donation-card.tsx
 msgid "Móveis"
@@ -780,12 +1107,28 @@ msgid "Muitos gatos chegam com traumas físicos e emocionais profundos, exigindo
 msgstr "Many cats arrive with deep physical and emotional traumas, requiring prolonged treatments and specialized care. Rehabilitation is a long but rewarding process."
 
 #: src/components/pages/landing/adote/index.tsx
-msgid "Musical e cheio de energia, transforma cada momento em uma sinfonia de amor. 🎵"
-msgstr ""
+#~ msgid "Musical e cheio de energia, transforma cada momento em uma sinfonia de amor. 🎵"
+#~ msgstr ""
+
+#: src/components/app/gato-tags/index.tsx
+msgid "Não"
+msgstr "No"
+
+#: src/components/pages/landing/adote/index.tsx
+msgid "Não conseguimos carregar os gatinhos agora. Tente novamente em instantes."
+msgstr "We couldn't load the kitties right now. Please try again in a moment."
 
 #: src/routes/$locale/como-funciona/-components/adocao.tsx
 #~ msgid "Não deve ter acesso à rua por questões de segurança e saúde"
 #~ msgstr "Should not have access to the street for safety and health reasons"
+
+#: src/hooks/use-rotulos.ts
+msgid "Não informado"
+msgstr "Not specified"
+
+#: src/components/app/gato-form/index.tsx
+msgid "Nascimento aproximado"
+msgstr "Approximate birth date"
 
 #: src/components/pages/landing/navbar/index.tsx
 msgid "Navegação principal"
@@ -794,6 +1137,35 @@ msgstr "Main landing navigation"
 #: src/routes/$locale/como-funciona/-components/adocao.tsx
 #~ msgid "Necessita de vacinação anual e acompanhamento veterinário regular"
 #~ msgstr "Needs annual vaccination and regular veterinary follow-up"
+
+#: src/routes/$locale/app/_painel/gatos/index.tsx
+msgid "Nenhum gato encontrado."
+msgstr "No cats found."
+
+#: src/components/app/gato-saude/index.tsx
+msgid "Nenhum registro de saúde."
+msgstr "No health records."
+
+#: src/components/app/gato-fotos/index.tsx
+msgid "Nenhuma foto ainda."
+msgstr "No photos yet."
+
+#: src/components/app/gato-tags/index.tsx
+msgid "Nenhuma tag cadastrada. A administração cadastra as tags no menu Tags."
+msgstr "No tags yet. Administrators create tags in the Tags menu."
+
+#: src/routes/$locale/app/_painel/gatos/index.tsx
+msgid "No site"
+msgstr "On website"
+
+#: src/components/app/gato-form/index.tsx
+#: src/routes/$locale/app/_painel/admin/usuarios/$userId.tsx
+#: src/routes/$locale/app/_painel/admin/usuarios/index.tsx
+#: src/routes/$locale/app/_painel/admin/usuarios/index.tsx
+#: src/routes/$locale/app/_painel/minha-conta.tsx
+#: src/routes/$locale/app/cadastro.tsx
+msgid "Nome"
+msgstr "Name"
 
 # Voluntarios section
 #: src/components/pages/landing/voluntarios/index.tsx
@@ -844,6 +1216,27 @@ msgstr "Our Biggest Challenges"
 #~ msgid "Nossos Parceiros"
 #~ msgstr "Our Partners"
 
+#: src/routes/$locale/app/_painel/admin/usuarios/index.tsx
+msgid "Nova pessoa"
+msgstr "New person"
+
+#: src/routes/$locale/app/_painel/minha-conta.tsx
+#: src/routes/$locale/app/redefinir-senha.tsx
+msgid "Nova senha"
+msgstr "New password"
+
+#: src/routes/$locale/app/_painel/admin/tags.tsx
+msgid "Nova tag"
+msgstr "New tag"
+
+#: src/routes/$locale/app/_painel/gatos/novo.tsx
+msgid "Novo"
+msgstr "New"
+
+#: src/components/app/gato-saude/index.tsx
+msgid "Novo registro"
+msgstr "New record"
+
 #: src/components/pages/landing/navbar/index.tsx
 #: src/components/pages/landing/navbar/index.tsx
 #: src/components/pages/landing/o-abrigo/index.tsx
@@ -855,16 +1248,16 @@ msgstr "The Shelter"
 #~ msgstr "Sponsorship allows you to contribute monthly to the care of a specific kitten, receiving regular updates about them."
 
 #: src/components/pages/landing/adote/index.tsx
-msgid "O companheiro fiel, aquele que sempre estará ao seu lado. Amor puro!"
-msgstr ""
+#~ msgid "O companheiro fiel, aquele que sempre estará ao seu lado. Amor puro!"
+#~ msgstr ""
 
 #: src/components/pages/landing/adote/index.tsx
-msgid "O herói do dia a dia, sempre pronto para um cafuné e uma soneca."
-msgstr ""
+#~ msgid "O herói do dia a dia, sempre pronto para um cafuné e uma soneca."
+#~ msgstr ""
 
 #: src/components/pages/landing/adote/index.tsx
-msgid "O irmãozinho mais fofo que você vai conhecer. Amor em forma de gato!"
-msgstr ""
+#~ msgid "O irmãozinho mais fofo que você vai conhecer. Amor em forma de gato!"
+#~ msgstr ""
 
 #: src/components/pages/landing/o-abrigo/index.tsx
 msgid "O número de gatos resgatados continua crescendo enquanto o espaço e os recursos permanecem limitados. Cada novo resgate é um delicado equilíbrio entre salvar vidas e manter a qualidade do cuidado."
@@ -874,25 +1267,41 @@ msgstr "The number of rescued cats continues to grow while space and resources r
 msgid "O que esperar"
 msgstr "What to expect"
 
+#: src/routes/$locale/app/_painel/index.tsx
+msgid "O que você quer fazer hoje?"
+msgstr "What would you like to do today?"
+
 #: src/routes/$locale/como-funciona/-components/apadrinhamento.tsx
 msgid "O que você recebe em troca"
 msgstr "What you receive in return"
 
 #: src/components/pages/landing/adote/index.tsx
-msgid "O rei do rock felino, sempre fazendo pose para as câmeras. Carisma infinito! 🎸"
-msgstr ""
+#~ msgid "O rei do rock felino, sempre fazendo pose para as câmeras. Carisma infinito! 🎸"
+#~ msgstr ""
 
 #: src/components/pages/landing/adote/index.tsx
-msgid "O ronronar mais alto do abrigo! Gosta de colo e de ser o centro das atenções. 😻"
-msgstr ""
+#~ msgid "O ronronar mais alto do abrigo! Gosta de colo e de ser o centro das atenções. 😻"
+#~ msgstr ""
 
 #: src/components/pages/landing/adote/index.tsx
-msgid "O sábio da casa, tranquilo e cheio de histórias para contar."
-msgstr ""
+#~ msgid "O sábio da casa, tranquilo e cheio de histórias para contar."
+#~ msgstr ""
 
 #: src/components/pages/landing/adote/index.tsx
-msgid "O travesso da turma, sempre aprontando alguma. Diversão garantida! 😹"
-msgstr ""
+#~ msgid "O travesso da turma, sempre aprontando alguma. Diversão garantida! 😹"
+#~ msgstr ""
+
+#: src/components/app/gato-saude/index.tsx
+msgid "Observação"
+msgstr "Note"
+
+#: src/components/app/gato-form/index.tsx
+msgid "Observações internas"
+msgstr "Internal notes"
+
+#: src/routes/$locale/app/_painel/index.tsx
+msgid "Olá"
+msgstr "Hello"
 
 # Runtime WhatsApp helper strings used in quero-ajudar route
 #: src/routes/$locale/quero-ajudar/-components/items-donation-card.tsx
@@ -906,6 +1315,10 @@ msgstr "Hello! I would like more information about partnerships with AmiCat's."
 #: src/routes/$locale/quero-ajudar/-components/voluntarie-card.tsx
 msgid "Olá! Gostaria de me voluntariar na AmiCat's."
 msgstr "Hello! I'd like to volunteer at AmiCat's."
+
+#: src/components/app/gato-form/index.tsx
+msgid "Opcional. Sem ela, o site em inglês mostra a descrição em português."
+msgstr "Optional. Without it, the English website shows the Portuguese description."
 
 #: src/components/pages/landing/certificados/index.tsx
 msgid "Organização sem fins lucrativos registrada"
@@ -940,6 +1353,13 @@ msgstr "Join the care routine and support rescued cats"
 #~ msgid "Participe das rotinas de cuidado, resgates e eventos — sua ajuda faz a diferença."
 #~ msgstr "Join care routines, rescues, and events — your help makes a difference."
 
+#: src/components/app/app-shell/index.tsx
+#: src/routes/$locale/app/_painel/admin/usuarios/$userId.tsx
+#: src/routes/$locale/app/_painel/admin/usuarios/index.tsx
+#: src/routes/$locale/app/_painel/index.tsx
+msgid "Pessoas"
+msgstr "People"
+
 #: src/routes/$locale/seja-um-parceiro/index.tsx
 msgid "Pet shops, clínicas veterinárias e fornecedores que queiram oferecer descontos ou doações"
 msgstr "Pet shops, veterinary clinics and suppliers that want to offer discounts or donations"
@@ -968,6 +1388,10 @@ msgstr "Possibility of joint actions and events"
 #: src/routes/$locale/como-funciona/-components/adocao.tsx
 #~ msgid "Possui expectativa de vida superior a 15 anos"
 #~ msgstr "Has a life expectancy of over 15 years"
+
+#: src/components/app/gato-form/index.tsx
+msgid "Precisão da data"
+msgstr "Date precision"
 
 #: src/routes/$locale/como-funciona/-components/adocao.tsx
 msgid "Preencha o formulário"
@@ -1014,6 +1438,14 @@ msgstr "We organize adoption fairs and educational events to raise awareness abo
 msgid "Próximo"
 msgstr "Next"
 
+#: src/routes/$locale/app/_painel/gatos/index.tsx
+msgid "Publicado"
+msgstr "Published"
+
+#: src/components/app/gato-form/index.tsx
+msgid "Publicado no site"
+msgstr "Published on the website"
+
 #: src/components/pages/landing/voluntarios/index.tsx
 msgid "Quem Faz Acontecer"
 msgstr "Who Makes It Happen"
@@ -1038,7 +1470,7 @@ msgstr "I want to help"
 
 #: src/components/pages/landing/adote/index.tsx
 msgid "Quero apadrinhar o {nome} e saber como funciona."
-msgstr ""
+msgstr "I want to sponsor {nome} and learn how it works."
 
 #: src/routes/$locale/quero-ajudar/-components/items-donation-card.tsx
 #: src/routes/$locale/quero-ajudar/-components/items-donation-card.tsx
@@ -1060,6 +1492,10 @@ msgstr "I want to be an AmiCat's partner!"
 #: src/routes/$locale/quero-ajudar/-components/items-donation-card.tsx
 msgid "Ração para gatos"
 msgstr "Cat food"
+
+#: src/routes/$locale/app/_painel/gatos/index.tsx
+msgid "Rascunho"
+msgstr "Draft"
 
 #: src/routes/$locale/como-funciona/-components/adocao.tsx
 #~ msgid "Realizaremos uma visita para conhecer o ambiente e finalizar o processo"
@@ -1085,6 +1521,10 @@ msgstr "Recognition"
 msgid "Redes & Resgates"
 msgstr "Networks & Rescues"
 
+#: src/routes/$locale/app/_painel/admin/usuarios/$userId.tsx
+msgid "Reenviar convite"
+msgstr "Resend invitation"
+
 #: src/components/pages/landing/certificados/index.tsx
 msgid "Registro ONG"
 msgstr "Registered Nonprofit Organization"
@@ -1107,8 +1547,8 @@ msgid "resgates realizados"
 msgstr "rescues performed"
 
 #: src/components/pages/landing/adote/index.tsx
-msgid "Romântico e gentil, o galã que vai conquistar seu coração."
-msgstr ""
+#~ msgid "Romântico e gentil, o galã que vai conquistar seu coração."
+#~ msgstr ""
 
 #: src/routes/$locale/quero-ajudar/-components/items-donation-card.tsx
 msgid "Roupas em bom estado"
@@ -1134,10 +1574,42 @@ msgstr "Learn how it works"
 #~ msgid "Saiba sobre parcerias"
 #~ msgstr "Learn about partnerships"
 
+#: src/components/app/app-shell/index.tsx
+#: src/components/app/app-shell/index.tsx
+msgid "Sair"
+msgstr "Log out"
+
 # Introducao / Navbar
 #: src/components/pages/landing/introducao/index.tsx
 msgid "Salvando Vidas Felinas"
 msgstr "Saving Feline Lives"
+
+#: src/components/app/gato-form/index.tsx
+#: src/components/app/gato-saude/index.tsx
+#: src/routes/$locale/app/_painel/admin/usuarios/$userId.tsx
+#: src/routes/$locale/app/_painel/minha-conta.tsx
+msgid "Salvar"
+msgstr "Save"
+
+#: src/routes/$locale/app/redefinir-senha.tsx
+msgid "Salvar senha"
+msgstr "Save password"
+
+#: src/components/app/gato-tags/index.tsx
+msgid "Salvar tags"
+msgstr "Save tags"
+
+#: src/routes/$locale/app/_painel/gatos/$gatoId.tsx
+msgid "Saúde"
+msgstr "Health"
+
+#: src/routes/$locale/app/esqueci-senha.tsx
+msgid "Se houver uma conta com esse e-mail, enviamos um link para criar uma nova senha. Confira também a caixa de spam."
+msgstr "If there is an account with this email, we've sent a link to create a new password. Please also check your spam folder."
+
+#: src/components/app/gato-form/index.tsx
+msgid "Se não souber o dia, use o dia 1º do mês ou do ano estimado."
+msgstr "If you don't know the day, use the 1st of the estimated month or year."
 
 #: src/routes/$locale/seja-um-parceiro/index.tsx
 #~ msgid "Segue um caminho simples para começar:"
@@ -1163,6 +1635,44 @@ msgstr "Become a partner"
 #: src/routes/$locale/como-funciona/index.tsx
 #~ msgid "Selecione uma opção no menu à esquerda para ver informações sobre cada forma de ajudar. (Conteúdo placeholder.)"
 #~ msgstr "Select an option from the menu on the left to see information about each way to help. (Placeholder content.)"
+
+#: src/routes/$locale/app/cadastro.tsx
+#: src/routes/$locale/app/login.tsx
+msgid "Senha"
+msgstr "Password"
+
+#: src/routes/$locale/app/_painel/minha-conta.tsx
+msgid "Senha alterada. As sessões em outros aparelhos foram encerradas."
+msgstr "Password changed. Sessions on other devices have been signed out."
+
+#: src/routes/$locale/app/_painel/minha-conta.tsx
+msgid "Senha atual"
+msgstr "Current password"
+
+#: src/routes/$locale/app/redefinir-senha.tsx
+msgid "Senha definida! Agora é só entrar."
+msgstr "Password set! You can log in now."
+
+#: src/routes/$locale/app/_painel/minha-conta.tsx
+msgid "Seus dados"
+msgstr "Your details"
+
+#: src/components/app/gato-form/index.tsx
+msgid "Sexo"
+msgstr "Sex"
+
+#: src/components/app/gato-tags/index.tsx
+#: src/routes/$locale/app/_painel/admin/usuarios/index.tsx
+msgid "Situação"
+msgstr "Status"
+
+#: src/hooks/use-rotulos.ts
+msgid "Só o ano"
+msgstr "Year only"
+
+#: src/components/app/gato-form/index.tsx
+msgid "Só voluntários e administração veem. Nunca aparece no site."
+msgstr "Only volunteers and administrators can see this. Never shown on the website."
 
 # Footer
 #: src/components/pages/landing/footer/index.tsx
@@ -1191,6 +1701,12 @@ msgstr "Rescuer {0}"
 msgid "Somos uma organização dedicada ao resgate, cuidado e adoção responsável de gatos em Campo Grande, MS. Transformando vidas, um miado de cada vez."
 msgstr "We are an organization dedicated to the rescue, care, and responsible adoption of cats in Campo Grande, MS. Transforming lives, one meow at a time."
 
+#: src/components/app/gato-form/index.tsx
+#: src/routes/$locale/app/_painel/gatos/index.tsx
+#: src/routes/$locale/app/_painel/gatos/index.tsx
+msgid "Status"
+msgstr "Status"
+
 #: src/routes/$locale/como-funciona/-components/apadrinhamento.tsx
 msgid "Sua contribuição ajuda em alimentação, medicação, higiene e cuidados essenciais para o bem-estar do gatinho."
 msgstr "Your contribution helps with food, medication, hygiene, and essential care for the kitten's well-being."
@@ -1207,9 +1723,47 @@ msgstr "Your contribution helps with food, medication, hygiene, and essential ca
 msgid "Superlotação"
 msgstr "Overcrowding"
 
+#: src/components/app/gato-tags/index.tsx
+#: src/routes/$locale/app/_painel/gatos/index.tsx
+msgid "Tag"
+msgstr "Tag"
+
+#: src/components/app/gato-saude/index.tsx
+msgid "Tag (opcional)"
+msgstr "Tag (optional)"
+
+#: src/components/app/app-shell/index.tsx
+#: src/routes/$locale/app/_painel/admin/tags.tsx
+#: src/routes/$locale/app/_painel/gatos/$gatoId.tsx
+#: src/routes/$locale/app/_painel/index.tsx
+msgid "Tags"
+msgstr "Tags"
+
+#: src/routes/$locale/app/_painel/gatos/index.tsx
+msgid "Tags atuais"
+msgstr "Current tags"
+
+#: src/components/app/gato-tags/index.tsx
+msgid "Tags salvas."
+msgstr "Tags saved."
+
 #: src/components/pages/landing/voluntarios/index.tsx
 msgid "Tecnologia & Cuidados"
 msgstr "Technology & Care"
+
+#: src/routes/$locale/app/_painel/admin/usuarios/$userId.tsx
+#: src/routes/$locale/app/_painel/minha-conta.tsx
+msgid "Telefone"
+msgstr "Phone"
+
+#: src/routes/$locale/app/_painel/admin/usuarios/index.tsx
+#: src/routes/$locale/app/cadastro.tsx
+msgid "Telefone (opcional)"
+msgstr "Phone (optional)"
+
+#: src/components/app/gato-tags/index.tsx
+msgid "Tem hoje"
+msgstr "Has it now"
 
 #: src/components/pages/landing/o-abrigo/index.tsx
 msgid "Temos áreas de observação, tratamento e recuperação: filhotes, adultos e idosos. Uma área de quarentena é usada para gatos recém-resgatados. Mantemos também espaços dedicados para gatos com necessidades especiais, como aqueles vivendo com FIV ou FeLV, garantindo um ambiente seguro e acolhedor para todos."
@@ -1224,16 +1778,42 @@ msgid "Termos"
 msgstr "Terms"
 
 #: src/components/pages/landing/adote/index.tsx
-msgid "Tímido no início, mas quando ganha confiança é o maior grudento da casa. 💕"
-msgstr ""
+#~ msgid "Tímido no início, mas quando ganha confiança é o maior grudento da casa. 💕"
+#~ msgstr ""
+
+#: src/components/app/gato-tags/index.tsx
+#: src/routes/$locale/app/_painel/admin/tags.tsx
+msgid "Tipo"
+msgstr "Type"
 
 #: src/routes/$locale/seja-um-parceiro/index.tsx
 msgid "Tipos de Parceria"
 msgstr "Types of Partnership"
 
+#: src/routes/$locale/app/_painel/gatos/index.tsx
+msgid "Todas as tags"
+msgstr "All tags"
+
+#: src/routes/$locale/app/_painel/admin/usuarios/index.tsx
+msgid "Todos os cargos"
+msgstr "All roles"
+
+#: src/routes/$locale/app/_painel/gatos/index.tsx
+msgid "Todos os status"
+msgstr "All statuses"
+
+#: src/routes/$locale/app/_painel/minha-conta.tsx
+#: src/routes/$locale/app/_painel/minha-conta.tsx
+msgid "Trocar senha"
+msgstr "Change password"
+
 #: src/routes/$locale/seja-um-parceiro/index.tsx
 msgid "Um caminho simples e direto para começar a colaborar com a AmiCat's."
 msgstr "A simple, direct path to start collaborating with AmiCat's."
+
+#: src/components/app/gato-fotos/index.tsx
+msgid "Usar como capa"
+msgstr "Use as cover"
 
 # Page subtitle (recently moved to t``)
 #: src/routes/$locale/como-funciona/index.tsx
@@ -1252,17 +1832,33 @@ msgstr "See how your company can start a practical, transparent partnership with
 msgid "Veja o progresso do gatinho durante o apoio"
 msgstr "See the kitten's progress during the support"
 
+#: src/routes/$locale/app/_painel/index.tsx
+msgid "Veja quem está esperando por um lar."
+msgstr "See who is waiting for a home."
+
 #: src/routes/$locale/quero-ajudar/-components/items-donation-card.tsx
 msgid "Velhinhos ou novos, qualquer contribuição é bem-vinda"
 msgstr "Old or new, any contribution is welcome"
+
+#: src/routes/$locale/app/_painel/gatos/$gatoId.tsx
+msgid "Ver no site"
+msgstr "View on website"
 
 #: src/routes/$locale/como-funciona/-components/adocao.tsx
 #~ msgid "Visita"
 #~ msgstr "Visit"
 
+#: src/routes/$locale/app/_painel/admin/usuarios/$userId.tsx
+msgid "Você não pode alterar o seu próprio cargo."
+msgstr "You can't change your own role."
+
 #: src/routes/$locale/como-funciona/-components/voluntariado.tsx
 msgid "Você receberá orientações e treinamentos para atuar com segurança e organização"
 msgstr "You will receive guidance and training to operate safely and in an organized way"
+
+#: src/routes/$locale/app/esqueci-senha.tsx
+msgid "Voltar para o login"
+msgstr "Back to login"
 
 #: src/routes/$locale/como-funciona/index.tsx
 msgid "Voluntariado"
@@ -1276,10 +1872,18 @@ msgstr "Volunteering at AmiCat's — your help, organized and safe."
 msgid "Voluntariado transforma a nossa capacidade de ajudar — cada horário colaborado faz a diferença. Obrigado por considerar participar."
 msgstr "Volunteering transforms our ability to help — every volunteered shift makes a difference. Thank you for considering joining."
 
+#: src/hooks/use-rotulos.ts
+msgid "Voluntário"
+msgstr "Volunteer"
+
 #: src/components/pages/landing/navbar/index.tsx
 #: src/components/pages/landing/navbar/index.tsx
 msgid "Voluntários"
 msgstr "Volunteers"
+
+#: src/routes/$locale/app/_painel/index.tsx
+msgid "Voluntários, clientes e administração."
+msgstr "Volunteers, clients and administrators."
 
 #: src/components/pages/not-found/index.tsx
 msgid "We couldn't find the page you were looking for. It may have been moved or removed."
