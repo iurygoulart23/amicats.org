@@ -41,11 +41,11 @@ Os testes sobem o app com `app.inject()` contra o banco `amicats_test` (criado e
 
 ## Cargos
 
-| Cargo        | Quem é               | Pode                                                                                         |
-| ------------ | -------------------- | -------------------------------------------------------------------------------------------- |
-| `adm`        | administração da ONG | tudo, incluindo gerenciar contas, cargos e tags, e excluir gatos                             |
-| `voluntario` | voluntário do abrigo | cadastrar e editar gatos, fotos, tags do gato e histórico de saúde                           |
-| `cliente`    | público              | ver o catálogo, editar a própria conta (e, nas próximas fases, apadrinhar e assinar o clube) |
+| Cargo        | Quem é               | Pode                                                                                                                  |
+| ------------ | -------------------- | --------------------------------------------------------------------------------------------------------------------- |
+| `adm`        | administração da ONG | tudo, incluindo gerenciar contas, cargos e tags, excluir gatos e corrigir/excluir gastos                              |
+| `voluntario` | voluntário do abrigo | cadastrar e editar gatos, fotos, tags do gato, histórico de saúde, medicação e veterinário, e lançar gastos           |
+| `cliente`    | público              | ver o catálogo, apadrinhar gatos e acompanhar os gastos, editar a própria conta (e, na próxima fase, assinar o clube) |
 
 Os cargos são em camadas (adm ⊃ voluntário ⊃ cliente): voluntários e adms também podem fazer tudo o que um cliente faz.
 
@@ -59,10 +59,23 @@ src/
   domain/           # regras puras (cargos, gato)
   lib/              # adapters: senha, tokens, mailer (Resend), storage (B2/S3)
   plugins/auth.ts   # sessão por cookie → request.usuario, exigirCargo()
-  modules/          # auth, users, gatos, tags, saude, fotos, publico
+  modules/          # auth, users, gatos, tags, saude, fotos, gastos, apadrinhamentos, medicacao, publico
 prisma/             # schema, migrations e seed
 test/               # setup do Vitest e helpers (fakes, login)
 ```
+
+## Apadrinhamento
+
+- Qualquer conta (de qualquer cargo) apadrinha um gato publicado que ainda esteja no abrigo. Não há limite de padrinhos por gato.
+- **Parte do padrinho** no mês = total de gastos do gato no mês ÷ padrinhos do mês (apadrinhamentos ativos em algum dia do mês), arredondado ao centavo.
+- **Estimativa de custo** = média mensal dos gastos nos últimos 3 meses completos (aparece no catálogo público junto com o número de padrinhos).
+- O pagamento online entra na Fase 3 (Mercado Pago). Por enquanto, o extrato serve de prestação de contas.
+
+## Medicação e veterinário
+
+- **Prescrição:** dose, via, intervalo em horas, primeira dose e (opcional) última dose. Sem fim = uso contínuo. "Interromper" corta as doses futuras.
+- **Remédios do dia** (`GET /medicacao/agenda?dia=AAAA-MM-DD`): as doses previstas são calculadas a partir da primeira dose, no horário do abrigo (Campo Grande, UTC-4), e não ficam gravadas no banco. Só a aplicação (dose dada ou pulada) é gravada, uma por dose prevista.
+- **Retornos** (`GET /veterinario/retornos?dias=30`): eventos com data de retorno atrasada (até 60 dias) ou nos próximos dias, de gatos que ainda estão no abrigo.
 
 ## Fotos (Backblaze B2)
 

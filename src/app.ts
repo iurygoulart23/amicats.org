@@ -19,6 +19,14 @@ import { tagsRoutes } from './modules/tags/routes.js';
 import { saudeRoutes } from './modules/saude/routes.js';
 import { fotosRoutes } from './modules/fotos/routes.js';
 import { publicoRoutes } from './modules/publico/routes.js';
+import { gastosRoutes } from './modules/gastos/routes.js';
+import { apadrinhamentosRoutes } from './modules/apadrinhamentos/routes.js';
+import { prescricoesRoutes } from './modules/medicacao/prescricoes.js';
+import { agendaRoutes } from './modules/medicacao/agenda.js';
+import {
+  veterinarioGatoRoutes,
+  veterinarioRoutes,
+} from './modules/medicacao/veterinario.js';
 import type { PrismaClient } from '@prisma/client';
 import type { FastifyServerOptions } from 'fastify';
 import type { Env } from './env.js';
@@ -112,8 +120,14 @@ export async function buildApp(
   await app.register(gatosRoutes, { prefix: '/gatos' });
   await app.register(saudeRoutes, { prefix: '/gatos' });
   await app.register(fotosRoutes, { prefix: '/gatos' });
+  await app.register(gastosRoutes, { prefix: '/gatos' });
+  await app.register(prescricoesRoutes, { prefix: '/gatos' });
+  await app.register(veterinarioGatoRoutes, { prefix: '/gatos' });
   await app.register(tagsRoutes, { prefix: '/tags' });
   await app.register(publicoRoutes, { prefix: '/public' });
+  await app.register(apadrinhamentosRoutes);
+  await app.register(agendaRoutes, { prefix: '/medicacao' });
+  await app.register(veterinarioRoutes, { prefix: '/veterinario' });
 
   return app;
 }

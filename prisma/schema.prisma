@@ -22,10 +22,15 @@ model User {
   criadoEm     DateTime @default(now()) @map("criado_em")
   atualizadoEm DateTime @updatedAt @map("atualizado_em")
 
-  sessions       Session[]
-  resetTokens    PasswordResetToken[]
-  gatosCriados   Gato[]               @relation("GatoCriadoPor")
-  registrosSaude RegistroSaude[]
+  sessions        Session[]
+  resetTokens     PasswordResetToken[]
+  gatosCriados    Gato[]               @relation("GatoCriadoPor")
+  registrosSaude  RegistroSaude[]
+  gastos          Gasto[]
+  apadrinhamentos Apadrinhamento[]
+  prescricoes     Prescricao[]
+  aplicacoes      Aplicacao[]
+  eventosVet      EventoVeterinario[]
 
   @@map("users")
 }
@@ -78,10 +83,14 @@ model Gato {
   criadoEm            DateTime  @default(now()) @map("criado_em")
   atualizadoEm        DateTime  @updatedAt @map("atualizado_em")
 
-  criadoPor      User?           @relation("GatoCriadoPor", fields: [criadoPorId], references: [id], onDelete: SetNull)
-  fotos          GatoFoto[]
-  tags           GatoTag[]
-  registrosSaude RegistroSaude[]
+  criadoPor          User?               @relation("GatoCriadoPor", fields: [criadoPorId], references: [id], onDelete: SetNull)
+  fotos              GatoFoto[]
+  tags               GatoTag[]
+  registrosSaude     RegistroSaude[]
+  gastos             Gasto[]
+  apadrinhamentos    Apadrinhamento[]
+  prescricaos        Prescricao[]
+  eventoVeterinarios EventoVeterinario[]
 
   @@index([status])
   @@index([publicado])
@@ -151,4 +160,110 @@ model RegistroSaude {
 
   @@index([gatoId])
   @@map("registros_saude")
+}
+
+model Gasto {
+  id              String   @id @default(uuid()) @db.Uuid
+  gatoId          String   @map("gato_id") @db.Uuid
+  /// 'racao' | 'medicamento' | 'veterinario' | 'exame' | 'higiene' | 'outro'
+  categoria       String
+  descricao       String
+  /// Valor em centavos (evita erro de arredondamento)
+  valorCentavos   Int      @map("valor_centavos")
+  data            DateTime @db.Date
+  registradoPorId String?  @map("registrado_por_id") @db.Uuid
+  criadoEm        DateTime @default(now()) @map("criado_em")
+  atualizadoEm    DateTime @updatedAt @map("atualizado_em")
+
+  gato          Gato  @relation(fields: [gatoId], references: [id], onDelete: Cascade)
+  registradoPor User? @relation(fields: [registradoPorId], references: [id], onDelete: SetNull)
+
+  @@index([gatoId, data])
+  @@map("gastos")
+}
+
+model Apadrinhamento {
+  id       String    @id @default(uuid()) @db.Uuid
+  gatoId   String    @map("gato_id") @db.Uuid
+  userId   String    @map("user_id") @db.Uuid
+  inicio   DateTime  @db.Date
+  /// Vazio = apadrinhamento ativo
+  fim      DateTime? @db.Date
+  criadoEm DateTime  @default(now()) @map("criado_em")
+
+  gato Gato @relation(fields: [gatoId], references: [id], onDelete: Cascade)
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([gatoId])
+  @@index([userId])
+  @@map("apadrinhamentos")
+}
+
+model Prescricao {
+  id             String    @id @default(uuid()) @db.Uuid
+  gatoId         String    @map("gato_id") @db.Uuid
+  medicamento    String
+  /// Ex.: "1/2 comprimido", "0,5 ml"
+  dose           String
+  /// 'oral' | 'topica' | 'injetavel' | 'ocular' | 'otologica' | 'outra'
+  via            String
+  intervaloHoras Int       @map("intervalo_horas")
+  /// Horário da primeira dose
+  inicio         DateTime  @db.Timestamptz(3)
+  /// Limite da última dose; vazio = uso contínuo
+  fim            DateTime? @db.Timestamptz(3)
+  /// Quando foi interrompida antes do fim previsto
+  encerradaEm    DateTime? @map("encerrada_em") @db.Timestamptz(3)
+  prescritoPor   String?   @map("prescrito_por")
+  observacao     String    @default("")
+  criadoPorId    String?   @map("criado_por_id") @db.Uuid
+  criadoEm       DateTime  @default(now()) @map("criado_em")
+  atualizadoEm   DateTime  @updatedAt @map("atualizado_em")
+
+  gato       Gato        @relation(fields: [gatoId], references: [id], onDelete: Cascade)
+  criadoPor  User?       @relation(fields: [criadoPorId], references: [id], onDelete: SetNull)
+  aplicacoes Aplicacao[]
+
+  @@index([gatoId])
+  @@map("prescricoes")
+}
+
+model Aplicacao {
+  id              String   @id @default(uuid()) @db.Uuid
+  prescricaoId    String   @map("prescricao_id") @db.Uuid
+  horarioPrevisto DateTime @map("horario_previsto") @db.Timestamptz(3)
+  aplicadaEm      DateTime @default(now()) @map("aplicada_em") @db.Timestamptz(3)
+  pulada          Boolean  @default(false)
+  observacao      String   @default("")
+  aplicadaPorId   String?  @map("aplicada_por_id") @db.Uuid
+
+  prescricao  Prescricao @relation(fields: [prescricaoId], references: [id], onDelete: Cascade)
+  aplicadaPor User?      @relation(fields: [aplicadaPorId], references: [id], onDelete: SetNull)
+
+  @@unique([prescricaoId, horarioPrevisto])
+  @@map("aplicacoes")
+}
+
+model EventoVeterinario {
+  id              String    @id @default(uuid()) @db.Uuid
+  gatoId          String    @map("gato_id") @db.Uuid
+  /// 'consulta' | 'vacina' | 'vermifugo' | 'exame' | 'cirurgia' | 'castracao' | 'outro'
+  tipo            String
+  titulo          String
+  data            DateTime  @db.Date
+  /// Clínica ou veterinário(a)
+  local           String?
+  observacao      String    @default("")
+  /// Retorno: reforço, revisão, novo exame
+  proximaData     DateTime? @map("proxima_data") @db.Date
+  registradoPorId String?   @map("registrado_por_id") @db.Uuid
+  criadoEm        DateTime  @default(now()) @map("criado_em")
+  atualizadoEm    DateTime  @updatedAt @map("atualizado_em")
+
+  gato          Gato  @relation(fields: [gatoId], references: [id], onDelete: Cascade)
+  registradoPor User? @relation(fields: [registradoPorId], references: [id], onDelete: SetNull)
+
+  @@index([gatoId, data])
+  @@index([proximaData])
+  @@map("eventos_veterinarios")
 }

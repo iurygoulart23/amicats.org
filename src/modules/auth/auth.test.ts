@@ -240,6 +240,13 @@ describe('proteções', () => {
     expect((await tentativa()).statusCode).toBe(429);
   });
 
+  it('o limite é por e-mail: pessoas diferentes na mesma rede continuam entrando', async () => {
+    for (let i = 0; i < 7; i++) {
+      const user = await criarUsuario('cliente');
+      await expect(login(ctx.app, user.email)).resolves.toBeDefined();
+    }
+  });
+
   it('recusa requisição que altera dados vinda de outro site', async () => {
     const res = await ctx.app.inject({
       method: 'POST',

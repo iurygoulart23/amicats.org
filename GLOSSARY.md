@@ -68,19 +68,64 @@ Condição que o gato tem hoje. Uma tag inativa registra uma condição que o ga
 Uma entrada no histórico de saúde do gato: uma doença ou condição, com data de início, data de fim (vazia enquanto estiver em curso) e observação.
 _Avoid_: prontuário, ocorrência, evento
 
-## Apoio (próximas fases)
+## Medicação e veterinário
+
+**Prescrição**:
+Indicação de um medicamento para um gato: dose, via, de quantas em quantas horas, a partir de quando e até quando (sem data final = uso contínuo).
+_Avoid_: receita, tratamento, remédio (para o registro)
+
+**Dose prevista**:
+Cada horário em que a prescrição manda dar o medicamento, contado a partir da primeira dose em intervalos fixos.
+_Avoid_: horário, lembrete
+
+**Aplicação**:
+Registro de que uma dose prevista foi dada (ou pulada), por quem e quando.
+_Avoid_: administração, baixa
+
+**Dose pulada**:
+Aplicação registrada sem o medicamento ter sido dado (ex.: o gato recusou, vomitou ou estava sem estoque), com observação do motivo.
+
+**Remédios do dia**:
+As doses previstas de todos os gatos num dia, no horário do abrigo (Campo Grande/MS), com o que já foi aplicado.
+_Avoid_: agenda, escala de medicação
+
+**Evento veterinário**:
+Um atendimento ou procedimento do gato: consulta, vacina, vermífugo, exame, cirurgia ou castração, com data e, quando houver, a data de retorno.
+_Avoid_: atendimento, visita, prontuário
+
+**Retorno**:
+A próxima data marcada num evento veterinário (reforço de vacina, revisão, novo exame).
+_Avoid_: próxima consulta, agendamento
+
+## Apadrinhamento
+
+**Gasto**:
+Despesa do abrigo atribuída a um gato específico (ração, medicamento, consulta, exame…), com valor e data.
+_Avoid_: custo, despesa, lançamento
 
 **Apadrinhamento**:
-Compromisso de uma conta em custear os gastos de um gato específico, total ou parcialmente (50%).
+Compromisso de uma conta em ajudar a pagar os gastos reais de um gato específico, enquanto estiver ativo. Um gato pode ter qualquer número de padrinhos.
 _Avoid_: patrocínio, adoção à distância
 
 **Padrinho**:
-Conta que mantém um apadrinhamento.
+Conta com um apadrinhamento ativo. Qualquer cargo pode ser padrinho.
 _Avoid_: patrocinador
 
-**Gasto**:
-Despesa do abrigo atribuída a um gato (ração, medicamento, consulta), repassada ao padrinho.
-_Avoid_: custo, despesa
+**Parte do padrinho**:
+O que cabe a cada padrinho num mês: o total de gastos do gato naquele mês dividido igualmente entre os padrinhos daquele mês.
+_Avoid_: cota, mensalidade, rateio
+
+**Padrinhos do mês**:
+Os apadrinhamentos do gato que estiveram ativos em algum dia daquele mês.
+
+**Estimativa de custo**:
+A média mensal dos gastos de um gato nos últimos 3 meses completos. Serve de referência para quem pensa em apadrinhar.
+_Avoid_: custo previsto, orçamento
+
+**Apadrinhado** (selo):
+Indica que o gato tem pelo menos um padrinho ativo.
+
+## Clube (próximas fases)
 
 **Clube Amicats**:
 Programa de assinatura recorrente em que o assinante escolhe o valor mensal e concorre a sorteios.
