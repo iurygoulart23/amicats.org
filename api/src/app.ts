@@ -23,6 +23,8 @@ import { gastosRoutes } from './modules/gastos/routes.js';
 import { apadrinhamentosRoutes } from './modules/apadrinhamentos/routes.js';
 import { prescricoesRoutes } from './modules/medicacao/prescricoes.js';
 import { agendaRoutes } from './modules/medicacao/agenda.js';
+import { notificacoesRoutes } from './modules/notificacoes/routes.js';
+import { tarefasRoutes } from './modules/notificacoes/tarefas.js';
 import {
   veterinarioGatoRoutes,
   veterinarioRoutes,
@@ -38,6 +40,8 @@ export type AppDeps = {
   prisma: PrismaClient;
   mailer: Mailer;
   storage: Storage;
+  /** Relógio injetável (testes de tarefas que dependem da hora) */
+  agora?: () => Date;
 };
 
 declare module 'fastify' {
@@ -128,6 +132,8 @@ export async function buildApp(
   await app.register(apadrinhamentosRoutes);
   await app.register(agendaRoutes, { prefix: '/medicacao' });
   await app.register(veterinarioRoutes, { prefix: '/veterinario' });
+  await app.register(notificacoesRoutes, { prefix: '/notificacoes' });
+  await app.register(tarefasRoutes, { prefix: '/tarefas' });
 
   return app;
 }

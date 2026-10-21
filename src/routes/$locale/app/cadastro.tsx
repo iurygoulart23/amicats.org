@@ -1,18 +1,22 @@
 import { Link, createFileRoute, useNavigate } from '@tanstack/react-router';
 import { useLingui } from '@lingui/react/macro';
+import { z } from 'zod';
 import { AuthCard } from '@/components/app/auth-card';
 import { AlertaErro } from '@/components/app/alerta-erro';
 import { Campo } from '@/components/app/campo';
 import { useCadastro } from '@/integrations/api/auth.queries';
 import { ApiError } from '@/integrations/api/client';
+import { destinoSeguro } from '@/integrations/api/guards';
 
 export const Route = createFileRoute('/$locale/app/cadastro')({
+  validateSearch: z.object({ redirect: z.string().optional() }),
   component: CadastroPage,
 });
 
 function CadastroPage() {
   const { t } = useLingui();
   const { locale } = Route.useParams();
+  const { redirect } = Route.useSearch();
   const navigate = useNavigate();
   const cadastro = useCadastro();
   const erro = cadastro.error instanceof ApiError ? cadastro.error : null;
@@ -26,7 +30,7 @@ function CadastroPage() {
       senha: String(form.get('senha')),
       telefone: String(form.get('telefone') || '') || undefined,
     });
-    await navigate({ to: '/$locale/app', params: { locale } });
+    await navigate({ to: destinoSeguro(redirect, locale) });
   };
 
   return (
@@ -39,6 +43,7 @@ function CadastroPage() {
           <Link
             to="/$locale/app/login"
             params={{ locale }}
+            search={{ redirect }}
             className="link link-primary"
           >
             {t`Entrar`}

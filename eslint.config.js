@@ -8,6 +8,8 @@ import { tanstackConfig } from '@tanstack/eslint-config';
 export default [
   {
     ignores: [
+      // A API (api/) tem tsconfig e regras próprios.
+      'api/**',
       '.output/**',
       '.tanstack/**',
       'src/routeTree.gen.ts',

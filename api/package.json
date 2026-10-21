@@ -18,7 +18,8 @@
     "db:seed": "prisma db seed",
     "db:studio": "prisma studio",
     "db:temp": "bash scripts/db-temp.sh",
-    "db:temp:stop": "bash scripts/db-temp.sh stop"
+    "db:temp:stop": "bash scripts/db-temp.sh stop",
+    "tarefas:pendencias": "node --env-file=.env -e \"fetch('http://localhost:' + (process.env.PORT || 3333) + '/tarefas/verificar-pendencias', { method: 'POST', headers: { 'x-tarefa-token': process.env.TAREFAS_TOKEN } }).then(async (r) => console.log(r.status, await r.text()))\""
   },
   "prisma": {
     "seed": "tsx --env-file=.env prisma/seed.ts"

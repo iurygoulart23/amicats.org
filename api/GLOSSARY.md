@@ -125,6 +125,20 @@ _Avoid_: custo previsto, orçamento
 **Apadrinhado** (selo):
 Indica que o gato tem pelo menos um padrinho ativo.
 
+## Notificações
+
+**Notificação**:
+Aviso para uma conta sobre algo que aconteceu (gasto novo do gato apadrinhado, novo padrinho, dose atrasada, retorno chegando), com link para o lugar certo. Fica não lida até a pessoa abrir.
+_Avoid_: alerta, mensagem, aviso
+
+**Resumo por e-mail**:
+E-mail enviado no máximo uma vez por dia com as notificações ainda não lidas, para quem não desligou essa opção.
+_Avoid_: newsletter, digest
+
+**Verificação de pendências**:
+Tarefa periódica que procura doses atrasadas e retornos próximos, gera as notificações e envia os resumos por e-mail.
+_Avoid_: cron, job, rotina
+
 ## Clube (próximas fases)
 
 **Clube Amicats**:

@@ -25,6 +25,7 @@ function MinhaContaPage() {
     perfil.mutate({
       nome: String(form.get('nome')),
       telefone: String(form.get('telefone') || '') || null,
+      notificarPorEmail: form.get('notificarPorEmail') === 'on',
     });
   };
 
@@ -74,6 +75,15 @@ function MinhaContaPage() {
               className="input w-full"
             />
           </Campo>
+          <label className="label cursor-pointer gap-2 py-2">
+            <input
+              name="notificarPorEmail"
+              type="checkbox"
+              defaultChecked={me.notificarPorEmail}
+              className="toggle toggle-primary"
+            />
+            {t`Receber por e-mail um resumo diário das notificações`}
+          </label>
           <div className="card-actions justify-end">
             <button
               type="submit"

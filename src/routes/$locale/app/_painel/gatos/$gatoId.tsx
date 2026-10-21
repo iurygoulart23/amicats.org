@@ -6,6 +6,9 @@ import { z } from 'zod';
 import { AlertaErro } from '@/components/app/alerta-erro';
 import { GatoForm } from '@/components/app/gato-form';
 import { GatoFotos } from '@/components/app/gato-fotos';
+import { GatoGastos } from '@/components/app/gato-gastos';
+import { GatoMedicacao } from '@/components/app/gato-medicacao';
+import { GatoVeterinario } from '@/components/app/gato-veterinario';
 import { GatoSaude } from '@/components/app/gato-saude';
 import { GatoTags } from '@/components/app/gato-tags';
 import { podeAcessar } from '@/integrations/api/cargos';
@@ -15,7 +18,15 @@ import {
   useExcluirGato,
 } from '@/integrations/api/gatos.queries';
 
-const ABAS = ['dados', 'fotos', 'tags', 'saude'] as const;
+const ABAS = [
+  'dados',
+  'fotos',
+  'tags',
+  'saude',
+  'medicacao',
+  'veterinario',
+  'gastos',
+] as const;
 type Aba = (typeof ABAS)[number];
 
 export const Route = createFileRoute('/$locale/app/_painel/gatos/$gatoId')({
@@ -38,6 +49,9 @@ function GatoPage() {
     fotos: t`Fotos`,
     tags: t`Tags`,
     saude: t`Saúde`,
+    medicacao: t`Medicação`,
+    veterinario: t`Veterinário`,
+    gastos: t`Gastos`,
   };
 
   if (gato.isPending) return <span className="loading loading-dots" />;
@@ -96,7 +110,10 @@ function GatoPage() {
       </div>
       <AlertaErro erro={excluir.error} />
 
-      <div role="tablist" className="tabs tabs-border">
+      <div
+        role="tablist"
+        className="tabs tabs-border flex-nowrap overflow-x-auto"
+      >
         {ABAS.map((a) => (
           <Link
             key={a}
@@ -135,6 +152,9 @@ function GatoPage() {
             <GatoTags key={gato.data.atualizadoEm} gato={gato.data} />
           )}
           {aba === 'saude' && <GatoSaude gatoId={gatoId} />}
+          {aba === 'medicacao' && <GatoMedicacao gatoId={gatoId} />}
+          {aba === 'veterinario' && <GatoVeterinario gatoId={gatoId} />}
+          {aba === 'gastos' && <GatoGastos gatoId={gatoId} me={me} />}
         </div>
       </div>
     </div>

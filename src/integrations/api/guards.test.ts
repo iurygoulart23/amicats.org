@@ -10,6 +10,7 @@ const pessoa = (cargo: UsuarioLogado['cargo']): UsuarioLogado => ({
   email: 'ana@teste.org',
   cargo,
   telefone: null,
+  notificarPorEmail: true,
 });
 
 describe('exigirLogin', () => {

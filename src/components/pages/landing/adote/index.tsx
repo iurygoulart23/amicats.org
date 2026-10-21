@@ -1,4 +1,5 @@
 import { useQuery } from '@tanstack/react-query';
+import { useNavigate } from '@tanstack/react-router';
 import { useLingui } from '@lingui/react/macro';
 import { Container } from '@/components/layout/ui/container';
 import { GatoCard } from '@/components/layout/ui/gato-card';
@@ -17,8 +18,11 @@ export function AdoteSection({ images: _images }: AdoteSectionProps) {
   const { t, i18n } = useLingui();
   const rotulos = useRotulos();
   const catalogo = useQuery(publicGatosQuery);
+  const navigate = useNavigate();
   const gatos = (catalogo.data?.itens ?? []).map((gato) => ({
+    slug: gato.slug,
     nome: gato.nome,
+    apadrinhado: gato.padrinhos > 0,
     descricao:
       i18n.locale === 'pt-BR'
         ? gato.descricaoPt
@@ -28,13 +32,6 @@ export function AdoteSection({ images: _images }: AdoteSectionProps) {
       gato.fotos.find((f) => f.capa)?.url ?? gato.fotos[0]?.url ?? amicatsLogo,
     status: rotulos.status[gato.status],
   }));
-
-  const WHATSAPP_PHONE = '5567999300401';
-  const buildWhatsappUrl = (nome: string) => {
-    const text = t`Quero apadrinhar o ${nome} e saber como funciona.`;
-    const encoded = encodeURIComponent(text);
-    return `https://api.whatsapp.com/send/?phone=${WHATSAPP_PHONE}&text=${encoded}&type=phone_number&app_absent=0`;
-  };
 
   const ADOPTION_FORM =
     'https://docs.google.com/forms/d/e/1FAIpQLSfa1qdsHuOn6WeFLKrdMUYJrGzKsI6xW--c7XW-DPGQQbV4WA/viewform?pli=1';
@@ -81,12 +78,18 @@ export function AdoteSection({ images: _images }: AdoteSectionProps) {
           <GatosCarousel buttonShape="circle" buttonColor="primary">
             {gatos.map((gato) => (
               <GatoCard
-                key={gato.nome}
+                key={gato.slug}
                 nome={gato.nome}
                 descricao={gato.descricao}
                 imagem={gato.imagem}
                 status={gato.status}
-                hrefApadrinhar={buildWhatsappUrl(gato.nome)}
+                apadrinhado={gato.apadrinhado}
+                onApadrinhar={() =>
+                  void navigate({
+                    to: '/$locale/app/apadrinhar/$slug',
+                    params: { locale: i18n.locale, slug: gato.slug },
+                  })
+                }
                 hrefAdotar={ADOPTION_FORM}
               />
             ))}

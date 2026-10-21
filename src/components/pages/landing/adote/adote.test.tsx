@@ -1,9 +1,12 @@
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
-import { cleanup, render, screen } from '@testing-library/react';
+import { cleanup, fireEvent, render, screen } from '@testing-library/react';
 import { afterEach, describe, expect, it, vi } from 'vitest';
 import { AdoteSection } from './index';
 import type { GatoPublico, Paginado } from '@/integrations/api/types';
 import { publicGatosQuery } from '@/integrations/api/gatos.queries';
+
+const navigate = vi.fn();
+vi.mock('@tanstack/react-router', () => ({ useNavigate: () => navigate }));
 
 vi.mock('@/components/layout/ui/gatos-carousel', () => ({
   GatosCarouselComponent: ({ children }: { children: React.ReactNode }) => (
@@ -26,7 +29,20 @@ const elvis: GatoPublico = {
     { id: 'f1', url: 'https://cdn.test/capa.jpg', ordem: 0, capa: true },
   ],
   tags: [],
+  padrinhos: 0,
+  custoMensalEstimadoCentavos: null,
 };
+
+function comCatalogo(itens: Array<GatoPublico>) {
+  const qc = new QueryClient();
+  qc.setQueryData<Paginado<GatoPublico>>(publicGatosQuery.queryKey, {
+    itens,
+    total: itens.length,
+    pagina: 1,
+    porPagina: 100,
+  });
+  return qc;
+}
 
 function renderizar(queryClient: QueryClient) {
   return render(
@@ -71,5 +87,25 @@ describe('AdoteSection', () => {
       await screen.findByText(/couldn't load the kitties right now/),
     ).toBeInTheDocument();
     vi.unstubAllGlobals();
+  });
+
+  it('mostra o selo de apadrinhado só em gatos com padrinho', () => {
+    renderizar(
+      comCatalogo([
+        elvis,
+        { ...elvis, slug: 'star', nome: 'Star', padrinhos: 2 },
+      ]),
+    );
+    expect(screen.getAllByText(/Sponsored/)).toHaveLength(1);
+  });
+
+  it('o botão de apadrinhar leva para a página de apadrinhamento do gato', () => {
+    navigate.mockClear();
+    renderizar(comCatalogo([elvis]));
+    fireEvent.click(screen.getByRole('button', { name: /Sponsor/ }));
+    expect(navigate).toHaveBeenCalledWith({
+      to: '/$locale/app/apadrinhar/$slug',
+      params: { locale: 'en', slug: 'elvis' },
+    });
   });
 });

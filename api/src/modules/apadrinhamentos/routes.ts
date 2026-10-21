@@ -16,6 +16,10 @@ import { HttpError, conflito, naoEncontrado } from '../../lib/errors.js';
 import { exigirCargo } from '../../plugins/auth.js';
 import { Gasto, includeGasto, toGasto } from '../gastos/mapper.js';
 import { ParamsGato } from '../gatos/routes.js';
+import {
+  notificarApadrinhamentoNovo,
+  notificarSemFalhar,
+} from '../notificacoes/notificar.js';
 import type { StatusGato } from '../../domain/gato.js';
 import type { FastifyPluginAsyncZod } from 'fastify-type-provider-zod';
 import type { FastifyRequest } from 'fastify';
@@ -112,6 +116,9 @@ export const apadrinhamentosRoutes: FastifyPluginAsyncZod = async (app) => {
           });
         },
         { isolationLevel: 'Serializable' },
+      );
+      await notificarSemFalhar(request.log, () =>
+        notificarApadrinhamentoNovo(prisma, ap),
       );
       return reply.status(201).send({ id: ap.id });
     },

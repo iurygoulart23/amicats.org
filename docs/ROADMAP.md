@@ -4,16 +4,16 @@ Documento vivo. Atualize o status de cada item quando a feature for entregue e r
 
 **Legenda:** ⬜ a fazer · 🟨 em andamento · 🧪 implementado e testado, aguardando deploy · ✅ entregue (em produção) · ⏸️ em espera / depende de decisão
 
-Repositórios:
+Repositório único (`amicats.org`):
 
-- `amicats.org`: site institucional + área logada (TanStack Start)
-- `amicats-api`: backend (Fastify + Prisma + Postgres)
+- raiz: site institucional + área logada (TanStack Start)
+- `api/`: backend (Fastify + Prisma + Postgres), trazido com `git subtree` e com o histórico preservado
 
 ---
 
 ## Fase 1 — Fundação + Gatos
 
-### Backend (`amicats-api`)
+### Backend (`api/`)
 
 - 🧪 Estrutura do projeto: Fastify, TS, Prisma, docker-compose com Postgres, validação de env, healthcheck
 - 🧪 Documentação OpenAPI em `/docs`
@@ -46,6 +46,7 @@ Repositórios:
 ### Infra
 
 - 🧪 Dockerfile da API
+- ⬜ Agendar `POST /tarefas/verificar-pendencias` a cada 15 min (Cloud Scheduler ou cron) com `TAREFAS_TOKEN`
 - ⏸️ Hospedagem da API: Cloud Run, Render ou Railway (a decidir)
 - ⬜ Banco Postgres no Neon (homolog e produção)
 - ⬜ Domínio `api.amicats.org`
@@ -54,14 +55,14 @@ Repositórios:
 
 ## Fase 2 — Apadrinhamento + Gestão do abrigo
 
-- ⬜ Registro de gastos por gato: categoria, valor, data, comprovante
-- ⬜ Estimativa de custo mensal por gato
-- ⬜ Apadrinhamento total ou parcial (50%)
-- ⬜ Selo "apadrinhado" no card do gato
-- ⬜ Área do padrinho (cliente): gastos do seu gato e quanto falta pagar
-- ⬜ Controle de medicamentos: prescrição, agenda, registro de aplicação
-- ⬜ Acompanhamento veterinário: consultas, exames, vacinas
-- ⬜ Notificações visíveis na plataforma (sininho) e por e-mail
+- 🧪 Registro de gastos por gato: categoria, valor, data (voluntário lança; adm corrige/exclui). Comprovante anexado fica para depois
+- 🧪 Estimativa de custo mensal por gato: média automática dos últimos 3 meses completos
+- 🧪 Apadrinhamento sem limite de padrinhos por gato. A parte de cada um é o total de gastos do mês dividido igualmente entre os padrinhos do mês
+- 🧪 Selo "apadrinhado" no card do gato (quando tem ao menos 1 padrinho)
+- 🧪 Área do padrinho: meus apadrinhamentos, extrato mensal com os gastos e a sua parte, encerrar apadrinhamento. O "quanto falta pagar" depende do pagamento online (Fase 3)
+- 🧪 Controle de medicamentos: prescrição (dose, via, de quantas em quantas horas, uso contínuo ou com fim), tela "Remédios do dia" no horário de Campo Grande, registro de dose dada ou pulada (com motivo), desfazer, interromper prescrição
+- 🧪 Acompanhamento veterinário: consultas, vacinas, vermífugos, exames, cirurgias e castração com data de retorno; lista de retornos atrasados e dos próximos 30 dias
+- 🧪 Notificações: sininho na área logada (gasto novo para o padrinho, novo padrinho para os adms, dose atrasada e retorno próximo para a equipe), página de notificações e resumo diário por e-mail (pode ser desligado em Minha conta). Doses e retornos dependem de agendar a chamada de `/tarefas/verificar-pendencias` a cada 15 min em produção
 - ⏸️ Integração com o sistema interno que outra programadora está desenvolvendo, para não termos dois cadastros (alinhar com ela antes de começar)
 
 ## Fase 3 — Pagamentos (Mercado Pago)
@@ -111,12 +112,17 @@ Repositórios:
 
 ## Histórico de entregas
 
-| Data       | Feature                                                                                                                                                                                     | Repositório | Observações                                                      |
-| ---------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------- | ---------------------------------------------------------------- |
-| 2026-10-20 | Site Fase 1: área logada `/app` (login, cadastro, painel por cargo, gestão de gatos com fotos/tags/saúde, pessoas, tags, minha conta), catálogo da home vindo da API, link Entrar na navbar | amicats.org | 12 testes novos + fluxo E2E com os 3 cargos; ainda não publicado |
-| 2026-10-20 | Backend Fase 1: contas e cargos, autocadastro, gestão de usuários, gatos, fotos, tags, histórico de saúde, catálogo público, seed com os 20 gatos do site                                   | amicats-api | 57 testes; ainda não publicado                                   |
+| Data       | Feature                                                                                                                                                                                     | Repositório | Observações                                                                                       |
+| ---------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------- | ------------------------------------------------------------------------------------------------- |
+| 2026-10-20 | Fase 2 (parte 3): notificações (sininho, página, resumo diário por e-mail, verificação de pendências)                                                                                       | api/ + site | API 102 testes; fluxo E2E de notificações (5 passos); ainda não publicado                         |
+| 2026-10-20 | Fase 2 (parte 2): medicação (prescrições, remédios do dia, doses dadas/puladas) e veterinário (eventos e retornos)                                                                          | api/ + site | API 92 testes; fluxo E2E de medicação (7 passos) + tela de celular conferida; ainda não publicado |
+| 2026-10-20 | Fase 2 (parte 1): gastos por gato, apadrinhamento com divisão igual, estimativa de custo, selo, área do padrinho, botão Apadrinhe da home levando ao fluxo                                  | api/ + site | API 75 testes; site +5 testes; fluxo E2E de apadrinhamento (9 passos); ainda não publicado        |
+| 2026-10-20 | Site Fase 1: área logada `/app` (login, cadastro, painel por cargo, gestão de gatos com fotos/tags/saúde, pessoas, tags, minha conta), catálogo da home vindo da API, link Entrar na navbar | site        | 12 testes novos + fluxo E2E com os 3 cargos; ainda não publicado                                  |
+| 2026-10-20 | Backend Fase 1: contas e cargos, autocadastro, gestão de usuários, gatos, fotos, tags, histórico de saúde, catálogo público, seed com os 20 gatos do site                                   | api/        | 57 testes; ainda não publicado                                                                    |
 
 ## Pendências conhecidas
+
+- **SSR quebrado na `hom` (corrigido na branch da Fase 2):** o lockfile da `hom` tinha `@tanstack/router-core` 1.171 com `@tanstack/react-router-ssr-query` 1.157, e toda página renderizada no servidor dava erro 500 (`router.serverSsr?.isDehydrated is not a function`). Na `feat/fase-2-apadrinhamento` o `react-router-ssr-query` foi para ^1.167.3 e o `react-query`/devtools para ^5.102. Vale levar essa correção para a `hom` mesmo antes da Fase 2.
 
 - **Lingui com versões misturadas na `hom`:** CLI, loader e plugin do Vite estão na v6, mas core, react e macro continuam na v5. As versões calculam os IDs das mensagens de jeito diferente: rodar `npm run lingui:extract` com o CLI v6 reescreve os catálogos e quebra traduções que já existiam (ex.: "Faça login"). Até alinhar tudo na mesma versão, edite os `.po` sem rodar o extract da v6.
 

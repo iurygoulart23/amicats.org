@@ -172,15 +172,16 @@ export const authRoutes: FastifyPluginAsyncZod = async (app) => {
         body: z.object({
           nome: z.string().trim().min(2).max(120).optional(),
           telefone: z.string().trim().max(30).nullable().optional(),
+          notificarPorEmail: z.boolean().optional(),
         }),
         response: { 200: UsuarioPublico },
       },
     },
     async (request) => {
-      const { nome, telefone } = request.body;
+      const { nome, telefone, notificarPorEmail } = request.body;
       const user = await prisma.user.update({
         where: { id: request.usuario!.id },
-        data: { nome, telefone },
+        data: { nome, telefone, notificarPorEmail },
       });
       return user as z.infer<typeof UsuarioPublico>;
     },

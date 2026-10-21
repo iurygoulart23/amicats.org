@@ -18,4 +18,5 @@ export const UsuarioPublico = z.object({
   email: z.string(),
   cargo: z.enum(CARGOS),
   telefone: z.string().nullable(),
+  notificarPorEmail: z.boolean(),
 });

@@ -1,6 +1,8 @@
 # amicats-api
 
-Backend da plataforma Amicats: contas e cargos, gestão dos gatos do abrigo (fotos, tags, histórico de saúde) e catálogo público consumido pelo site [`amicats.org`](https://github.com/ongamicats/amicats.org).
+Backend da plataforma Amicats: contas e cargos, gestão dos gatos do abrigo (fotos, tags, histórico de saúde) e catálogo público consumido pelo site, que fica na raiz deste repositório.
+
+> A API vive na pasta `api/` do repositório `amicats.org` (trazida com `git subtree`, histórico preservado). Rode todos os comandos abaixo **dentro de `api/`**.
 
 **Stack:** Node 22, TypeScript, Fastify 5, Prisma 6, PostgreSQL 16, zod 4, Vitest.
 
@@ -9,6 +11,7 @@ Vocabulário do domínio em [`GLOSSARY.md`](./GLOSSARY.md). Decisões de arquite
 ## Rodando localmente
 
 ```bash
+cd api
 nvm use                     # Node 22 (.nvmrc)
 npm ci
 cp .env.example .env        # ajuste se precisar
@@ -59,7 +62,7 @@ src/
   domain/           # regras puras (cargos, gato)
   lib/              # adapters: senha, tokens, mailer (Resend), storage (B2/S3)
   plugins/auth.ts   # sessão por cookie → request.usuario, exigirCargo()
-  modules/          # auth, users, gatos, tags, saude, fotos, gastos, apadrinhamentos, medicacao, publico
+  modules/          # auth, users, gatos, tags, saude, fotos, gastos, apadrinhamentos, medicacao, notificacoes, publico
 prisma/             # schema, migrations e seed
 test/               # setup do Vitest e helpers (fakes, login)
 ```
@@ -76,6 +79,16 @@ test/               # setup do Vitest e helpers (fakes, login)
 - **Prescrição:** dose, via, intervalo em horas, primeira dose e (opcional) última dose. Sem fim = uso contínuo. "Interromper" corta as doses futuras.
 - **Remédios do dia** (`GET /medicacao/agenda?dia=AAAA-MM-DD`): as doses previstas são calculadas a partir da primeira dose, no horário do abrigo (Campo Grande, UTC-4), e não ficam gravadas no banco. Só a aplicação (dose dada ou pulada) é gravada, uma por dose prevista.
 - **Retornos** (`GET /veterinario/retornos?dias=30`): eventos com data de retorno atrasada (até 60 dias) ou nos próximos dias, de gatos que ainda estão no abrigo.
+
+## Notificações
+
+- **Na hora:** gasto lançado avisa os padrinhos ativos do gato; novo apadrinhamento avisa os adms.
+- **Verificação de pendências** (`POST /tarefas/verificar-pendencias`, header `x-tarefa-token: $TAREFAS_TOKEN`):
+  - avisa voluntários e adms de doses com mais de 30 min de atraso e de retornos atrasados ou nos próximos 2 dias (cada aviso uma única vez);
+  - envia o **resumo por e-mail** (no máximo 1 por dia por pessoa) com as notificações não lidas, para quem não desligou a opção em "Minha conta".
+- **Em produção**, agende a chamada a cada 15 minutos (Cloud Scheduler, cron, etc.):
+  `curl -X POST -H "x-tarefa-token: $TAREFAS_TOKEN" https://api.amicats.org/tarefas/verificar-pendencias`
+- **Local:** com a API rodando, `npm run tarefas:pendencias`.
 
 ## Fotos (Backblaze B2)
 

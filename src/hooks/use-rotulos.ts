@@ -1,10 +1,13 @@
 import { useLingui } from '@lingui/react/macro';
 import type {
   Cargo,
+  CategoriaGasto,
   PrecisaoNascimento,
   Sexo,
   StatusGato,
+  TipoEventoVet,
   TipoTag,
+  Via,
 } from '@/integrations/api/types';
 
 /** Rótulos traduzidos dos valores fixos do domínio. */
@@ -39,5 +42,41 @@ export function useRotulos() {
     cuidado: t`Cuidado`,
   };
 
-  return { cargo, status, sexo, precisao, tipoTag };
+  const categoriaGasto: Record<CategoriaGasto, string> = {
+    racao: t`Ração`,
+    medicamento: t`Medicamento`,
+    veterinario: t`Veterinário`,
+    exame: t`Exame`,
+    higiene: t`Higiene e areia`,
+    outro: t`Outro`,
+  };
+
+  const via: Record<Via, string> = {
+    oral: t`Oral`,
+    topica: t`Tópica (na pele)`,
+    injetavel: t`Injetável`,
+    ocular: t`Colírio (olhos)`,
+    otologica: t`Nos ouvidos`,
+    outra: t`Outra`,
+  };
+  const tipoEventoVet: Record<TipoEventoVet, string> = {
+    consulta: t`Consulta`,
+    vacina: t`Vacina`,
+    vermifugo: t`Vermífugo`,
+    exame: t`Exame`,
+    cirurgia: t`Cirurgia`,
+    castracao: t`Castração`,
+    outro: t`Outro`,
+  };
+
+  return {
+    cargo,
+    status,
+    sexo,
+    precisao,
+    tipoTag,
+    categoriaGasto,
+    via,
+    tipoEventoVet,
+  };
 }

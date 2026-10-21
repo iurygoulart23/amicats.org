@@ -1,6 +1,14 @@
 import { Link, createFileRoute } from '@tanstack/react-router';
 import { useLingui } from '@lingui/react/macro';
-import { Cat, Gift, Heart, Tags, Users } from 'lucide-react';
+import {
+  Cat,
+  Gift,
+  Heart,
+  HeartHandshake,
+  Pill,
+  Tags,
+  Users,
+} from 'lucide-react';
 import type { LucideIcon } from 'lucide-react';
 import type { Cargo } from '@/integrations/api/types';
 import { podeAcessar } from '@/integrations/api/cargos';
@@ -32,6 +40,13 @@ function PainelInicio() {
       cargo: 'voluntario',
     },
     {
+      titulo: t`Remédios do dia`,
+      descricao: t`Doses previstas de todos os gatos, retornos e vacinas.`,
+      to: `/${locale}/app/remedios`,
+      icone: Pill,
+      cargo: 'voluntario',
+    },
+    {
       titulo: t`Pessoas`,
       descricao: t`Voluntários, clientes e administração.`,
       to: `/${locale}/app/admin/usuarios`,
@@ -53,8 +68,15 @@ function PainelInicio() {
       cargo: 'cliente',
     },
     {
-      titulo: t`Apadrinhamento e Clube Amicats`,
-      descricao: t`Apadrinhe um gatinho ou assine o clube. Em breve!`,
+      titulo: t`Meus apadrinhamentos`,
+      descricao: t`Acompanhe os gastos dos gatinhos que você apadrinha.`,
+      to: `/${locale}/app/apadrinhamentos`,
+      icone: HeartHandshake,
+      cargo: 'cliente',
+    },
+    {
+      titulo: t`Clube Amicats`,
+      descricao: t`Assinatura mensal com sorteios. Em breve!`,
       icone: Gift,
       cargo: 'cliente',
       emBreve: true,

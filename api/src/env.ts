@@ -25,6 +25,7 @@ const EnvSchema = z.object({
   S3_ACCESS_KEY_ID: vazioComoUndefined,
   S3_SECRET_ACCESS_KEY: vazioComoUndefined,
   S3_PUBLIC_URL: vazioComoUndefined,
+  TAREFAS_TOKEN: vazioComoUndefined,
 });
 
 export type Env = z.infer<typeof EnvSchema>;

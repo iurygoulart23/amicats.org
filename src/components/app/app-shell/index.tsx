@@ -1,11 +1,22 @@
 import { Link, useNavigate } from '@tanstack/react-router';
 import { useLingui } from '@lingui/react/macro';
-import { Cat, Home, LogOut, Menu, Tags, UserCircle, Users } from 'lucide-react';
+import {
+  Cat,
+  HeartHandshake,
+  Home,
+  LogOut,
+  Menu,
+  Pill,
+  Tags,
+  UserCircle,
+  Users,
+} from 'lucide-react';
 import type { ReactNode } from 'react';
 import type { LucideIcon } from 'lucide-react';
 import type { Cargo, UsuarioLogado } from '@/integrations/api/types';
 import { useLogout } from '@/integrations/api/auth.queries';
 import { podeAcessar } from '@/integrations/api/cargos';
+import { Sininho } from '@/components/app/sininho';
 import { useRotulos } from '@/hooks/use-rotulos';
 
 export interface AppShellProps {
@@ -43,6 +54,18 @@ export function AppShell({ me, locale, children }: AppShellProps) {
       label: t`Gatos`,
       icone: Cat,
       cargo: 'voluntario',
+    },
+    {
+      to: `/${locale}/app/remedios`,
+      label: t`Remédios do dia`,
+      icone: Pill,
+      cargo: 'voluntario',
+    },
+    {
+      to: `/${locale}/app/apadrinhamentos`,
+      label: t`Apadrinhamentos`,
+      icone: HeartHandshake,
+      cargo: 'cliente',
     },
     {
       to: `/${locale}/app/admin/usuarios`,
@@ -88,6 +111,7 @@ export function AppShell({ me, locale, children }: AppShellProps) {
             <p className="text-sm font-medium">{me.nome}</p>
             <p className="text-xs opacity-60">{rotulos.cargo[me.cargo]}</p>
           </div>
+          <Sininho locale={locale} />
           <button
             type="button"
             className="btn btn-ghost btn-square"

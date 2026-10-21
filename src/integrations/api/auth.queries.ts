@@ -69,8 +69,11 @@ export function useRedefinirSenha() {
 export function useEditarPerfil() {
   const qc = useQueryClient();
   return useMutation({
-    mutationFn: (dados: { nome?: string; telefone?: string | null }) =>
-      api<UsuarioLogado>('/auth/me', { method: 'PATCH', body: dados }),
+    mutationFn: (dados: {
+      nome?: string;
+      telefone?: string | null;
+      notificarPorEmail?: boolean;
+    }) => api<UsuarioLogado>('/auth/me', { method: 'PATCH', body: dados }),
     onSuccess: (me) => qc.setQueryData(meQuery.queryKey, me),
   });
 }

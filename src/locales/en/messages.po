@@ -1888,3 +1888,339 @@ msgstr "Volunteers, clients and administrators."
 #: src/components/pages/not-found/index.tsx
 msgid "We couldn't find the page you were looking for. It may have been moved or removed."
 msgstr "We couldn't find the page you were looking for. It may have been moved or removed."
+
+msgid "Acompanhe os gastos dos gatinhos que você apadrinha."
+msgstr "Follow the expenses of the kitties you sponsor."
+
+msgid "Ainda sem histórico de gastos"
+msgstr "No expense history yet"
+
+msgid "Apadrinhamentos"
+msgstr "Sponsorships"
+
+msgid "Apadrinhar"
+msgstr "Sponsor"
+
+msgid "Assinatura mensal com sorteios. Em breve!"
+msgstr "Monthly membership with prize draws. Coming soon!"
+
+msgid "Ativo"
+msgstr "Active"
+
+msgid "Categoria"
+msgstr "Category"
+
+msgid "Clube Amicats"
+msgstr "Amicats Club"
+
+msgid "Custo médio por mês"
+msgstr "Average monthly cost"
+
+msgid "Data"
+msgstr "Date"
+
+msgid "Descrição"
+msgstr "Description"
+
+msgid "Desde"
+msgstr "Since"
+
+msgid "Encerrar apadrinhamento"
+msgstr "End sponsorship"
+
+msgid "Encerrar este apadrinhamento? Você pode apadrinhar de novo quando quiser."
+msgstr "End this sponsorship? You can sponsor again whenever you like."
+
+msgid "Exame"
+msgstr "Lab test"
+
+msgid "Excluir este gasto?"
+msgstr "Delete this expense?"
+
+msgid "Excluir gasto"
+msgstr "Delete expense"
+
+msgid "Extrato"
+msgstr "Statement"
+
+msgid "Gastos"
+msgstr "Expenses"
+
+msgid "Gastos do mês"
+msgstr "Expenses this month"
+
+msgid "Higiene e areia"
+msgstr "Hygiene and litter"
+
+msgid "Lançar"
+msgstr "Add"
+
+msgid "Lançar gasto"
+msgstr "Add expense"
+
+msgid "Lançou algo errado? Peça para a administração corrigir."
+msgstr "Entered something wrong? Ask an administrator to fix it."
+
+msgid "Medicamento"
+msgstr "Medication"
+
+msgid "Meus apadrinhamentos"
+msgstr "My sponsorships"
+
+msgid "Mês"
+msgstr "Month"
+
+msgid "Nenhum gasto em"
+msgstr "No expenses in"
+
+msgid "Nenhum gasto lançado neste mês."
+msgstr "No expenses recorded this month."
+
+msgid "O pagamento online chega em breve. Até lá, a equipe da Amicats entra em contato para combinar."
+msgstr "Online payment is coming soon. Until then, the Amicats team will get in touch to arrange it."
+
+msgid "Outro"
+msgstr "Other"
+
+msgid "Padrinhos"
+msgstr "Sponsors"
+
+msgid "Padrinhos ativos"
+msgstr "Active sponsors"
+
+msgid "Padrinhos no mês"
+msgstr "Sponsors this month"
+
+msgid "Quero apadrinhar"
+msgstr "I want to sponsor"
+
+msgid "Ração"
+msgstr "Food"
+
+msgid "Sua parte"
+msgstr "Your share"
+
+msgid "Todo mês você acompanha os gastos reais com este gatinho (ração, remédios, veterinário). A sua parte é o total do mês dividido igualmente entre todos os padrinhos."
+msgstr "Every month you can follow the real expenses for this kitty (food, medication, vet). Your share is the month's total divided equally among all sponsors."
+
+msgid "Total dividido igualmente entre os padrinhos"
+msgstr "Total divided equally among sponsors"
+
+msgid "Total do mês"
+msgstr "Monthly total"
+
+msgid "Valor"
+msgstr "Amount"
+
+msgid "Valor (R$)"
+msgstr "Amount (R$)"
+
+msgid "Ver meus apadrinhamentos"
+msgstr "See my sponsorships"
+
+msgid "Veterinário"
+msgstr "Vet"
+
+msgid "Você ainda não apadrinha nenhum gatinho."
+msgstr "You don't sponsor any kitty yet."
+
+msgid "Você já apadrinha este gatinho."
+msgstr "You already sponsor this kitty."
+
+msgid "1 vez ao dia"
+msgstr "Once a day"
+
+msgid "A cada"
+msgstr "Every"
+
+msgid "Anteriores"
+msgstr "Previous"
+
+msgid "Atrasado"
+msgstr "Overdue"
+
+msgid "Castração"
+msgstr "Neutering"
+
+msgid "Cirurgia"
+msgstr "Surgery"
+
+msgid "Clínica ou veterinário(a)"
+msgstr "Clinic or vet"
+
+msgid "Colírio (olhos)"
+msgstr "Eye drops"
+
+msgid "Consulta"
+msgstr "Check-up"
+
+msgid "Dada"
+msgstr "Given"
+
+msgid "Dei"
+msgstr "Given"
+
+msgid "Deixe vazio para uso contínuo."
+msgstr "Leave empty for ongoing use."
+
+msgid "Desfazer registro"
+msgstr "Undo"
+
+msgid "Dia"
+msgstr "Day"
+
+msgid "Dose"
+msgstr "Dose"
+
+msgid "Doses previstas de todos os gatos, retornos e vacinas."
+msgstr "Scheduled doses for all cats, follow-ups and vaccines."
+
+msgid "Editar evento"
+msgstr "Edit event"
+
+msgid "Em uso"
+msgstr "In use"
+
+msgid "Ex.: 1/2 comprimido, 0,5 ml, 1 gota"
+msgstr "E.g.: 1/2 tablet, 0.5 ml, 1 drop"
+
+msgid "Ex.: V4 — 2ª dose, Hemograma, Revisão pós-cirurgia"
+msgstr "E.g.: FVRCP — 2nd dose, Blood count, Post-surgery check"
+
+msgid "Excluir este evento?"
+msgstr "Delete this event?"
+
+msgid "Excluir evento"
+msgstr "Delete event"
+
+msgid "Frequência"
+msgstr "Frequency"
+
+msgid "Histórico veterinário"
+msgstr "Vet history"
+
+msgid "Injetável"
+msgstr "Injection"
+
+msgid "Interromper"
+msgstr "Stop"
+
+msgid "Interromper esta prescrição agora?"
+msgstr "Stop this prescription now?"
+
+msgid "Medicação"
+msgstr "Medication"
+
+msgid "Nenhum evento veterinário."
+msgstr "No vet events."
+
+msgid "Nenhum medicamento em uso."
+msgstr "No medication in use."
+
+msgid "Nenhum retorno nos próximos 30 dias."
+msgstr "No follow-ups in the next 30 days."
+
+msgid "Nenhuma dose prevista."
+msgstr "No doses scheduled."
+
+msgid "Nos ouvidos"
+msgstr "Ear drops"
+
+msgid "Nova prescrição"
+msgstr "New prescription"
+
+msgid "Novo evento"
+msgstr "New event"
+
+msgid "Oral"
+msgstr "Oral"
+
+msgid "Outra"
+msgstr "Other"
+
+msgid "Por que a dose foi pulada? (ex.: recusou, vomitou, sem estoque)"
+msgstr "Why was the dose skipped? (e.g.: refused, vomited, out of stock)"
+
+msgid "Prescrever"
+msgstr "Prescribe"
+
+msgid "Prescrito por (opcional)"
+msgstr "Prescribed by (optional)"
+
+msgid "Primeira dose"
+msgstr "First dose"
+
+msgid "Pulada"
+msgstr "Skipped"
+
+msgid "Pular dose"
+msgstr "Skip dose"
+
+msgid "Reforço de vacina, revisão ou novo exame."
+msgstr "Vaccine booster, check-up or new test."
+
+msgid "Remédios do dia"
+msgstr "Today's medication"
+
+msgid "Retorno"
+msgstr "Follow-up"
+
+msgid "Retorno (opcional)"
+msgstr "Follow-up (optional)"
+
+msgid "Retornos e vacinas"
+msgstr "Follow-ups and vaccines"
+
+msgid "Todas as doses registradas."
+msgstr "All doses recorded."
+
+msgid "Título"
+msgstr "Title"
+
+msgid "Tópica (na pele)"
+msgstr "Topical (on skin)"
+
+msgid "Vacina"
+msgstr "Vaccine"
+
+msgid "Vermífugo"
+msgstr "Dewormer"
+
+msgid "Via"
+msgstr "Route"
+
+msgid "dias"
+msgstr "days"
+
+msgid "dose(s) pendente(s)"
+msgstr "dose(s) pending"
+
+msgid "interrompida"
+msgstr "stopped"
+
+msgid "uso contínuo"
+msgstr "ongoing"
+
+msgid "Última dose"
+msgstr "Last dose"
+
+msgid "Nenhuma notificação por aqui."
+msgstr "No notifications here."
+
+msgid "Não lida"
+msgstr "Unread"
+
+msgid "Notificações"
+msgstr "Notifications"
+
+msgid "não lidas"
+msgstr "unread"
+
+msgid "Marcar todas como lidas"
+msgstr "Mark all as read"
+
+msgid "Ver todas"
+msgstr "See all"
+
+msgid "Receber por e-mail um resumo diário das notificações"
+msgstr "Receive a daily email summary of notifications"

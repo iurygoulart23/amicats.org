@@ -23,6 +23,12 @@ export const publicGatosQuery = queryOptions({
   staleTime: 5 * 60_000,
 });
 
+export const publicGatoQuery = (slug: string) =>
+  queryOptions({
+    queryKey: ['public', 'gato', slug],
+    queryFn: () => api<GatoPublico>(`/public/gatos/${slug}`),
+  });
+
 export type FiltrosGatos = {
   busca?: string;
   status?: StatusGato;

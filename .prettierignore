@@ -7,3 +7,5 @@ node_modules/**
 src/locales/**/messages.js
 src/routeTree.gen.ts
 *.lock
+api/dist/**
+api/prisma/migrations/**

@@ -10,6 +10,8 @@ export interface GatoCardProps {
   descricao: string;
   imagem: string;
   status?: string;
+  /** Mostra o selo de apadrinhado */
+  apadrinhado?: boolean;
   onAdotar?: () => void;
   onApadrinhar?: () => void;
   hrefAdotar?: string;
@@ -21,6 +23,7 @@ export function GatoCard({
   descricao,
   imagem,
   status,
+  apadrinhado,
   onAdotar,
   onApadrinhar,
   hrefAdotar,
@@ -40,6 +43,11 @@ export function GatoCard({
         <Badge variant="secondary" className="absolute top-2 right-2">
           {displayStatus}
         </Badge>
+        {apadrinhado && (
+          <Badge variant="primary" className="absolute top-2 left-2">
+            {t`Apadrinhado`} ♥
+          </Badge>
+        )}
       </Figure>
       <Card.Body className="p-6 flex flex-col flex-1">
         <Card.Title className="text-sm md:text-lg truncate">{nome}</Card.Title>

@@ -1,6 +1,6 @@
 # amicats-api — Agent Context
 
-Backend da plataforma Amicats. Leia `README.md` (stack, comandos), `GLOSSARY.md` (vocabulário — use estes termos em código, testes e mensagens) e `docs/adr/`.
+Backend da plataforma Amicats, na pasta `api/` do repositório `amicats.org` (o site fica na raiz e tem o próprio `AGENTS.md`). Rode os comandos dentro de `api/`. Leia `README.md` (stack, comandos), `GLOSSARY.md` (vocabulário — use estes termos em código, testes e mensagens) e `docs/adr/`.
 
 ## Comandos
 

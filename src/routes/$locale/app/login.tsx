@@ -47,6 +47,7 @@ function LoginPage() {
             <Link
               to="/$locale/app/cadastro"
               params={{ locale }}
+              search={{ redirect }}
               className="link link-primary"
             >
               {t`Cadastre-se`}

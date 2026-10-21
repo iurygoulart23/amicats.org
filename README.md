@@ -28,11 +28,11 @@ npm install
 npm run dev        # http://localhost:3000
 ```
 
-### Backend (amicats-api)
+### Backend (`api/`)
 
-O catálogo de gatos da home e a área logada (`/$locale/app`) consomem a [`amicats-api`](../amicats-api). Para rodar o site completo:
+O catálogo de gatos da home e a área logada (`/$locale/app`) consomem a API que fica em [`api/`](api/) neste mesmo repositório. Para rodar o site completo:
 
-1. Suba a API seguindo o README dela (`docker compose up -d`, `npm run db:migrate`, `npm run db:seed`, `npm run dev`).
+1. Suba a API seguindo o [README dela](api/README.md) (`cd api`, `docker compose up -d`, `npm run db:migrate`, `npm run db:seed`, `npm run dev`).
 2. Aqui, copie `.env.example` para `.env` e ajuste `VITE_API_URL` se a API não estiver em `http://localhost:3333`.
 3. `npm run dev` e acesse `http://localhost:3000/pt-BR/app` (adm inicial: `SEED_ADMIN_EMAIL` / `SEED_ADMIN_SENHA` do `.env` da API).
 

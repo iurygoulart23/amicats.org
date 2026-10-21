@@ -45,10 +45,16 @@ export function createFakeStorage(): FakeStorage {
   };
 }
 
-export async function createTestApp() {
+export async function createTestApp(opcoes: { agora?: () => Date } = {}) {
   const mailer = createFakeMailer();
   const storage = createFakeStorage();
-  const app = await buildApp({ env, prisma, mailer, storage });
+  const app = await buildApp({
+    env,
+    prisma,
+    mailer,
+    storage,
+    agora: opcoes.agora,
+  });
   return { app, mailer, storage };
 }
 

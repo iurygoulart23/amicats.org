@@ -1,4 +1,6 @@
 {
+  // A API (api/) tem o próprio tsconfig (Node, NodeNext).
+  "exclude": ["node_modules", "api"],
   "include": [
     "**/*.ts",
     "**/*.tsx",

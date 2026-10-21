@@ -15,6 +15,7 @@ export type UsuarioLogado = {
   email: string;
   cargo: Cargo;
   telefone: string | null;
+  notificarPorEmail: boolean;
   sessaoId: string;
 };
 
@@ -111,6 +112,7 @@ export const authPlugin = fp(async (app) => {
       email: sessao.user.email,
       cargo: sessao.user.cargo as Cargo,
       telefone: sessao.user.telefone,
+      notificarPorEmail: sessao.user.notificarPorEmail,
       sessaoId: sessao.id,
     };
   });

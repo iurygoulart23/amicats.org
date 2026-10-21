@@ -10,6 +10,10 @@ import {
 import { naoEncontrado } from '../../lib/errors.js';
 import { exigirCargo } from '../../plugins/auth.js';
 import { ParamsGato } from '../gatos/routes.js';
+import {
+  notificarGastoNovo,
+  notificarSemFalhar,
+} from '../notificacoes/notificar.js';
 import { Gasto, includeGasto, toGasto } from './mapper.js';
 import type { FastifyPluginAsyncZod } from 'fastify-type-provider-zod';
 
@@ -107,6 +111,9 @@ export const gastosRoutes: FastifyPluginAsyncZod = async (app) => {
         },
         include: includeGasto,
       });
+      await notificarSemFalhar(request.log, () =>
+        notificarGastoNovo(prisma, gasto),
+      );
       return reply.status(201).send(toGasto(gasto));
     },
   );

@@ -1928,3 +1928,339 @@ msgstr "We couldn't find the page you were looking for. It may have been moved o
 #: src/routes/landing/-components/o-abrigo/index.tsx
 #~ msgid "We have areas for observation, treatment and recovery: kittens, adults and seniors. A quarantine area is used for newly rescued cats. We also maintain dedicated spaces for special-needs cats, such as those living with FIV or FeLV, ensuring a safe and welcoming environment for all."
 #~ msgstr "We have areas for observation, treatment and recovery: kittens, adults and seniors. A quarantine area is used for newly rescued cats. We also maintain dedicated spaces for special-needs cats, such as those living with FIV or FeLV, ensuring a safe and welcoming environment for all."
+
+msgid "Acompanhe os gastos dos gatinhos que você apadrinha."
+msgstr ""
+
+msgid "Ainda sem histórico de gastos"
+msgstr ""
+
+msgid "Apadrinhamentos"
+msgstr ""
+
+msgid "Apadrinhar"
+msgstr ""
+
+msgid "Assinatura mensal com sorteios. Em breve!"
+msgstr ""
+
+msgid "Ativo"
+msgstr ""
+
+msgid "Categoria"
+msgstr ""
+
+msgid "Clube Amicats"
+msgstr ""
+
+msgid "Custo médio por mês"
+msgstr ""
+
+msgid "Data"
+msgstr ""
+
+msgid "Descrição"
+msgstr ""
+
+msgid "Desde"
+msgstr ""
+
+msgid "Encerrar apadrinhamento"
+msgstr ""
+
+msgid "Encerrar este apadrinhamento? Você pode apadrinhar de novo quando quiser."
+msgstr ""
+
+msgid "Exame"
+msgstr ""
+
+msgid "Excluir este gasto?"
+msgstr ""
+
+msgid "Excluir gasto"
+msgstr ""
+
+msgid "Extrato"
+msgstr ""
+
+msgid "Gastos"
+msgstr ""
+
+msgid "Gastos do mês"
+msgstr ""
+
+msgid "Higiene e areia"
+msgstr ""
+
+msgid "Lançar"
+msgstr ""
+
+msgid "Lançar gasto"
+msgstr ""
+
+msgid "Lançou algo errado? Peça para a administração corrigir."
+msgstr ""
+
+msgid "Medicamento"
+msgstr ""
+
+msgid "Meus apadrinhamentos"
+msgstr ""
+
+msgid "Mês"
+msgstr ""
+
+msgid "Nenhum gasto em"
+msgstr ""
+
+msgid "Nenhum gasto lançado neste mês."
+msgstr ""
+
+msgid "O pagamento online chega em breve. Até lá, a equipe da Amicats entra em contato para combinar."
+msgstr ""
+
+msgid "Outro"
+msgstr ""
+
+msgid "Padrinhos"
+msgstr ""
+
+msgid "Padrinhos ativos"
+msgstr ""
+
+msgid "Padrinhos no mês"
+msgstr ""
+
+msgid "Quero apadrinhar"
+msgstr ""
+
+msgid "Ração"
+msgstr ""
+
+msgid "Sua parte"
+msgstr ""
+
+msgid "Todo mês você acompanha os gastos reais com este gatinho (ração, remédios, veterinário). A sua parte é o total do mês dividido igualmente entre todos os padrinhos."
+msgstr ""
+
+msgid "Total dividido igualmente entre os padrinhos"
+msgstr ""
+
+msgid "Total do mês"
+msgstr ""
+
+msgid "Valor"
+msgstr ""
+
+msgid "Valor (R$)"
+msgstr ""
+
+msgid "Ver meus apadrinhamentos"
+msgstr ""
+
+msgid "Veterinário"
+msgstr ""
+
+msgid "Você ainda não apadrinha nenhum gatinho."
+msgstr ""
+
+msgid "Você já apadrinha este gatinho."
+msgstr ""
+
+msgid "1 vez ao dia"
+msgstr ""
+
+msgid "A cada"
+msgstr ""
+
+msgid "Anteriores"
+msgstr ""
+
+msgid "Atrasado"
+msgstr ""
+
+msgid "Castração"
+msgstr ""
+
+msgid "Cirurgia"
+msgstr ""
+
+msgid "Clínica ou veterinário(a)"
+msgstr ""
+
+msgid "Colírio (olhos)"
+msgstr ""
+
+msgid "Consulta"
+msgstr ""
+
+msgid "Dada"
+msgstr ""
+
+msgid "Dei"
+msgstr ""
+
+msgid "Deixe vazio para uso contínuo."
+msgstr ""
+
+msgid "Desfazer registro"
+msgstr ""
+
+msgid "Dia"
+msgstr ""
+
+msgid "Dose"
+msgstr ""
+
+msgid "Doses previstas de todos os gatos, retornos e vacinas."
+msgstr ""
+
+msgid "Editar evento"
+msgstr ""
+
+msgid "Em uso"
+msgstr ""
+
+msgid "Ex.: 1/2 comprimido, 0,5 ml, 1 gota"
+msgstr ""
+
+msgid "Ex.: V4 — 2ª dose, Hemograma, Revisão pós-cirurgia"
+msgstr ""
+
+msgid "Excluir este evento?"
+msgstr ""
+
+msgid "Excluir evento"
+msgstr ""
+
+msgid "Frequência"
+msgstr ""
+
+msgid "Histórico veterinário"
+msgstr ""
+
+msgid "Injetável"
+msgstr ""
+
+msgid "Interromper"
+msgstr ""
+
+msgid "Interromper esta prescrição agora?"
+msgstr ""
+
+msgid "Medicação"
+msgstr ""
+
+msgid "Nenhum evento veterinário."
+msgstr ""
+
+msgid "Nenhum medicamento em uso."
+msgstr ""
+
+msgid "Nenhum retorno nos próximos 30 dias."
+msgstr ""
+
+msgid "Nenhuma dose prevista."
+msgstr ""
+
+msgid "Nos ouvidos"
+msgstr ""
+
+msgid "Nova prescrição"
+msgstr ""
+
+msgid "Novo evento"
+msgstr ""
+
+msgid "Oral"
+msgstr ""
+
+msgid "Outra"
+msgstr ""
+
+msgid "Por que a dose foi pulada? (ex.: recusou, vomitou, sem estoque)"
+msgstr ""
+
+msgid "Prescrever"
+msgstr ""
+
+msgid "Prescrito por (opcional)"
+msgstr ""
+
+msgid "Primeira dose"
+msgstr ""
+
+msgid "Pulada"
+msgstr ""
+
+msgid "Pular dose"
+msgstr ""
+
+msgid "Reforço de vacina, revisão ou novo exame."
+msgstr ""
+
+msgid "Remédios do dia"
+msgstr ""
+
+msgid "Retorno"
+msgstr ""
+
+msgid "Retorno (opcional)"
+msgstr ""
+
+msgid "Retornos e vacinas"
+msgstr ""
+
+msgid "Todas as doses registradas."
+msgstr ""
+
+msgid "Título"
+msgstr ""
+
+msgid "Tópica (na pele)"
+msgstr ""
+
+msgid "Vacina"
+msgstr ""
+
+msgid "Vermífugo"
+msgstr ""
+
+msgid "Via"
+msgstr ""
+
+msgid "dias"
+msgstr ""
+
+msgid "dose(s) pendente(s)"
+msgstr ""
+
+msgid "interrompida"
+msgstr ""
+
+msgid "uso contínuo"
+msgstr ""
+
+msgid "Última dose"
+msgstr ""
+
+msgid "Nenhuma notificação por aqui."
+msgstr ""
+
+msgid "Não lida"
+msgstr ""
+
+msgid "Notificações"
+msgstr ""
+
+msgid "não lidas"
+msgstr ""
+
+msgid "Marcar todas como lidas"
+msgstr ""
+
+msgid "Ver todas"
+msgstr ""
+
+msgid "Receber por e-mail um resumo diário das notificações"
+msgstr ""

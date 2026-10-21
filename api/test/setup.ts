@@ -5,7 +5,7 @@ process.loadEnvFile('.env.test');
 
 beforeEach(async () => {
   await prisma.$executeRawUnsafe(
-    'TRUNCATE users, sessions, password_reset_tokens, gatos, gato_fotos, tags, gato_tags, registros_saude, gastos, apadrinhamentos, prescricoes, aplicacoes, eventos_veterinarios CASCADE',
+    'TRUNCATE users, sessions, password_reset_tokens, gatos, gato_fotos, tags, gato_tags, registros_saude, gastos, apadrinhamentos, prescricoes, aplicacoes, eventos_veterinarios, notificacoes CASCADE',
   );
 });
 
