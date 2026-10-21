@@ -122,6 +122,18 @@ Os apadrinhamentos do gato que estiveram ativos em algum dia daquele mês.
 A média mensal dos gastos de um gato nos últimos 3 meses completos. Serve de referência para quem pensa em apadrinhar.
 _Avoid_: custo previsto, orçamento
 
+**Mês fechado**:
+Mês que já terminou. Só a parte de meses fechados pode ser paga, porque o mês corrente ainda pode receber gastos.
+_Avoid_: mês encerrado, competência
+
+**Pagamento da parte**:
+Pagamento avulso, pelo checkout do Mercado Pago (pix, cartão ou boleto), do que falta pagar da parte do padrinho num mês fechado. Pode ficar pendente, aprovado, recusado ou estornado.
+_Avoid_: mensalidade, cobrança (cobrança é do Clube), fatura
+
+**Falta pagar**:
+A parte do padrinho no mês menos o que ele já pagou de forma aprovada naquele mês. Nunca é negativo: pagar a mais não vira crédito.
+_Avoid_: saldo, débito, dívida
+
 **Apadrinhado** (selo):
 Indica que o gato tem pelo menos um padrinho ativo.
 

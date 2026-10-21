@@ -72,7 +72,10 @@ test/               # setup do Vitest e helpers (fakes, login)
 - Qualquer conta (de qualquer cargo) apadrinha um gato publicado que ainda esteja no abrigo. Não há limite de padrinhos por gato.
 - **Parte do padrinho** no mês = total de gastos do gato no mês ÷ padrinhos do mês (apadrinhamentos ativos em algum dia do mês), arredondado ao centavo.
 - **Estimativa de custo** = média mensal dos gastos nos últimos 3 meses completos (aparece no catálogo público junto com o número de padrinhos).
-- O pagamento online entra na Fase 3 (Mercado Pago). Por enquanto, o extrato serve de prestação de contas.
+- **Pagamento da parte** (`POST /apadrinhamentos/:id/pagamentos`, corpo `{ mes }`): só o próprio padrinho, só meses fechados (o mês corrente ainda recebe gastos). Cria um checkout de pagamento único do Mercado Pago (Checkout Pro: pix, cartão ou boleto) com o valor que **falta pagar** no mês e devolve o `init_point`. Clicar de novo reaproveita o checkout ainda aberto com o mesmo valor.
+- **Falta pagar** = parte do mês − pagamentos aprovados do mês (nunca negativo). Se entrar um gasto depois do pagamento, aparece só a diferença; pagamento a mais não vira crédito.
+- **Status do pagamento:** pelo webhook (tópico _Pagamentos_) e, como no Clube, consultando o Mercado Pago ao abrir o extrato do mês enquanto houver pagamento pendente (checkouts com até 30 dias). Uma tentativa recusada não desfaz um pagamento já aprovado; estorno devolve o valor para "falta pagar".
+- **Aviso mensal:** a verificação de pendências avisa cada padrinho, uma vez por mês, do valor da parte do mês que acabou de fechar. Pagamento aprovado avisa os adms.
 
 ## Medicação e veterinário
 
@@ -85,6 +88,7 @@ test/               # setup do Vitest e helpers (fakes, login)
 - **Na hora:** gasto lançado avisa os padrinhos ativos do gato; novo apadrinhamento avisa os adms.
 - **Verificação de pendências** (`POST /tarefas/verificar-pendencias`, header `x-tarefa-token: $TAREFAS_TOKEN`):
   - avisa voluntários e adms de doses com mais de 30 min de atraso e de retornos atrasados ou nos próximos 2 dias (cada aviso uma única vez);
+  - avisa cada padrinho do valor da parte do mês anterior, se ainda houver algo a pagar (uma vez por mês);
   - envia o **resumo por e-mail** (no máximo 1 por dia por pessoa) com as notificações não lidas, para quem não desligou a opção em "Minha conta".
 - **Em produção**, agende a chamada a cada 15 minutos (Cloud Scheduler, cron, etc.):
   `curl -X POST -H "x-tarefa-token: $TAREFAS_TOKEN" https://api.amicats.org/tarefas/verificar-pendencias`
@@ -95,19 +99,19 @@ test/               # setup do Vitest e helpers (fakes, login)
 - **Faixas** (`/clube/planos`): valores mensais fixos mantidos pelo adm. O seed cria Amigo (R$ 20), Protetor (R$ 50) e Guardião (R$ 100). Mudar o valor de uma faixa não afeta quem já assina: a assinatura guarda o valor da adesão.
 - **Assinar** (`POST /clube/assinaturas`): cria uma assinatura sem plano associado (`POST /preapproval`, `status: pending`) e devolve o `init_point`. O site redireciona para o checkout do Mercado Pago, e **o cartão nunca passa pela API**.
 - **Status:** chega por dois caminhos. O webhook atualiza ativação, pausa, cancelamento e cada cobrança. Além disso, `GET /clube/minha` consulta o Mercado Pago quando a assinatura ainda está pendente (cobre o retorno do checkout e ambientes sem webhook).
-- **Webhook:** `POST /webhooks/mercadopago`, tópicos _Planos e assinaturas_. A assinatura `x-signature` é validada com HMAC-SHA256 (`MP_WEBHOOK_SECRET`), com tolerância de 15 min contra reenvio. O aviso nunca é usado como verdade: a API sempre consulta o Mercado Pago.
+- **Webhook:** `POST /webhooks/mercadopago`, tópicos _Planos e assinaturas_ (Clube) e _Pagamentos_ (parte do padrinho; cobranças do Clube também chegam como `payment` e são ignoradas por não terem pagamento correspondente). A assinatura `x-signature` é validada com HMAC-SHA256 (`MP_WEBHOOK_SECRET`), com tolerância de 15 min contra reenvio. O aviso nunca é usado como verdade: a API sempre consulta o Mercado Pago.
 
 ### Configuração
 
 1. No painel do Mercado Pago (Suas integrações), crie a aplicação e copie o **Access Token** para `MP_ACCESS_TOKEN`. Use as credenciais de teste antes das de produção.
-2. Em **Webhooks**, cadastre `https://api.amicats.org/webhooks/mercadopago`, marque os eventos de assinaturas e copie a **assinatura secreta** para `MP_WEBHOOK_SECRET`.
+2. Em **Webhooks**, cadastre `https://api.amicats.org/webhooks/mercadopago`, marque os eventos de **assinaturas** e de **pagamentos** e copie a **assinatura secreta** para `MP_WEBHOOK_SECRET`.
 3. Sem `MP_ACCESS_TOKEN`, as rotas de pagamento respondem 503.
 
 > ⚠️ Ainda não validado com credenciais reais: a integração foi feita com base nos tipos do SDK oficial e na documentação de webhooks, e testada com um gateway falso. No primeiro teste com credenciais de teste, confira em especial se o Mercado Pago exige que o e-mail da conta de quem paga seja igual ao `payer_email` enviado.
 
 ### Desenvolvimento sem credenciais
 
-Com `MP_SIMULADO=true` no `.env`, a API usa um Mercado Pago de mentira. O "checkout" é uma página da própria API (`/dev/mercadopago/checkout/:id`) com o botão "Simular pagamento aprovado", que ativa a assinatura, registra a cobrança e volta para o site. Os dados do simulador ficam em memória. A API se recusa a subir com `MP_SIMULADO=true` em produção.
+Com `MP_SIMULADO=true` no `.env`, a API usa um Mercado Pago de mentira. O "checkout" é uma página da própria API (`/dev/mercadopago/checkout/:id`) com o botão "Simular pagamento aprovado", que ativa a assinatura e registra a cobrança (ou, no pagamento da parte do padrinho, aprova o pagamento) e volta para o site. Os dados do simulador ficam em memória. A API se recusa a subir com `MP_SIMULADO=true` em produção.
 
 ### Caixa de e-mails de desenvolvimento
 
