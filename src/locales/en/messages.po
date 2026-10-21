@@ -2425,3 +2425,54 @@ msgstr "Back to the website"
 
 msgid "Doar online: pix, cartão ou boleto"
 msgstr "Donate online: Pix, card or boleto"
+
+msgid "Meus pagamentos"
+msgstr "My payments"
+
+msgid "Cobranças do Clube, a sua parte nos apadrinhamentos e as doações feitas com a sua conta."
+msgstr "Club charges, your share of sponsorships and donations made with your account."
+
+msgid "Você ainda não tem pagamentos."
+msgstr "You have no payments yet."
+
+msgid "Fazer uma doação"
+msgstr "Make a donation"
+
+msgid "Pagamento"
+msgstr "Payment"
+
+msgid "Pagamentos"
+msgstr "Payments"
+
+msgid "Reconsultar pendentes no Mercado Pago"
+msgstr "Recheck pending payments on Mercado Pago"
+
+msgid "Nenhum pagamento pendente para consultar."
+msgstr "No pending payments to check."
+
+msgid "{consultados} pendentes consultados, {atualizados} atualizados."
+msgstr "{consultados} pending checked, {atualizados} updated."
+
+msgid "Origem"
+msgstr "Source"
+
+msgid "Recebido"
+msgstr "Received"
+
+msgid "Pix e boleto ainda não compensados"
+msgstr "Pix and boleto not yet cleared"
+
+msgid "Recusados e estornados"
+msgstr "Declined and refunded"
+
+msgid "Quem pagou"
+msgstr "Paid by"
+
+msgid "Id no Mercado Pago"
+msgstr "Mercado Pago ID"
+
+msgid "Nenhum pagamento com esses filtros."
+msgstr "No payments match these filters."
+
+msgid "sem conta"
+msgstr "no account"

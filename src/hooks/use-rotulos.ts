@@ -5,7 +5,9 @@ import type {
   PrecisaoNascimento,
   Sexo,
   StatusGato,
+  StatusPagamento,
   TipoEventoVet,
+  TipoPagamento,
   TipoTag,
   Via,
 } from '@/integrations/api/types';
@@ -69,6 +71,18 @@ export function useRotulos() {
     outro: t`Outro`,
   };
 
+  const statusPagamento: Record<StatusPagamento, string> = {
+    pendente: t`Aguardando pagamento`,
+    aprovado: t`Pago`,
+    recusado: t`Recusado`,
+    estornado: t`Estornado`,
+  };
+  const tipoPagamento: Record<TipoPagamento, string> = {
+    clube: t`Clube Amicats`,
+    apadrinhamento: t`Apadrinhamento`,
+    doacao: t`Doação`,
+  };
+
   return {
     cargo,
     status,
@@ -78,5 +92,7 @@ export function useRotulos() {
     categoriaGasto,
     via,
     tipoEventoVet,
+    statusPagamento,
+    tipoPagamento,
   };
 }

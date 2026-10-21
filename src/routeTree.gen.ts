@@ -30,8 +30,10 @@ import { Route as LocaleAppPainelClubeRouteImport } from './routes/$locale/app/_
 import { Route as LocaleAppPainelGatosRouteRouteImport } from './routes/$locale/app/_painel/gatos/route'
 import { Route as LocaleAppPainelMinhaContaRouteImport } from './routes/$locale/app/_painel/minha-conta'
 import { Route as LocaleAppPainelNotificacoesRouteImport } from './routes/$locale/app/_painel/notificacoes'
+import { Route as LocaleAppPainelPagamentosRouteImport } from './routes/$locale/app/_painel/pagamentos'
 import { Route as LocaleAppPainelRemediosRouteImport } from './routes/$locale/app/_painel/remedios'
 import { Route as LocaleAppPainelAdminClubeRouteImport } from './routes/$locale/app/_painel/admin/clube'
+import { Route as LocaleAppPainelAdminPagamentosRouteImport } from './routes/$locale/app/_painel/admin/pagamentos'
 import { Route as LocaleAppPainelAdminTagsRouteImport } from './routes/$locale/app/_painel/admin/tags'
 import { Route as LocaleAppPainelApadrinhamentosIndexRouteImport } from './routes/$locale/app/_painel/apadrinhamentos/index'
 import { Route as LocaleAppPainelApadrinhamentosApadrinhamentoIdRouteImport } from './routes/$locale/app/_painel/apadrinhamentos/$apadrinhamentoId'
@@ -151,6 +153,12 @@ const LocaleAppPainelNotificacoesRoute =
     path: '/notificacoes',
     getParentRoute: () => LocaleAppPainelRoute,
   } as any)
+const LocaleAppPainelPagamentosRoute =
+  LocaleAppPainelPagamentosRouteImport.update({
+    id: '/pagamentos',
+    path: '/pagamentos',
+    getParentRoute: () => LocaleAppPainelRoute,
+  } as any)
 const LocaleAppPainelRemediosRoute = LocaleAppPainelRemediosRouteImport.update({
   id: '/remedios',
   path: '/remedios',
@@ -160,6 +168,12 @@ const LocaleAppPainelAdminClubeRoute =
   LocaleAppPainelAdminClubeRouteImport.update({
     id: '/clube',
     path: '/clube',
+    getParentRoute: () => LocaleAppPainelAdminRouteRoute,
+  } as any)
+const LocaleAppPainelAdminPagamentosRoute =
+  LocaleAppPainelAdminPagamentosRouteImport.update({
+    id: '/pagamentos',
+    path: '/pagamentos',
     getParentRoute: () => LocaleAppPainelAdminRouteRoute,
   } as any)
 const LocaleAppPainelAdminTagsRoute =
@@ -237,9 +251,11 @@ export interface FileRoutesByFullPath {
   '/$locale/app/clube': typeof LocaleAppPainelClubeRoute
   '/$locale/app/minha-conta': typeof LocaleAppPainelMinhaContaRoute
   '/$locale/app/notificacoes': typeof LocaleAppPainelNotificacoesRoute
+  '/$locale/app/pagamentos': typeof LocaleAppPainelPagamentosRoute
   '/$locale/app/remedios': typeof LocaleAppPainelRemediosRoute
   '/$locale/app/': typeof LocaleAppPainelIndexRoute
   '/$locale/app/admin/clube': typeof LocaleAppPainelAdminClubeRoute
+  '/$locale/app/admin/pagamentos': typeof LocaleAppPainelAdminPagamentosRoute
   '/$locale/app/admin/tags': typeof LocaleAppPainelAdminTagsRoute
   '/$locale/app/apadrinhamentos/$apadrinhamentoId': typeof LocaleAppPainelApadrinhamentosApadrinhamentoIdRoute
   '/$locale/app/apadrinhar/$slug': typeof LocaleAppPainelApadrinharSlugRoute
@@ -268,8 +284,10 @@ export interface FileRoutesByTo {
   '/$locale/app/clube': typeof LocaleAppPainelClubeRoute
   '/$locale/app/minha-conta': typeof LocaleAppPainelMinhaContaRoute
   '/$locale/app/notificacoes': typeof LocaleAppPainelNotificacoesRoute
+  '/$locale/app/pagamentos': typeof LocaleAppPainelPagamentosRoute
   '/$locale/app/remedios': typeof LocaleAppPainelRemediosRoute
   '/$locale/app/admin/clube': typeof LocaleAppPainelAdminClubeRoute
+  '/$locale/app/admin/pagamentos': typeof LocaleAppPainelAdminPagamentosRoute
   '/$locale/app/admin/tags': typeof LocaleAppPainelAdminTagsRoute
   '/$locale/app/apadrinhamentos/$apadrinhamentoId': typeof LocaleAppPainelApadrinhamentosApadrinhamentoIdRoute
   '/$locale/app/apadrinhar/$slug': typeof LocaleAppPainelApadrinharSlugRoute
@@ -302,9 +320,11 @@ export interface FileRoutesById {
   '/$locale/app/_painel/clube': typeof LocaleAppPainelClubeRoute
   '/$locale/app/_painel/minha-conta': typeof LocaleAppPainelMinhaContaRoute
   '/$locale/app/_painel/notificacoes': typeof LocaleAppPainelNotificacoesRoute
+  '/$locale/app/_painel/pagamentos': typeof LocaleAppPainelPagamentosRoute
   '/$locale/app/_painel/remedios': typeof LocaleAppPainelRemediosRoute
   '/$locale/app/_painel/': typeof LocaleAppPainelIndexRoute
   '/$locale/app/_painel/admin/clube': typeof LocaleAppPainelAdminClubeRoute
+  '/$locale/app/_painel/admin/pagamentos': typeof LocaleAppPainelAdminPagamentosRoute
   '/$locale/app/_painel/admin/tags': typeof LocaleAppPainelAdminTagsRoute
   '/$locale/app/_painel/apadrinhamentos/$apadrinhamentoId': typeof LocaleAppPainelApadrinhamentosApadrinhamentoIdRoute
   '/$locale/app/_painel/apadrinhar/$slug': typeof LocaleAppPainelApadrinharSlugRoute
@@ -337,9 +357,11 @@ export interface FileRouteTypes {
     | '/$locale/app/clube'
     | '/$locale/app/minha-conta'
     | '/$locale/app/notificacoes'
+    | '/$locale/app/pagamentos'
     | '/$locale/app/remedios'
     | '/$locale/app/'
     | '/$locale/app/admin/clube'
+    | '/$locale/app/admin/pagamentos'
     | '/$locale/app/admin/tags'
     | '/$locale/app/apadrinhamentos/$apadrinhamentoId'
     | '/$locale/app/apadrinhar/$slug'
@@ -368,8 +390,10 @@ export interface FileRouteTypes {
     | '/$locale/app/clube'
     | '/$locale/app/minha-conta'
     | '/$locale/app/notificacoes'
+    | '/$locale/app/pagamentos'
     | '/$locale/app/remedios'
     | '/$locale/app/admin/clube'
+    | '/$locale/app/admin/pagamentos'
     | '/$locale/app/admin/tags'
     | '/$locale/app/apadrinhamentos/$apadrinhamentoId'
     | '/$locale/app/apadrinhar/$slug'
@@ -401,9 +425,11 @@ export interface FileRouteTypes {
     | '/$locale/app/_painel/clube'
     | '/$locale/app/_painel/minha-conta'
     | '/$locale/app/_painel/notificacoes'
+    | '/$locale/app/_painel/pagamentos'
     | '/$locale/app/_painel/remedios'
     | '/$locale/app/_painel/'
     | '/$locale/app/_painel/admin/clube'
+    | '/$locale/app/_painel/admin/pagamentos'
     | '/$locale/app/_painel/admin/tags'
     | '/$locale/app/_painel/apadrinhamentos/$apadrinhamentoId'
     | '/$locale/app/_painel/apadrinhar/$slug'
@@ -570,6 +596,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof LocaleAppPainelNotificacoesRouteImport
       parentRoute: typeof LocaleAppPainelRoute
     }
+    '/$locale/app/_painel/pagamentos': {
+      id: '/$locale/app/_painel/pagamentos'
+      path: '/pagamentos'
+      fullPath: '/$locale/app/pagamentos'
+      preLoaderRoute: typeof LocaleAppPainelPagamentosRouteImport
+      parentRoute: typeof LocaleAppPainelRoute
+    }
     '/$locale/app/_painel/remedios': {
       id: '/$locale/app/_painel/remedios'
       path: '/remedios'
@@ -582,6 +615,13 @@ declare module '@tanstack/react-router' {
       path: '/clube'
       fullPath: '/$locale/app/admin/clube'
       preLoaderRoute: typeof LocaleAppPainelAdminClubeRouteImport
+      parentRoute: typeof LocaleAppPainelAdminRouteRoute
+    }
+    '/$locale/app/_painel/admin/pagamentos': {
+      id: '/$locale/app/_painel/admin/pagamentos'
+      path: '/pagamentos'
+      fullPath: '/$locale/app/admin/pagamentos'
+      preLoaderRoute: typeof LocaleAppPainelAdminPagamentosRouteImport
       parentRoute: typeof LocaleAppPainelAdminRouteRoute
     }
     '/$locale/app/_painel/admin/tags': {
@@ -652,6 +692,7 @@ declare module '@tanstack/react-router' {
 
 interface LocaleAppPainelAdminRouteRouteChildren {
   LocaleAppPainelAdminClubeRoute: typeof LocaleAppPainelAdminClubeRoute
+  LocaleAppPainelAdminPagamentosRoute: typeof LocaleAppPainelAdminPagamentosRoute
   LocaleAppPainelAdminTagsRoute: typeof LocaleAppPainelAdminTagsRoute
   LocaleAppPainelAdminUsuariosUserIdRoute: typeof LocaleAppPainelAdminUsuariosUserIdRoute
   LocaleAppPainelAdminUsuariosIndexRoute: typeof LocaleAppPainelAdminUsuariosIndexRoute
@@ -660,6 +701,7 @@ interface LocaleAppPainelAdminRouteRouteChildren {
 const LocaleAppPainelAdminRouteRouteChildren: LocaleAppPainelAdminRouteRouteChildren =
   {
     LocaleAppPainelAdminClubeRoute: LocaleAppPainelAdminClubeRoute,
+    LocaleAppPainelAdminPagamentosRoute: LocaleAppPainelAdminPagamentosRoute,
     LocaleAppPainelAdminTagsRoute: LocaleAppPainelAdminTagsRoute,
     LocaleAppPainelAdminUsuariosUserIdRoute:
       LocaleAppPainelAdminUsuariosUserIdRoute,
@@ -696,6 +738,7 @@ interface LocaleAppPainelRouteChildren {
   LocaleAppPainelClubeRoute: typeof LocaleAppPainelClubeRoute
   LocaleAppPainelMinhaContaRoute: typeof LocaleAppPainelMinhaContaRoute
   LocaleAppPainelNotificacoesRoute: typeof LocaleAppPainelNotificacoesRoute
+  LocaleAppPainelPagamentosRoute: typeof LocaleAppPainelPagamentosRoute
   LocaleAppPainelRemediosRoute: typeof LocaleAppPainelRemediosRoute
   LocaleAppPainelIndexRoute: typeof LocaleAppPainelIndexRoute
   LocaleAppPainelApadrinhamentosApadrinhamentoIdRoute: typeof LocaleAppPainelApadrinhamentosApadrinhamentoIdRoute
@@ -709,6 +752,7 @@ const LocaleAppPainelRouteChildren: LocaleAppPainelRouteChildren = {
   LocaleAppPainelClubeRoute: LocaleAppPainelClubeRoute,
   LocaleAppPainelMinhaContaRoute: LocaleAppPainelMinhaContaRoute,
   LocaleAppPainelNotificacoesRoute: LocaleAppPainelNotificacoesRoute,
+  LocaleAppPainelPagamentosRoute: LocaleAppPainelPagamentosRoute,
   LocaleAppPainelRemediosRoute: LocaleAppPainelRemediosRoute,
   LocaleAppPainelIndexRoute: LocaleAppPainelIndexRoute,
   LocaleAppPainelApadrinhamentosApadrinhamentoIdRoute:

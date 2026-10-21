@@ -5,9 +5,11 @@ import {
   Gift,
   HeartHandshake,
   Home,
+  Landmark,
   LogOut,
   Menu,
   Pill,
+  Receipt,
   Tags,
   UserCircle,
   Users,
@@ -75,6 +77,12 @@ export function AppShell({ me, locale, children }: AppShellProps) {
       cargo: 'cliente',
     },
     {
+      to: `/${locale}/app/pagamentos`,
+      label: t`Meus pagamentos`,
+      icone: Receipt,
+      cargo: 'cliente',
+    },
+    {
       to: `/${locale}/app/admin/usuarios`,
       label: t`Pessoas`,
       icone: Users,
@@ -90,6 +98,12 @@ export function AppShell({ me, locale, children }: AppShellProps) {
       to: `/${locale}/app/admin/clube`,
       label: t`Assinantes`,
       icone: Gift,
+      cargo: 'adm',
+    },
+    {
+      to: `/${locale}/app/admin/pagamentos`,
+      label: t`Pagamentos`,
+      icone: Landmark,
       cargo: 'adm',
     },
     {

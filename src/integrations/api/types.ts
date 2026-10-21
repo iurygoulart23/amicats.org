@@ -298,3 +298,34 @@ export type AssinaturasClube = {
     criadoEm: string;
   }>;
 };
+
+export type TipoPagamento = 'clube' | 'apadrinhamento' | 'doacao';
+
+/** Um pagamento no histórico: mensalidade do Clube, parte do padrinho ou doação */
+export type Pagamento = {
+  id: string;
+  tipo: TipoPagamento;
+  status: StatusPagamento;
+  valorCentavos: number;
+  /** Quando foi pago ou, se ainda não foi, quando foi iniciado */
+  data: string;
+  /** Clube: nome da faixa */
+  plano: string | null;
+  /** Apadrinhamento: gato e mês pago (AAAA-MM) */
+  gato: { id: string; nome: string } | null;
+  mes: string | null;
+};
+
+export type PagamentoConciliacao = Pagamento & {
+  pessoa: { id: string | null; nome: string; email: string };
+  mpPagamentoId: string | null;
+};
+
+export type Conciliacao = {
+  resumo: {
+    aprovadoCentavos: number;
+    aprovadoPorTipo: Record<TipoPagamento, number>;
+    quantidade: Record<StatusPagamento, number>;
+  };
+  itens: Array<PagamentoConciliacao>;
+};

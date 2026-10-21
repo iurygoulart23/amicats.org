@@ -2465,3 +2465,54 @@ msgstr ""
 
 msgid "Doar online: pix, cartão ou boleto"
 msgstr ""
+
+msgid "Meus pagamentos"
+msgstr ""
+
+msgid "Cobranças do Clube, a sua parte nos apadrinhamentos e as doações feitas com a sua conta."
+msgstr ""
+
+msgid "Você ainda não tem pagamentos."
+msgstr ""
+
+msgid "Fazer uma doação"
+msgstr ""
+
+msgid "Pagamento"
+msgstr ""
+
+msgid "Pagamentos"
+msgstr ""
+
+msgid "Reconsultar pendentes no Mercado Pago"
+msgstr ""
+
+msgid "Nenhum pagamento pendente para consultar."
+msgstr ""
+
+msgid "{consultados} pendentes consultados, {atualizados} atualizados."
+msgstr ""
+
+msgid "Origem"
+msgstr ""
+
+msgid "Recebido"
+msgstr ""
+
+msgid "Pix e boleto ainda não compensados"
+msgstr ""
+
+msgid "Recusados e estornados"
+msgstr ""
+
+msgid "Quem pagou"
+msgstr ""
+
+msgid "Id no Mercado Pago"
+msgstr ""
+
+msgid "Nenhum pagamento com esses filtros."
+msgstr ""
+
+msgid "sem conta"
+msgstr ""

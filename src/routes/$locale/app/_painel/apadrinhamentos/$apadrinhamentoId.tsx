@@ -2,9 +2,9 @@ import { Link, createFileRoute, useNavigate } from '@tanstack/react-router';
 import { keepPreviousData, useQuery } from '@tanstack/react-query';
 import { useLingui } from '@lingui/react/macro';
 import { z } from 'zod';
-import type { StatusPagamento } from '@/integrations/api/types';
 import { AlertaErro } from '@/components/app/alerta-erro';
 import { Campo } from '@/components/app/campo';
+import { StatusPagamentoBadge } from '@/components/app/pagamento';
 import { formatarData } from '@/components/app/gato-saude';
 import {
   formatarMes,
@@ -48,19 +48,6 @@ function ExtratoPage() {
   // Quando é a equipe olhando o extrato de outra pessoa, o apadrinhamento não está em "meus".
   const ap = meus.data?.find((a) => a.id === apadrinhamentoId);
   const mesExibido = extrato.data?.mes ?? mes ?? mesAtual();
-
-  const rotuloPagamento: Record<StatusPagamento, string> = {
-    pendente: t`Aguardando pagamento`,
-    aprovado: t`Pago`,
-    recusado: t`Recusado`,
-    estornado: t`Estornado`,
-  };
-  const corPagamento: Record<StatusPagamento, string> = {
-    pendente: 'badge-warning',
-    aprovado: 'badge-success',
-    recusado: 'badge-error',
-    estornado: 'badge-ghost',
-  };
 
   const pagarParte = (mesDoExtrato: string) =>
     pagar.mutate(mesDoExtrato, {
@@ -204,9 +191,7 @@ function ExtratoPage() {
                       </span>
                     </span>
                     <span className="flex items-center gap-2">
-                      <span className={`badge badge-sm ${corPagamento[p.status]}`}>
-                        {rotuloPagamento[p.status]}
-                      </span>
+                      <StatusPagamentoBadge status={p.status} />
                       {p.checkoutUrl && ap && (
                         <a href={p.checkoutUrl} className="link text-sm">
                           {t`Continuar pagamento`}
