@@ -1,0 +1,33 @@
+#!/usr/bin/env bash
+# Banco Postgres descartável para testes manuais: dados em memória (tmpfs),
+# apagados ao parar. Uso:
+#   npm run db:temp        # sobe, aplica migrations e seed, imprime a DATABASE_URL
+#   npm run db:temp:stop   # para e apaga tudo
+set -euo pipefail
+
+NOME=amicats-db-temp
+PORTA=${DB_TEMP_PORTA:-5434}
+URL="postgresql://amicats:amicats@localhost:${PORTA}/amicats"
+
+if [[ "${1:-}" == "stop" ]]; then
+  docker rm -f "$NOME" >/dev/null 2>&1 && echo "Banco temporário removido." || echo "Nenhum banco temporário rodando."
+  exit 0
+fi
+
+docker rm -f "$NOME" >/dev/null 2>&1 || true
+docker run -d --rm --name "$NOME" -p "${PORTA}:5432" \
+  -e POSTGRES_USER=amicats -e POSTGRES_PASSWORD=amicats -e POSTGRES_DB=amicats \
+  --tmpfs /var/lib/postgresql/data \
+  postgres:16-alpine >/dev/null
+
+echo -n "Aguardando o Postgres"
+until docker exec "$NOME" pg_isready -U amicats >/dev/null 2>&1; do echo -n "."; sleep 1; done
+echo
+
+DATABASE_URL="$URL" npx prisma migrate deploy >/dev/null
+DATABASE_URL="$URL" npx tsx --env-file=.env prisma/seed.ts
+
+echo
+echo "Banco temporário pronto em ${URL}"
+echo "Suba a API apontando para ele:"
+echo "  DATABASE_URL=${URL} npm run dev"

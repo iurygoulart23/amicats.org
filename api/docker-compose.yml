@@ -1,0 +1,18 @@
+services:
+  db:
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_USER: amicats
+      POSTGRES_PASSWORD: amicats
+      POSTGRES_DB: amicats
+    ports:
+      - '5433:5432'
+    volumes:
+      - db-data:/var/lib/postgresql/data
+    healthcheck:
+      test: ['CMD-SHELL', 'pg_isready -U amicats']
+      interval: 2s
+      retries: 15
+
+volumes:
+  db-data:
