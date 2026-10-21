@@ -1976,9 +1976,6 @@ msgstr "No expenses in"
 msgid "Nenhum gasto lançado neste mês."
 msgstr "No expenses recorded this month."
 
-msgid "O pagamento online chega em breve. Até lá, a equipe da Amicats entra em contato para combinar."
-msgstr "Online payment is coming soon. Until then, the Amicats team will get in touch to arrange it."
-
 msgid "Outro"
 msgstr "Other"
 
@@ -2326,3 +2323,36 @@ msgstr "Monthly amount (R$)"
 
 msgid "mês"
 msgstr "month"
+
+msgid "Pago"
+msgstr "Paid"
+
+msgid "Recusado"
+msgstr "Declined"
+
+msgid "Estornado"
+msgstr "Refunded"
+
+msgid "Falta pagar"
+msgstr "Left to pay"
+
+msgid "Já pago:"
+msgstr "Already paid:"
+
+msgid "Pague a sua parte com pix, cartão ou boleto pelo Mercado Pago."
+msgstr "Pay your share with Pix, card or boleto through Mercado Pago."
+
+msgid "Pagar"
+msgstr "Pay"
+
+msgid "Este mês ainda está em andamento e podem entrar novos gastos. A sua parte fica disponível para pagamento quando ele terminar."
+msgstr "This month is still in progress and new expenses may come in. Your share can be paid once it ends."
+
+msgid "Pagamentos deste mês"
+msgstr "Payments this month"
+
+msgid "Continuar pagamento"
+msgstr "Continue payment"
+
+msgid "Falta pagar:"
+msgstr "Left to pay:"

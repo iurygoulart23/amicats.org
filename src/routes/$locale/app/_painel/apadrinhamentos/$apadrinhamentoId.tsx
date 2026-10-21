@@ -2,6 +2,7 @@ import { Link, createFileRoute, useNavigate } from '@tanstack/react-router';
 import { keepPreviousData, useQuery } from '@tanstack/react-query';
 import { useLingui } from '@lingui/react/macro';
 import { z } from 'zod';
+import type { StatusPagamento } from '@/integrations/api/types';
 import { AlertaErro } from '@/components/app/alerta-erro';
 import { Campo } from '@/components/app/campo';
 import { formatarData } from '@/components/app/gato-saude';
@@ -15,6 +16,7 @@ import {
   extratoQuery,
   meusApadrinhamentosQuery,
   useEncerrarApadrinhamento,
+  usePagarParte,
 } from '@/integrations/api/apadrinhamentos.queries';
 
 export const Route = createFileRoute(
@@ -42,9 +44,30 @@ function ExtratoPage() {
     placeholderData: keepPreviousData,
   });
   const encerrar = useEncerrarApadrinhamento();
+  const pagar = usePagarParte(apadrinhamentoId);
   // Quando é a equipe olhando o extrato de outra pessoa, o apadrinhamento não está em "meus".
   const ap = meus.data?.find((a) => a.id === apadrinhamentoId);
   const mesExibido = extrato.data?.mes ?? mes ?? mesAtual();
+
+  const rotuloPagamento: Record<StatusPagamento, string> = {
+    pendente: t`Aguardando pagamento`,
+    aprovado: t`Pago`,
+    recusado: t`Recusado`,
+    estornado: t`Estornado`,
+  };
+  const corPagamento: Record<StatusPagamento, string> = {
+    pendente: 'badge-warning',
+    aprovado: 'badge-success',
+    recusado: 'badge-error',
+    estornado: 'badge-ghost',
+  };
+
+  const pagarParte = (mesDoExtrato: string) =>
+    pagar.mutate(mesDoExtrato, {
+      onSuccess: ({ checkoutUrl }) => {
+        window.location.href = checkoutUrl;
+      },
+    });
 
   const encerrarApadrinhamento = () => {
     if (
@@ -90,7 +113,7 @@ function ExtratoPage() {
         </Campo>
       </div>
 
-      <AlertaErro erro={extrato.error ?? encerrar.error} />
+      <AlertaErro erro={extrato.error ?? encerrar.error ?? pagar.error} />
 
       {extrato.data && (
         <>
@@ -117,7 +140,84 @@ function ExtratoPage() {
               </div>
               <div className="stat-desc">{t`Total dividido igualmente entre os padrinhos`}</div>
             </div>
+            {extrato.data.fechado && (
+              <div className="stat">
+                <div className="stat-title">{t`Falta pagar`}</div>
+                <div
+                  className={
+                    extrato.data.faltaCentavos > 0
+                      ? 'stat-value text-2xl text-warning'
+                      : 'stat-value text-2xl text-success'
+                  }
+                >
+                  {formatarReais(extrato.data.faltaCentavos, i18n.locale)}
+                </div>
+                <div className="stat-desc">
+                  {t`Já pago:`}{' '}
+                  {formatarReais(extrato.data.pagoCentavos, i18n.locale)}
+                </div>
+              </div>
+            )}
           </div>
+
+          {/* Só o próprio padrinho paga; a equipe vê o extrato sem o botão. */}
+          {ap && extrato.data.fechado && extrato.data.faltaCentavos > 0 && (
+            <div className="card bg-base-100 shadow-sm">
+              <div className="card-body p-4 flex-row flex-wrap items-center justify-between gap-3">
+                <p className="text-sm">
+                  {t`Pague a sua parte com pix, cartão ou boleto pelo Mercado Pago.`}
+                </p>
+                <button
+                  type="button"
+                  className="btn btn-primary"
+                  onClick={() => pagarParte(extrato.data.mes)}
+                  disabled={pagar.isPending}
+                >
+                  {pagar.isPending && (
+                    <span className="loading loading-spinner loading-sm" />
+                  )}
+                  {t`Pagar`}{' '}
+                  {formatarReais(extrato.data.faltaCentavos, i18n.locale)}
+                </button>
+              </div>
+            </div>
+          )}
+          {!extrato.data.fechado && (
+            <p className="text-sm opacity-70">
+              {t`Este mês ainda está em andamento e podem entrar novos gastos. A sua parte fica disponível para pagamento quando ele terminar.`}
+            </p>
+          )}
+
+          {extrato.data.pagamentos.length > 0 && (
+            <div className="bg-base-100 rounded-box shadow-sm p-4">
+              <h2 className="font-semibold mb-2">{t`Pagamentos deste mês`}</h2>
+              <ul className="flex flex-col gap-2">
+                {extrato.data.pagamentos.map((p) => (
+                  <li
+                    key={p.id}
+                    className="flex flex-wrap items-center justify-between gap-2"
+                  >
+                    <span>
+                      {formatarReais(p.valorCentavos, i18n.locale)}{' '}
+                      <span className="text-sm opacity-70">
+                        {formatarData((p.pagoEm ?? p.criadoEm).slice(0, 10))}
+                      </span>
+                    </span>
+                    <span className="flex items-center gap-2">
+                      <span className={`badge badge-sm ${corPagamento[p.status]}`}>
+                        {rotuloPagamento[p.status]}
+                      </span>
+                      {p.checkoutUrl && ap && (
+                        <a href={p.checkoutUrl} className="link text-sm">
+                          {t`Continuar pagamento`}
+                        </a>
+                      )}
+                    </span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          )}
 
           <div className="overflow-x-auto bg-base-100 rounded-box shadow-sm">
             <table className="table">
@@ -152,9 +252,6 @@ function ExtratoPage() {
               </tbody>
             </table>
           </div>
-          <p className="text-sm opacity-70">
-            {t`O pagamento online chega em breve. Até lá, a equipe da Amicats entra em contato para combinar.`}
-          </p>
         </>
       )}
 

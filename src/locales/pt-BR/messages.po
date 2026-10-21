@@ -2016,9 +2016,6 @@ msgstr ""
 msgid "Nenhum gasto lançado neste mês."
 msgstr ""
 
-msgid "O pagamento online chega em breve. Até lá, a equipe da Amicats entra em contato para combinar."
-msgstr ""
-
 msgid "Outro"
 msgstr ""
 
@@ -2365,4 +2362,37 @@ msgid "Valor mensal (R$)"
 msgstr ""
 
 msgid "mês"
+msgstr ""
+
+msgid "Pago"
+msgstr ""
+
+msgid "Recusado"
+msgstr ""
+
+msgid "Estornado"
+msgstr ""
+
+msgid "Falta pagar"
+msgstr ""
+
+msgid "Já pago:"
+msgstr ""
+
+msgid "Pague a sua parte com pix, cartão ou boleto pelo Mercado Pago."
+msgstr ""
+
+msgid "Pagar"
+msgstr ""
+
+msgid "Este mês ainda está em andamento e podem entrar novos gastos. A sua parte fica disponível para pagamento quando ele terminar."
+msgstr ""
+
+msgid "Pagamentos deste mês"
+msgstr ""
+
+msgid "Continuar pagamento"
+msgstr ""
+
+msgid "Falta pagar:"
 msgstr ""

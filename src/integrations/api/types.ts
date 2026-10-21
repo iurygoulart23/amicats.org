@@ -123,6 +123,22 @@ export type Apadrinhamento = {
   inicio: string;
   fim: string | null;
   gato: { id: string; slug: string; nome: string; fotoUrl: string | null };
+  /** Soma do que falta pagar nos meses fechados */
+  faltaPagarCentavos: number;
+  /** Meses fechados com valor a pagar (AAAA-MM, do mais antigo ao mais recente) */
+  mesesEmAberto: Array<string>;
+};
+
+export type StatusPagamento = 'pendente' | 'aprovado' | 'recusado' | 'estornado';
+
+export type PagamentoParte = {
+  id: string;
+  valorCentavos: number;
+  status: StatusPagamento;
+  /** Só enquanto pendente: para retomar o pagamento */
+  checkoutUrl: string | null;
+  pagoEm: string | null;
+  criadoEm: string;
 };
 
 export type Extrato = GastosDoMes & {
@@ -130,6 +146,11 @@ export type Extrato = GastosDoMes & {
   padrinhosNoMes: number;
   /** Total do mês dividido igualmente entre os padrinhos do mês */
   parteCentavos: number;
+  pagoCentavos: number;
+  faltaCentavos: number;
+  /** Mês já encerrado: a parte pode ser paga */
+  fechado: boolean;
+  pagamentos: Array<PagamentoParte>;
 };
 
 export type Padrinho = {
@@ -207,7 +228,9 @@ export type TipoNotificacao =
   | 'apadrinhamento_novo'
   | 'dose_atrasada'
   | 'retorno_proximo'
-  | 'assinatura_nova';
+  | 'assinatura_nova'
+  | 'parte_do_mes'
+  | 'pagamento_aprovado';
 
 export type Notificacao = {
   id: string;

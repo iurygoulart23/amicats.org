@@ -49,3 +49,14 @@ export function useEncerrarApadrinhamento() {
     onSuccess: invalidar,
   });
 }
+
+/** Cria o checkout do Mercado Pago para a parte de um mês fechado. */
+export function usePagarParte(apadrinhamentoId: string) {
+  return useMutation({
+    mutationFn: (mes: string) =>
+      api<{ checkoutUrl: string }>(
+        `/apadrinhamentos/${apadrinhamentoId}/pagamentos`,
+        { method: 'POST', body: { mes } },
+      ),
+  });
+}

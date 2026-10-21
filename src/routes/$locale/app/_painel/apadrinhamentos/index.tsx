@@ -4,6 +4,7 @@ import { useLingui } from '@lingui/react/macro';
 import { Cat } from 'lucide-react';
 import { AlertaErro } from '@/components/app/alerta-erro';
 import { formatarData } from '@/components/app/gato-saude';
+import { formatarReais } from '@/components/app/shared/formatos';
 import { meusApadrinhamentosQuery } from '@/integrations/api/apadrinhamentos.queries';
 
 export const Route = createFileRoute('/$locale/app/_painel/apadrinhamentos/')({
@@ -11,7 +12,7 @@ export const Route = createFileRoute('/$locale/app/_painel/apadrinhamentos/')({
 });
 
 function MeusApadrinhamentosPage() {
-  const { t } = useLingui();
+  const { t, i18n } = useLingui();
   const { locale } = Route.useParams();
   const lista = useQuery(meusApadrinhamentosQuery);
 
@@ -44,6 +45,7 @@ function MeusApadrinhamentosPage() {
             key={ap.id}
             to="/$locale/app/apadrinhamentos/$apadrinhamentoId"
             params={{ locale, apadrinhamentoId: ap.id }}
+            search={{ mes: ap.mesesEmAberto[0] }}
             className={
               ap.ativo
                 ? 'card bg-base-100 shadow-sm hover:shadow-md transition-all duration-300'
@@ -72,6 +74,12 @@ function MeusApadrinhamentosPage() {
                 {t`Desde`} {formatarData(ap.inicio)}
                 {ap.fim && ` → ${formatarData(ap.fim)}`}
               </p>
+              {ap.faltaPagarCentavos > 0 && (
+                <p className="text-sm font-medium text-warning">
+                  {t`Falta pagar:`}{' '}
+                  {formatarReais(ap.faltaPagarCentavos, i18n.locale)}
+                </p>
+              )}
             </div>
           </Link>
         ))}
