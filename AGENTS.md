@@ -41,14 +41,15 @@ src/
 
 ## Commands
 
-| Action        | Command             |
-| ------------- | ------------------- |
-| Install       | `npm ci`            |
-| Dev           | `npm run dev`       |
-| Build         | `npm run build`     |
-| Lint + format | `npm run check`     |
-| Test          | `npm test`          |
-| Storybook     | `npm run storybook` |
+| Action         | Command             |
+| -------------- | ------------------- |
+| Install        | `npm ci`            |
+| Dev            | `npm run dev`       |
+| Build          | `npm run build`     |
+| Lint + format  | `npm run check`     |
+| Test           | `npm test`          |
+| E2E (site+API) | `npm run e2e`       |
+| Storybook      | `npm run storybook` |
 
 ## Verification after edits
 
@@ -117,6 +118,7 @@ If tests exist: `npm run check && npm test && npm run build`
 - Co-locate tests: `button.test.tsx` next to `button/index.tsx`
 - Use `@testing-library/react` + `vi` mocks from Vitest
 - Mock network with msw or injected adapters
+- End-to-end flows live in `e2e/` (Playwright, run with `npm run e2e`; needs Docker). They run against a real API and a throwaway database, so update the matching spec when a user flow changes
 
 ### Test policies for agents
 

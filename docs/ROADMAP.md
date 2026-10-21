@@ -46,6 +46,8 @@ Repositório único (`amicats.org`):
 ### Infra
 
 - 🧪 Dockerfile da API
+- 🧪 Testes ponta a ponta (Playwright) com os fluxos das Fases 1 a 3: `npm run e2e` sobe banco descartável, API com simulador do Mercado Pago e caixa de e-mails, e site isolados das portas de desenvolvimento
+- ⬜ Rodar `npm run e2e` na CI antes de publicar
 - ⬜ Agendar `POST /tarefas/verificar-pendencias` a cada 15 min (Cloud Scheduler ou cron) com `TAREFAS_TOKEN`
 - ⏸️ Hospedagem da API: Cloud Run, Render ou Railway (a decidir)
 - ⬜ Banco Postgres no Neon (homolog e produção)
@@ -114,6 +116,7 @@ Repositório único (`amicats.org`):
 
 | Data       | Feature                                                                                                                                                                                     | Repositório | Observações                                                                                                                     |
 | ---------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------- | ------------------------------------------------------------------------------------------------------------------------------- |
+| 2026-10-21 | Testes ponta a ponta com Playwright (`e2e/`): cargos e convite, gatos e catálogo, apadrinhamento, medicação e veterinário (incl. tela de celular), notificações e e-mail, Clube Amicats     | site + api/ | 7 testes passando; API ganhou `CAIXA_DEV` (e-mails em memória em `/dev/emails`, proibido em produção); API 126 testes           |
 | 2026-10-21 | Fase 3 (parte 1): Clube Amicats — faixas, assinatura via checkout do Mercado Pago, webhook, cobranças, cancelamento, painel de assinantes e receita mensal, simulador para desenvolvimento  | api/ + site | API 123 testes; fluxo E2E do clube com simulador (6 passos); falta validar com credenciais do Mercado Pago; ainda não publicado |
 | 2026-10-20 | Fase 2 (parte 3): notificações (sininho, página, resumo diário por e-mail, verificação de pendências)                                                                                       | api/ + site | API 102 testes; fluxo E2E de notificações (5 passos); ainda não publicado                                                       |
 | 2026-10-20 | Fase 2 (parte 2): medicação (prescrições, remédios do dia, doses dadas/puladas) e veterinário (eventos e retornos)                                                                          | api/ + site | API 92 testes; fluxo E2E de medicação (7 passos) + tela de celular conferida; ainda não publicado                               |
