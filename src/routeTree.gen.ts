@@ -20,6 +20,8 @@ import { Route as LocaleAppEsqueciSenhaRouteImport } from './routes/$locale/app/
 import { Route as LocaleAppLoginRouteImport } from './routes/$locale/app/login'
 import { Route as LocaleAppRedefinirSenhaRouteImport } from './routes/$locale/app/redefinir-senha'
 import { Route as LocaleComoFuncionaIndexRouteImport } from './routes/$locale/como-funciona/index'
+import { Route as LocaleDoarIndexRouteImport } from './routes/$locale/doar/index'
+import { Route as LocaleDoarObrigadoRouteImport } from './routes/$locale/doar/obrigado'
 import { Route as LocaleQueroAjudarIndexRouteImport } from './routes/$locale/quero-ajudar/index'
 import { Route as LocaleSejaUmParceiroIndexRouteImport } from './routes/$locale/seja-um-parceiro/index'
 import { Route as LocaleAppPainelIndexRouteImport } from './routes/$locale/app/_painel/index'
@@ -92,6 +94,16 @@ const LocaleAppRedefinirSenhaRoute = LocaleAppRedefinirSenhaRouteImport.update({
 const LocaleComoFuncionaIndexRoute = LocaleComoFuncionaIndexRouteImport.update({
   id: '/como-funciona/',
   path: '/como-funciona/',
+  getParentRoute: () => LocaleRoute,
+} as any)
+const LocaleDoarIndexRoute = LocaleDoarIndexRouteImport.update({
+  id: '/doar/',
+  path: '/doar/',
+  getParentRoute: () => LocaleRoute,
+} as any)
+const LocaleDoarObrigadoRoute = LocaleDoarObrigadoRouteImport.update({
+  id: '/doar/obrigado',
+  path: '/doar/obrigado',
   getParentRoute: () => LocaleRoute,
 } as any)
 const LocaleQueroAjudarIndexRoute = LocaleQueroAjudarIndexRouteImport.update({
@@ -215,7 +227,9 @@ export interface FileRoutesByFullPath {
   '/$locale/app/esqueci-senha': typeof LocaleAppEsqueciSenhaRoute
   '/$locale/app/login': typeof LocaleAppLoginRoute
   '/$locale/app/redefinir-senha': typeof LocaleAppRedefinirSenhaRoute
+  '/$locale/doar/obrigado': typeof LocaleDoarObrigadoRoute
   '/$locale/como-funciona/': typeof LocaleComoFuncionaIndexRoute
+  '/$locale/doar/': typeof LocaleDoarIndexRoute
   '/$locale/quero-ajudar/': typeof LocaleQueroAjudarIndexRoute
   '/$locale/seja-um-parceiro/': typeof LocaleSejaUmParceiroIndexRoute
   '/$locale/app/admin': typeof LocaleAppPainelAdminRouteRouteWithChildren
@@ -245,7 +259,9 @@ export interface FileRoutesByTo {
   '/$locale/app/esqueci-senha': typeof LocaleAppEsqueciSenhaRoute
   '/$locale/app/login': typeof LocaleAppLoginRoute
   '/$locale/app/redefinir-senha': typeof LocaleAppRedefinirSenhaRoute
+  '/$locale/doar/obrigado': typeof LocaleDoarObrigadoRoute
   '/$locale/como-funciona': typeof LocaleComoFuncionaIndexRoute
+  '/$locale/doar': typeof LocaleDoarIndexRoute
   '/$locale/quero-ajudar': typeof LocaleQueroAjudarIndexRoute
   '/$locale/seja-um-parceiro': typeof LocaleSejaUmParceiroIndexRoute
   '/$locale/app/admin': typeof LocaleAppPainelAdminRouteRouteWithChildren
@@ -276,7 +292,9 @@ export interface FileRoutesById {
   '/$locale/app/esqueci-senha': typeof LocaleAppEsqueciSenhaRoute
   '/$locale/app/login': typeof LocaleAppLoginRoute
   '/$locale/app/redefinir-senha': typeof LocaleAppRedefinirSenhaRoute
+  '/$locale/doar/obrigado': typeof LocaleDoarObrigadoRoute
   '/$locale/como-funciona/': typeof LocaleComoFuncionaIndexRoute
+  '/$locale/doar/': typeof LocaleDoarIndexRoute
   '/$locale/quero-ajudar/': typeof LocaleQueroAjudarIndexRoute
   '/$locale/seja-um-parceiro/': typeof LocaleSejaUmParceiroIndexRoute
   '/$locale/app/_painel/admin': typeof LocaleAppPainelAdminRouteRouteWithChildren
@@ -309,7 +327,9 @@ export interface FileRouteTypes {
     | '/$locale/app/esqueci-senha'
     | '/$locale/app/login'
     | '/$locale/app/redefinir-senha'
+    | '/$locale/doar/obrigado'
     | '/$locale/como-funciona/'
+    | '/$locale/doar/'
     | '/$locale/quero-ajudar/'
     | '/$locale/seja-um-parceiro/'
     | '/$locale/app/admin'
@@ -339,7 +359,9 @@ export interface FileRouteTypes {
     | '/$locale/app/esqueci-senha'
     | '/$locale/app/login'
     | '/$locale/app/redefinir-senha'
+    | '/$locale/doar/obrigado'
     | '/$locale/como-funciona'
+    | '/$locale/doar'
     | '/$locale/quero-ajudar'
     | '/$locale/seja-um-parceiro'
     | '/$locale/app/admin'
@@ -369,7 +391,9 @@ export interface FileRouteTypes {
     | '/$locale/app/esqueci-senha'
     | '/$locale/app/login'
     | '/$locale/app/redefinir-senha'
+    | '/$locale/doar/obrigado'
     | '/$locale/como-funciona/'
+    | '/$locale/doar/'
     | '/$locale/quero-ajudar/'
     | '/$locale/seja-um-parceiro/'
     | '/$locale/app/_painel/admin'
@@ -474,6 +498,20 @@ declare module '@tanstack/react-router' {
       path: '/como-funciona'
       fullPath: '/$locale/como-funciona/'
       preLoaderRoute: typeof LocaleComoFuncionaIndexRouteImport
+      parentRoute: typeof LocaleRoute
+    }
+    '/$locale/doar/': {
+      id: '/$locale/doar/'
+      path: '/doar'
+      fullPath: '/$locale/doar/'
+      preLoaderRoute: typeof LocaleDoarIndexRouteImport
+      parentRoute: typeof LocaleRoute
+    }
+    '/$locale/doar/obrigado': {
+      id: '/$locale/doar/obrigado'
+      path: '/doar/obrigado'
+      fullPath: '/$locale/doar/obrigado'
+      preLoaderRoute: typeof LocaleDoarObrigadoRouteImport
       parentRoute: typeof LocaleRoute
     }
     '/$locale/quero-ajudar/': {
@@ -707,7 +745,9 @@ const LocaleAppRouteRouteWithChildren = LocaleAppRouteRoute._addFileChildren(
 interface LocaleRouteChildren {
   LocaleAppRouteRoute: typeof LocaleAppRouteRouteWithChildren
   LocaleIndexRoute: typeof LocaleIndexRoute
+  LocaleDoarObrigadoRoute: typeof LocaleDoarObrigadoRoute
   LocaleComoFuncionaIndexRoute: typeof LocaleComoFuncionaIndexRoute
+  LocaleDoarIndexRoute: typeof LocaleDoarIndexRoute
   LocaleQueroAjudarIndexRoute: typeof LocaleQueroAjudarIndexRoute
   LocaleSejaUmParceiroIndexRoute: typeof LocaleSejaUmParceiroIndexRoute
 }
@@ -715,7 +755,9 @@ interface LocaleRouteChildren {
 const LocaleRouteChildren: LocaleRouteChildren = {
   LocaleAppRouteRoute: LocaleAppRouteRouteWithChildren,
   LocaleIndexRoute: LocaleIndexRoute,
+  LocaleDoarObrigadoRoute: LocaleDoarObrigadoRoute,
   LocaleComoFuncionaIndexRoute: LocaleComoFuncionaIndexRoute,
+  LocaleDoarIndexRoute: LocaleDoarIndexRoute,
   LocaleQueroAjudarIndexRoute: LocaleQueroAjudarIndexRoute,
   LocaleSejaUmParceiroIndexRoute: LocaleSejaUmParceiroIndexRoute,
 }

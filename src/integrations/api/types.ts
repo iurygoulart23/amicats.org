@@ -129,7 +129,8 @@ export type Apadrinhamento = {
   mesesEmAberto: Array<string>;
 };
 
-export type StatusPagamento = 'pendente' | 'aprovado' | 'recusado' | 'estornado';
+export type StatusPagamento =
+  'pendente' | 'aprovado' | 'recusado' | 'estornado';
 
 export type PagamentoParte = {
   id: string;
@@ -139,6 +140,15 @@ export type PagamentoParte = {
   checkoutUrl: string | null;
   pagoEm: string | null;
   criadoEm: string;
+};
+
+/** Situação pública de uma doação (página de obrigado) */
+export type Doacao = {
+  id: string;
+  status: StatusPagamento;
+  valorCentavos: number;
+  checkoutUrl: string | null;
+  pagoEm: string | null;
 };
 
 export type Extrato = GastosDoMes & {
@@ -230,7 +240,8 @@ export type TipoNotificacao =
   | 'retorno_proximo'
   | 'assinatura_nova'
   | 'parte_do_mes'
-  | 'pagamento_aprovado';
+  | 'pagamento_aprovado'
+  | 'doacao_recebida';
 
 export type Notificacao = {
   id: string;

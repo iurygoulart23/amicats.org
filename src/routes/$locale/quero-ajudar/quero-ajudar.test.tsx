@@ -50,14 +50,14 @@ describe('Route: /quero-ajudar/ — basic UI contract', () => {
     );
     expect(doacaoRecorrente).toBeInTheDocument();
 
-    // Boleto / Asaas link present
-    const boleto = within(content as HTMLElement).getByRole('link', {
-      name: /Doe por Boleto/i,
+    // Doação online (pix, cartão ou boleto pelo Mercado Pago)
+    const doarOnline = within(content as HTMLElement).getByRole('link', {
+      name: /Doar online/i,
     });
-    expect(boleto).toBeInTheDocument();
+    expect(doarOnline).toBeInTheDocument();
     expect(
-      boleto.getAttribute('href') || boleto.getAttribute('to') || '',
-    ).toMatch(/asaas\.com/);
+      doarOnline.getAttribute('href') || doarOnline.getAttribute('to') || '',
+    ).toMatch(/\/doar/);
 
     // DonationCard: link to apadrinhamento (bottom ghost button)
     const saibaApadrinhar = within(content as HTMLElement).getByRole('link', {

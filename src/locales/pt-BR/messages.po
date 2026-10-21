@@ -2396,3 +2396,72 @@ msgstr ""
 
 msgid "Falta pagar:"
 msgstr ""
+
+msgid "Doe para a Amicats"
+msgstr ""
+
+msgid "Qualquer valor ajuda a manter o abrigo: ração, remédios, veterinário e muito carinho."
+msgstr ""
+
+msgid "Doação"
+msgstr ""
+
+msgid "Valor da doação"
+msgstr ""
+
+msgid "Outro valor"
+msgstr ""
+
+msgid "Quanto você quer doar (R$)"
+msgstr ""
+
+msgid "Mínimo de R$ 5,00"
+msgstr ""
+
+msgid "Para enviarmos o agradecimento."
+msgstr ""
+
+msgid "Doando como"
+msgstr ""
+
+msgid "Doar"
+msgstr ""
+
+msgid "Você será levado ao Mercado Pago para pagar com pix, cartão ou boleto."
+msgstr ""
+
+msgid "Obrigado!"
+msgstr ""
+
+msgid "Cada doação faz diferença na vida dos gatos do abrigo."
+msgstr ""
+
+msgid "Não encontramos esta doação."
+msgstr ""
+
+msgid "Recebemos a sua doação de"
+msgstr ""
+
+msgid "Enviamos um agradecimento para o seu e-mail."
+msgstr ""
+
+msgid "Aguardando a confirmação do pagamento"
+msgstr ""
+
+msgid "Pix e cartão costumam confirmar em instantes; boleto, em até 3 dias úteis. Esta página se atualiza sozinha."
+msgstr ""
+
+msgid "O pagamento não foi aprovado"
+msgstr ""
+
+msgid "Este pagamento foi estornado"
+msgstr ""
+
+msgid "Tentar de novo"
+msgstr ""
+
+msgid "Voltar para o site"
+msgstr ""
+
+msgid "Doar online: pix, cartão ou boleto"
+msgstr ""

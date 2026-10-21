@@ -2356,3 +2356,72 @@ msgstr "Continue payment"
 
 msgid "Falta pagar:"
 msgstr "Left to pay:"
+
+msgid "Doe para a Amicats"
+msgstr "Donate to Amicats"
+
+msgid "Qualquer valor ajuda a manter o abrigo: ração, remédios, veterinário e muito carinho."
+msgstr "Any amount helps keep the shelter going: food, medicine, vet care and lots of love."
+
+msgid "Doação"
+msgstr "Donation"
+
+msgid "Valor da doação"
+msgstr "Donation amount"
+
+msgid "Outro valor"
+msgstr "Other amount"
+
+msgid "Quanto você quer doar (R$)"
+msgstr "How much do you want to donate (R$)"
+
+msgid "Mínimo de R$ 5,00"
+msgstr "Minimum R$ 5.00"
+
+msgid "Para enviarmos o agradecimento."
+msgstr "So we can send you a thank-you note."
+
+msgid "Doando como"
+msgstr "Donating as"
+
+msgid "Doar"
+msgstr "Donate"
+
+msgid "Você será levado ao Mercado Pago para pagar com pix, cartão ou boleto."
+msgstr "You will be taken to Mercado Pago to pay with Pix, card or boleto."
+
+msgid "Obrigado!"
+msgstr "Thank you!"
+
+msgid "Cada doação faz diferença na vida dos gatos do abrigo."
+msgstr "Every donation makes a difference in the lives of the shelter cats."
+
+msgid "Não encontramos esta doação."
+msgstr "We couldn't find this donation."
+
+msgid "Recebemos a sua doação de"
+msgstr "We received your donation of"
+
+msgid "Enviamos um agradecimento para o seu e-mail."
+msgstr "We sent a thank-you note to your email."
+
+msgid "Aguardando a confirmação do pagamento"
+msgstr "Waiting for payment confirmation"
+
+msgid "Pix e cartão costumam confirmar em instantes; boleto, em até 3 dias úteis. Esta página se atualiza sozinha."
+msgstr "Pix and card usually confirm within moments; boleto takes up to 3 business days. This page updates on its own."
+
+msgid "O pagamento não foi aprovado"
+msgstr "The payment was not approved"
+
+msgid "Este pagamento foi estornado"
+msgstr "This payment was refunded"
+
+msgid "Tentar de novo"
+msgstr "Try again"
+
+msgid "Voltar para o site"
+msgstr "Back to the website"
+
+msgid "Doar online: pix, cartão ou boleto"
+msgstr "Donate online: Pix, card or boleto"

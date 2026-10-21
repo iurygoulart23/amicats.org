@@ -4,6 +4,7 @@ import {
   BadgeCheck,
   CalendarClock,
   Gift,
+  HandCoins,
   HeartHandshake,
   Pill,
   Receipt,
@@ -29,6 +30,7 @@ const ICONES: Record<TipoNotificacao, LucideIcon> = {
   assinatura_nova: Gift,
   parte_do_mes: Wallet,
   pagamento_aprovado: BadgeCheck,
+  doacao_recebida: HandCoins,
 };
 
 function quandoFoi(iso: string, locale: string) {
