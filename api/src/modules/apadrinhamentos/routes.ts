@@ -1,8 +1,6 @@
 import { z } from 'zod';
-import {
-  STATUS_APADRINHAVEIS,
-  STATUS_PAGAMENTO,
-} from '../../domain/apadrinhamento.js';
+import { STATUS_APADRINHAVEIS } from '../../domain/apadrinhamento.js';
+import { STATUS_PAGAMENTO } from '../../domain/pagamento.js';
 import { podeAcessar } from '../../domain/cargos.js';
 import {
   MesISO,
@@ -22,7 +20,7 @@ import {
 } from '../notificacoes/notificar.js';
 import { sincronizarPendentes } from './pagamentos.js';
 import { mesFechado, mesesFechados, situacaoDosMeses } from './situacao.js';
-import type { StatusPagamento } from '../../domain/apadrinhamento.js';
+import type { StatusPagamento } from '../../domain/pagamento.js';
 import type { StatusGato } from '../../domain/gato.js';
 import type { FastifyPluginAsyncZod } from 'fastify-type-provider-zod';
 import type { FastifyRequest } from 'fastify';

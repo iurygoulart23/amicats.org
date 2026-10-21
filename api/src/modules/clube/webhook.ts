@@ -1,7 +1,7 @@
 import { z } from 'zod';
 import { HttpError } from '../../lib/errors.js';
 import { verificarAssinaturaWebhook } from '../../lib/mercadopago.js';
-import { aplicarPagamentoMp } from '../apadrinhamentos/pagamentos.js';
+import { aplicarPagamentoAvulsoMp } from '../pagamentos-avulsos.js';
 import { aplicarAssinaturaMp, aplicarCobrancaMp } from './sincronizar.js';
 import type { FastifyPluginAsyncZod } from 'fastify-type-provider-zod';
 
@@ -76,10 +76,10 @@ export const webhookMercadoPagoRoutes: FastifyPluginAsyncZod = async (app) => {
         const cobranca = await pagamentos.obterCobranca(dataId);
         await aplicarCobrancaMp(app.deps, cobranca);
       } else if (tipo === 'payment') {
-        // Pagamentos avulsos (parte do padrinho). Cobranças do Clube também chegam
-        // como 'payment', mas não têm correspondente e são ignoradas.
+        // Pagamentos avulsos (parte do padrinho e doações). Cobranças do Clube também
+        // chegam como 'payment', mas não têm correspondente e são ignoradas.
         const pagamento = await pagamentos.obterPagamento(dataId);
-        await aplicarPagamentoMp(app.deps, pagamento, request.log);
+        await aplicarPagamentoAvulsoMp(app.deps, pagamento, request.log);
       }
       return reply.status(200).send({ ok: true });
     },

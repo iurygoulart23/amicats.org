@@ -1,5 +1,5 @@
 import { z } from 'zod';
-import { statusDoPagamento } from '../../domain/apadrinhamento.js';
+import { atualizacaoDoPagamento } from '../../domain/pagamento.js';
 import {
   notificarPagamentoAprovado,
   notificarSemFalhar,
@@ -34,27 +34,13 @@ export async function aplicarPagamentoMp(
   });
   if (!local) return null;
 
-  const status = statusDoPagamento(mp.status);
-  // Uma tentativa recusada no mesmo checkout não desfaz o que já foi aprovado;
-  // só o estorno do próprio pagamento aprovado muda o status.
-  if (
-    local.status === 'aprovado' &&
-    !(status === 'estornado' && mp.id === local.mpPagamentoId)
-  ) {
-    return local;
-  }
+  const dados = atualizacaoDoPagamento(local, mp);
+  if (!dados) return local;
 
-  const ficouAprovado = status === 'aprovado';
+  const ficouAprovado = dados.status === 'aprovado';
   const atualizado = await prisma.pagamentoApadrinhamento.update({
     where: { id: local.id },
-    data: {
-      status,
-      mpPagamentoId: mp.id,
-      ...(ficouAprovado && {
-        valorCentavos: mp.valorCentavos,
-        pagoEm: mp.data,
-      }),
-    },
+    data: dados,
   });
   if (ficouAprovado) {
     await notificarSemFalhar(log, () =>

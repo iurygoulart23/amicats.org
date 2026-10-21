@@ -31,23 +31,6 @@ export function parteDoPadrinho(
     : totalCentavos;
 }
 
-export const STATUS_PAGAMENTO = [
-  'pendente',
-  'aprovado',
-  'recusado',
-  'estornado',
-] as const;
-export type StatusPagamento = (typeof STATUS_PAGAMENTO)[number];
-
-/** Status do pagamento no Mercado Pago → nosso status. */
-export function statusDoPagamento(statusMp: string): StatusPagamento {
-  if (statusMp === 'approved') return 'aprovado';
-  if (statusMp === 'rejected' || statusMp === 'cancelled') return 'recusado';
-  if (statusMp === 'refunded' || statusMp === 'charged_back')
-    return 'estornado';
-  return 'pendente';
-}
-
 /** O que ainda falta pagar no mês (pagamentos a mais não viram crédito). */
 export function faltaPagar(parteCentavos: number, pagoCentavos: number) {
   return Math.max(0, parteCentavos - pagoCentavos);

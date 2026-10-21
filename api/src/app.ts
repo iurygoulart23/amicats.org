@@ -29,6 +29,7 @@ import { clubeRoutes } from './modules/clube/routes.js';
 import { webhookMercadoPagoRoutes } from './modules/clube/webhook.js';
 import { devMercadoPagoRoutes } from './modules/clube/dev-mercadopago.js';
 import { devEmailsRoutes } from './modules/dev-emails.js';
+import { doacoesRoutes } from './modules/doacoes/routes.js';
 import {
   veterinarioGatoRoutes,
   veterinarioRoutes,
@@ -152,6 +153,7 @@ export async function buildApp(
   await app.register(notificacoesRoutes, { prefix: '/notificacoes' });
   await app.register(tarefasRoutes, { prefix: '/tarefas' });
   await app.register(clubeRoutes, { prefix: '/clube' });
+  await app.register(doacoesRoutes, { prefix: '/doacoes' });
   await app.register(webhookMercadoPagoRoutes, { prefix: '/webhooks' });
   if (deps.caixaDev) {
     await app.register(devEmailsRoutes(deps.caixaDev), { prefix: '/dev' });

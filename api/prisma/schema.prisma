@@ -35,6 +35,7 @@ model User {
   eventosVet      EventoVeterinario[]
   notificacoes    Notificacao[]
   assinaturas     Assinatura[]
+  doacoes         Doacao[]
 
   @@map("users")
 }
@@ -300,7 +301,7 @@ model EventoVeterinario {
 model Notificacao {
   id             String    @id @default(uuid()) @db.Uuid
   userId         String    @map("user_id") @db.Uuid
-  /// 'gasto_novo' | 'apadrinhamento_novo' | 'dose_atrasada' | 'retorno_proximo' | 'assinatura_nova' | 'parte_do_mes' | 'pagamento_aprovado'
+  /// 'gasto_novo' | 'apadrinhamento_novo' | 'dose_atrasada' | 'retorno_proximo' | 'assinatura_nova' | 'parte_do_mes' | 'pagamento_aprovado' | 'doacao_recebida'
   tipo           String
   titulo         String
   mensagem       String    @default("")
@@ -377,4 +378,32 @@ model CobrancaAssinatura {
 
   @@index([assinaturaId])
   @@map("cobrancas_assinatura")
+}
+
+/// Doação avulsa (Checkout do Mercado Pago: pix, cartão ou boleto). Não exige conta.
+model Doacao {
+  id              String    @id @default(uuid()) @db.Uuid
+  /// Conta de quem doou, quando estava logado
+  userId          String?   @map("user_id") @db.Uuid
+  nome            String
+  email           String
+  valorCentavos   Int       @map("valor_centavos")
+  /// 'pendente' | 'aprovado' | 'recusado' | 'estornado'
+  status          String    @default("pendente")
+  /// id da preferência (checkout) no Mercado Pago
+  mpPreferenciaId String?   @unique @map("mp_preferencia_id")
+  /// id do último pagamento feito nesse checkout
+  mpPagamentoId   String?   @unique @map("mp_pagamento_id")
+  checkoutUrl     String?   @map("checkout_url")
+  pagoEm          DateTime? @map("pago_em")
+  /// E-mail de agradecimento já enviado
+  agradecidaEm    DateTime? @map("agradecida_em")
+  criadoEm        DateTime  @default(now()) @map("criado_em")
+  atualizadoEm    DateTime  @updatedAt @map("atualizado_em")
+
+  user User? @relation(fields: [userId], references: [id], onDelete: SetNull)
+
+  @@index([status])
+  @@index([userId])
+  @@map("doacoes")
 }

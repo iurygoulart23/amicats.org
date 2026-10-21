@@ -1,6 +1,6 @@
 import { z } from 'zod';
 import { naoEncontrado } from '../../lib/errors.js';
-import { aplicarPagamentoMp } from '../apadrinhamentos/pagamentos.js';
+import { aplicarPagamentoAvulsoMp } from '../pagamentos-avulsos.js';
 import { aplicarAssinaturaMp, aplicarCobrancaMp } from './sincronizar.js';
 import type { FastifyPluginAsyncZod } from 'fastify-type-provider-zod';
 import type { SimuladorMp } from '../../lib/mercadopago-simulado.js';
@@ -51,7 +51,7 @@ export function devMercadoPagoRoutes(
 
         // Faz o papel dos webhooks que o Mercado Pago enviaria.
         if (aprovado.tipo === 'checkout') {
-          await aplicarPagamentoMp(
+          await aplicarPagamentoAvulsoMp(
             app.deps,
             await simulador.gateway.obterPagamento(aprovado.pagamentoId),
             request.log,

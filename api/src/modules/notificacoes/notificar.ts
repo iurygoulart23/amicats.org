@@ -8,7 +8,8 @@ export type TipoNotificacao =
   | 'retorno_proximo'
   | 'assinatura_nova'
   | 'parte_do_mes'
-  | 'pagamento_aprovado';
+  | 'pagamento_aprovado'
+  | 'doacao_recebida';
 
 export type NovaNotificacao = {
   userId: string;
@@ -146,6 +147,26 @@ export async function notificarPagamentoAprovado(
       mensagem: `${ap.user.nome} pagou ${reais(pagamento.valorCentavos)} referente a ${mesPorExtenso(pagamento.mes)}.`,
       link: `/app/gatos/${ap.gatoId}?aba=gastos`,
       chave: `pagamento:${pagamento.id}`,
+    })),
+  );
+}
+
+export async function notificarDoacaoRecebida(
+  prisma: PrismaClient,
+  doacao: { id: string; nome: string; valorCentavos: number },
+) {
+  const adms = await prisma.user.findMany({
+    where: { cargo: 'adm', ativo: true },
+    select: { id: true },
+  });
+  return notificar(
+    prisma,
+    adms.map((adm) => ({
+      userId: adm.id,
+      tipo: 'doacao_recebida',
+      titulo: `Doação recebida: ${reais(doacao.valorCentavos)}`,
+      mensagem: `${doacao.nome} fez uma doação.`,
+      chave: `doacao:${doacao.id}`,
     })),
   );
 }
