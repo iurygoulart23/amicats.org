@@ -1,6 +1,7 @@
 import { z } from 'zod';
 import { HttpError } from '../../lib/errors.js';
 import { verificarAssinaturaWebhook } from '../../lib/mercadopago.js';
+import { aplicarPagamentoMp } from '../apadrinhamentos/pagamentos.js';
 import { aplicarAssinaturaMp, aplicarCobrancaMp } from './sincronizar.js';
 import type { FastifyPluginAsyncZod } from 'fastify-type-provider-zod';
 
@@ -18,7 +19,7 @@ export const webhookMercadoPagoRoutes: FastifyPluginAsyncZod = async (app) => {
       schema: {
         tags: ['webhooks'],
         summary:
-          'Avisos do Mercado Pago sobre assinaturas e cobranças (assinatura x-signature)',
+          'Avisos do Mercado Pago sobre assinaturas, cobranças e pagamentos (assinatura x-signature)',
         querystring: z.looseObject({
           'data.id': z.string().optional(),
           type: z.string().optional(),
@@ -74,6 +75,11 @@ export const webhookMercadoPagoRoutes: FastifyPluginAsyncZod = async (app) => {
       } else if (tipo === 'subscription_authorized_payment') {
         const cobranca = await pagamentos.obterCobranca(dataId);
         await aplicarCobrancaMp(app.deps, cobranca);
+      } else if (tipo === 'payment') {
+        // Pagamentos avulsos (parte do padrinho). Cobranças do Clube também chegam
+        // como 'payment', mas não têm correspondente e são ignoradas.
+        const pagamento = await pagamentos.obterPagamento(dataId);
+        await aplicarPagamentoMp(app.deps, pagamento, request.log);
       }
       return reply.status(200).send({ ok: true });
     },

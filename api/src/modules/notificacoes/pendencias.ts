@@ -3,8 +3,15 @@ import {
   dosesPrevistas,
   intervaloDoDiaNoAbrigo,
 } from '../../domain/medicacao.js';
-import { deData, paraData } from '../../lib/datas.js';
-import { notificar } from './notificar.js';
+import {
+  deData,
+  intervaloDoMes,
+  mesDe,
+  paraData,
+  somarMeses,
+} from '../../lib/datas.js';
+import { situacaoDosMeses } from '../apadrinhamentos/situacao.js';
+import { mesPorExtenso, notificar, reais } from './notificar.js';
 import type { AppDeps } from '../../app.js';
 import type { NovaNotificacao } from './notificar.js';
 
@@ -124,6 +131,45 @@ async function avisarRetornos(
   );
 }
 
+/** Quando o mês fecha, avisa cada padrinho do valor da parte dele (uma vez por mês). */
+async function avisarPartesDoMes(deps: AppDeps, agora: Date) {
+  const { prisma } = deps;
+  const mes = somarMeses(mesDe(agora), -1);
+  const { inicio, fimExclusivo } = intervaloDoMes(mes);
+  const aps = await prisma.apadrinhamento.findMany({
+    where: {
+      inicio: { lt: fimExclusivo },
+      OR: [{ fim: null }, { fim: { gte: inicio } }],
+      user: { ativo: true },
+    },
+    include: { gato: { select: { nome: true } } },
+  });
+  const chave = (apId: string) => `parte:${apId}:${mes}`;
+  const jaAvisados = new Set(
+    (
+      await prisma.notificacao.findMany({
+        where: { chave: { in: aps.map((ap) => chave(ap.id)) } },
+        select: { chave: true },
+      })
+    ).map((n) => n.chave),
+  );
+
+  const avisos: Array<NovaNotificacao> = [];
+  for (const ap of aps.filter((a) => !jaAvisados.has(chave(a.id)))) {
+    const [situacao] = await situacaoDosMeses(prisma, ap, [mes]);
+    if (!situacao || situacao.faltaCentavos === 0) continue;
+    avisos.push({
+      userId: ap.userId,
+      tipo: 'parte_do_mes',
+      titulo: `Sua parte de ${ap.gato.nome}: ${reais(situacao.faltaCentavos)}`,
+      mensagem: `Gastos de ${mesPorExtenso(mes)}. Dá para pagar pela plataforma com pix, cartão ou boleto.`,
+      link: `/app/apadrinhamentos/${ap.id}?mes=${mes}`,
+      chave: chave(ap.id),
+    });
+  }
+  return notificar(prisma, avisos);
+}
+
 async function enviarResumos(deps: AppDeps, agora: Date) {
   const { prisma, mailer, env } = deps;
   const pessoas = await prisma.user.findMany({
@@ -178,11 +224,12 @@ async function enviarResumos(deps: AppDeps, agora: Date) {
   return enviados;
 }
 
-/** Procura doses atrasadas e retornos, gera notificações e envia os resumos do dia. */
+/** Procura doses atrasadas, retornos e partes do mês, gera notificações e envia os resumos do dia. */
 export async function verificarPendencias(deps: AppDeps, agora: Date) {
   const equipe = await equipeAtiva(deps);
   const dosesAtrasadas = await avisarDosesAtrasadas(deps, agora, equipe);
   const retornos = await avisarRetornos(deps, agora, equipe);
+  const partes = await avisarPartesDoMes(deps, agora);
   const emails = await enviarResumos(deps, agora);
-  return { dosesAtrasadas, retornos, emails };
+  return { dosesAtrasadas, retornos, partes, emails };
 }

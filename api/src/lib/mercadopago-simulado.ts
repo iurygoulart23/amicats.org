@@ -3,16 +3,28 @@ import type {
   AssinaturaMp,
   CobrancaMp,
   GatewayPagamentos,
+  NovoCheckoutMp,
+  PagamentoMp,
 } from './mercadopago.js';
+
+export type AprovacaoSimulada =
+  | { tipo: 'assinatura'; urlRetorno: string; cobrancaId: string }
+  | { tipo: 'checkout'; urlRetorno: string; pagamentoId: string };
 
 export type SimuladorMp = {
   gateway: GatewayPagamentos;
-  /** Simula o pagamento aprovado no checkout: ativa a assinatura e gera a 1ª cobrança. */
-  aprovar: (id: string) => { urlRetorno: string; cobrancaId: string };
+  /**
+   * Simula o pagamento aprovado no checkout. Assinatura: ativa e gera a 1ª cobrança.
+   * Checkout de pagamento único: gera o pagamento aprovado com a referência.
+   */
+  aprovar: (id: string) => AprovacaoSimulada;
   existe: (id: string) => boolean;
-  dados: (
-    id: string,
-  ) => { motivo: string; valorCentavos: number; emailPagador: string } | null;
+  dados: (id: string) => {
+    motivo: string;
+    valorCentavos: number;
+    emailPagador: string;
+    recorrente: boolean;
+  } | null;
 };
 
 /**
@@ -30,6 +42,8 @@ export function createGatewaySimulado(urlApi: string): SimuladorMp {
     }
   >();
   const cobrancas = new Map<string, CobrancaMp>();
+  const checkouts = new Map<string, NovoCheckoutMp>();
+  const pagamentos = new Map<string, PagamentoMp>();
 
   const buscar = (id: string) => {
     const a = assinaturas.get(id);
@@ -69,22 +83,67 @@ export function createGatewaySimulado(urlApi: string): SimuladorMp {
         ? Promise.resolve(c)
         : Promise.reject(new Error(`cobrança simulada ${id} não existe`));
     },
+    criarCheckout(d) {
+      const id = `sim-chk-${randomUUID()}`;
+      checkouts.set(id, d);
+      return Promise.resolve({
+        id,
+        checkoutUrl: `${urlApi}/dev/mercadopago/checkout/${id}`,
+      });
+    },
+    obterPagamento(id) {
+      const p = pagamentos.get(id);
+      return p
+        ? Promise.resolve({ ...p })
+        : Promise.reject(new Error(`pagamento simulado ${id} não existe`));
+    },
+    buscarPagamentos(referencia) {
+      return Promise.resolve(
+        [...pagamentos.values()]
+          .filter((p) => p.externalReference === referencia)
+          .map((p) => ({ ...p })),
+      );
+    },
   };
+
+  function aprovarCheckout(id: string, c: NovoCheckoutMp): AprovacaoSimulada {
+    const pagamentoId = `sim-pag-${randomUUID()}`;
+    pagamentos.set(pagamentoId, {
+      id: pagamentoId,
+      status: 'approved',
+      externalReference: c.referencia,
+      valorCentavos: c.valorCentavos,
+      data: new Date(),
+    });
+    checkouts.delete(id);
+    return { tipo: 'checkout', urlRetorno: c.urlRetorno, pagamentoId };
+  }
 
   return {
     gateway,
-    existe: (id) => assinaturas.has(id),
+    existe: (id) => assinaturas.has(id) || checkouts.has(id),
     dados(id) {
+      const c = checkouts.get(id);
+      if (c)
+        return {
+          motivo: c.titulo,
+          valorCentavos: c.valorCentavos,
+          emailPagador: c.emailPagador,
+          recorrente: false,
+        };
       const a = assinaturas.get(id);
       return a
         ? {
             motivo: a.motivo,
             valorCentavos: a.valorCentavos,
             emailPagador: a.emailPagador,
+            recorrente: true,
           }
         : null;
     },
     aprovar(id) {
+      const c = checkouts.get(id);
+      if (c) return aprovarCheckout(id, c);
       const a = assinaturas.get(id);
       if (!a) throw new Error(`assinatura simulada ${id} não existe`);
       const agora = new Date();
@@ -108,7 +167,7 @@ export function createGatewaySimulado(urlApi: string): SimuladorMp {
         statusPagamento: 'approved',
         data: agora,
       });
-      return { urlRetorno: a.urlRetorno, cobrancaId };
+      return { tipo: 'assinatura', urlRetorno: a.urlRetorno, cobrancaId };
     },
   };
 }

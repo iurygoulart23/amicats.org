@@ -10,6 +10,8 @@ const TIPOS = [
   'dose_atrasada',
   'retorno_proximo',
   'assinatura_nova',
+  'parte_do_mes',
+  'pagamento_aprovado',
 ] as const;
 
 const Notificacao = z.object({

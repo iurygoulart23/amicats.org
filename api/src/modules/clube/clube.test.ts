@@ -274,7 +274,7 @@ describe('webhook do Mercado Pago', () => {
 
   it('aceita (e ignora) avisos de outros tipos', async () => {
     await assinaturaPendente();
-    expect((await webhook('payment', '999')).statusCode).toBe(200);
+    expect((await webhook('merchant_order', '999')).statusCode).toBe(200);
   });
 });
 

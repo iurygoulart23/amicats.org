@@ -37,6 +37,7 @@ const ROTAS: Array<[string, string, Cargo]> = [
   ['POST', '/apadrinhamentos', 'cliente'],
   ['GET', '/apadrinhamentos/meus', 'cliente'],
   ['GET', `/apadrinhamentos/${ID}/extrato`, 'cliente'],
+  ['POST', `/apadrinhamentos/${ID}/pagamentos`, 'cliente'],
   ['DELETE', `/apadrinhamentos/${ID}`, 'cliente'],
   ['GET', `/gatos/${ID}/prescricoes`, 'voluntario'],
   ['POST', `/gatos/${ID}/prescricoes`, 'voluntario'],

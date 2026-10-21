@@ -195,12 +195,37 @@ model Apadrinhamento {
   fim      DateTime? @db.Date
   criadoEm DateTime  @default(now()) @map("criado_em")
 
-  gato Gato @relation(fields: [gatoId], references: [id], onDelete: Cascade)
-  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+  gato       Gato                      @relation(fields: [gatoId], references: [id], onDelete: Cascade)
+  user       User                      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  pagamentos PagamentoApadrinhamento[]
 
   @@index([gatoId])
   @@index([userId])
   @@map("apadrinhamentos")
+}
+
+/// Pagamento avulso (Checkout do Mercado Pago) da parte do padrinho num mês fechado
+model PagamentoApadrinhamento {
+  id               String    @id @default(uuid()) @db.Uuid
+  apadrinhamentoId String    @map("apadrinhamento_id") @db.Uuid
+  /// Mês pago, no formato AAAA-MM
+  mes              String
+  valorCentavos    Int       @map("valor_centavos")
+  /// 'pendente' | 'aprovado' | 'recusado' | 'estornado'
+  status           String    @default("pendente")
+  /// id da preferência (checkout) no Mercado Pago
+  mpPreferenciaId  String?   @unique @map("mp_preferencia_id")
+  /// id do último pagamento feito nesse checkout
+  mpPagamentoId    String?   @unique @map("mp_pagamento_id")
+  checkoutUrl      String?   @map("checkout_url")
+  pagoEm           DateTime? @map("pago_em")
+  criadoEm         DateTime  @default(now()) @map("criado_em")
+  atualizadoEm     DateTime  @updatedAt @map("atualizado_em")
+
+  apadrinhamento Apadrinhamento @relation(fields: [apadrinhamentoId], references: [id], onDelete: Cascade)
+
+  @@index([apadrinhamentoId, mes])
+  @@map("pagamentos_apadrinhamento")
 }
 
 model Prescricao {
@@ -275,7 +300,7 @@ model EventoVeterinario {
 model Notificacao {
   id             String    @id @default(uuid()) @db.Uuid
   userId         String    @map("user_id") @db.Uuid
-  /// 'gasto_novo' | 'apadrinhamento_novo' | 'dose_atrasada' | 'retorno_proximo' | 'assinatura_nova'
+  /// 'gasto_novo' | 'apadrinhamento_novo' | 'dose_atrasada' | 'retorno_proximo' | 'assinatura_nova' | 'parte_do_mes' | 'pagamento_aprovado'
   tipo           String
   titulo         String
   mensagem       String    @default("")

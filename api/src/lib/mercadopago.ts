@@ -31,12 +31,37 @@ export type NovaAssinaturaMp = {
   urlRetorno: string;
 };
 
+/** Pagamento avulso feito num checkout (Checkout Pro). */
+export type PagamentoMp = {
+  id: string;
+  /** 'pending' | 'approved' | 'in_process' | 'rejected' | 'cancelled' | 'refunded' | 'charged_back'… */
+  status: string;
+  externalReference: string | null;
+  valorCentavos: number;
+  data: Date;
+};
+
+export type NovoCheckoutMp = {
+  titulo: string;
+  referencia: string;
+  emailPagador: string;
+  valorCentavos: number;
+  urlRetorno: string;
+};
+
+export type CheckoutMp = { id: string; checkoutUrl: string };
+
 /** O que a API precisa do Mercado Pago (adapter: real em produção, falso nos testes). */
 export interface GatewayPagamentos {
   criarAssinatura: (dados: NovaAssinaturaMp) => Promise<AssinaturaMp>;
   obterAssinatura: (id: string) => Promise<AssinaturaMp>;
   cancelarAssinatura: (id: string) => Promise<void>;
   obterCobranca: (id: string) => Promise<CobrancaMp>;
+  /** Checkout de pagamento único (pix, cartão ou boleto) */
+  criarCheckout: (dados: NovoCheckoutMp) => Promise<CheckoutMp>;
+  obterPagamento: (id: string) => Promise<PagamentoMp>;
+  /** Pagamentos feitos nos checkouts com essa referência (external_reference) */
+  buscarPagamentos: (referencia: string) => Promise<Array<PagamentoMp>>;
 }
 
 const API = 'https://api.mercadopago.com';
@@ -58,6 +83,25 @@ type AuthorizedPaymentResposta = {
   debit_date?: string;
   payment?: { status?: string } | null;
 };
+
+type PaymentResposta = {
+  id: number | string;
+  status: string;
+  external_reference?: string | null;
+  transaction_amount: number;
+  date_approved?: string | null;
+  date_created?: string;
+};
+
+function paraPagamento(r: PaymentResposta): PagamentoMp {
+  return {
+    id: String(r.id),
+    status: r.status,
+    externalReference: r.external_reference ?? null,
+    valorCentavos: Math.round(r.transaction_amount * 100),
+    data: new Date(r.date_approved ?? r.date_created ?? Date.now()),
+  };
+}
 
 function paraAssinatura(r: PreapprovalResposta): AssinaturaMp {
   return {
@@ -137,6 +181,43 @@ export function createMercadoPagoGateway(
         data: new Date(r.debit_date ?? r.date_created ?? Date.now()),
       };
     },
+    async criarCheckout(d) {
+      const r = await chamar<{ id: string; init_point: string }>(
+        'POST',
+        '/checkout/preferences',
+        {
+          items: [
+            {
+              title: d.titulo,
+              quantity: 1,
+              unit_price: d.valorCentavos / 100,
+              currency_id: 'BRL',
+            },
+          ],
+          payer: { email: d.emailPagador },
+          external_reference: d.referencia,
+          back_urls: {
+            success: d.urlRetorno,
+            pending: d.urlRetorno,
+            failure: d.urlRetorno,
+          },
+          auto_return: 'approved',
+        },
+      );
+      return { id: r.id, checkoutUrl: r.init_point };
+    },
+    async obterPagamento(id) {
+      return paraPagamento(
+        await chamar<PaymentResposta>('GET', `/v1/payments/${id}`),
+      );
+    },
+    async buscarPagamentos(referencia) {
+      const r = await chamar<{ results: Array<PaymentResposta> }>(
+        'GET',
+        `/v1/payments/search?external_reference=${encodeURIComponent(referencia)}&sort=date_created&criteria=desc`,
+      );
+      return r.results.map(paraPagamento);
+    },
   };
 }
 
@@ -151,6 +232,9 @@ export function createGatewayDesativado(): GatewayPagamentos {
     obterAssinatura: erro,
     cancelarAssinatura: erro,
     obterCobranca: erro,
+    criarCheckout: erro,
+    obterPagamento: erro,
+    buscarPagamentos: erro,
   };
 }
 

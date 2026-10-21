@@ -10,6 +10,8 @@ import type {
   CobrancaMp,
   GatewayPagamentos,
   NovaAssinaturaMp,
+  NovoCheckoutMp,
+  PagamentoMp,
 } from '../src/lib/mercadopago.js';
 
 process.loadEnvFile('.env.test');
@@ -58,12 +60,17 @@ export type FakeGateway = GatewayPagamentos & {
   definirStatus: (id: string, status: string, proximaCobranca?: Date) => void;
   /** Simula uma cobrança mensal registrada no Mercado Pago */
   registrarCobranca: (cobranca: CobrancaMp) => void;
+  checkouts: Array<NovoCheckoutMp & { id: string }>;
+  /** Simula um pagamento feito num checkout (ou a mudança de status dele) */
+  registrarPagamento: (pagamento: PagamentoMp) => void;
 };
 
 export function createFakeGateway(): FakeGateway {
   const assinaturas = new Map<string, AssinaturaMp>();
   const cobrancas = new Map<string, CobrancaMp>();
   const criadas: FakeGateway['criadas'] = [];
+  const checkouts: FakeGateway['checkouts'] = [];
+  const pagamentos = new Map<string, PagamentoMp>();
   const canceladas: Array<string> = [];
   const buscar = (id: string) => {
     const a = assinaturas.get(id);
@@ -76,6 +83,31 @@ export function createFakeGateway(): FakeGateway {
   return {
     criadas,
     canceladas,
+    checkouts,
+    criarCheckout(dados) {
+      const id = `pref-${crypto.randomUUID()}`;
+      checkouts.push({ ...dados, id });
+      return Promise.resolve({
+        id,
+        checkoutUrl: `https://mp.test/checkout?pref_id=${id}`,
+      });
+    },
+    obterPagamento(id) {
+      const p = pagamentos.get(id);
+      return p
+        ? Promise.resolve({ ...p })
+        : Promise.reject(new Error(`pagamento ${id} não existe`));
+    },
+    buscarPagamentos(referencia) {
+      return Promise.resolve(
+        [...pagamentos.values()].filter(
+          (p) => p.externalReference === referencia,
+        ),
+      );
+    },
+    registrarPagamento(p) {
+      pagamentos.set(p.id, p);
+    },
     criarAssinatura(dados) {
       const id = `mp-${crypto.randomUUID()}`;
       criadas.push({ ...dados, id });

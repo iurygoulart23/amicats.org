@@ -1,8 +1,7 @@
 import { z } from 'zod';
 import {
   STATUS_APADRINHAVEIS,
-  ativoNoPeriodo,
-  parteDoPadrinho,
+  STATUS_PAGAMENTO,
 } from '../../domain/apadrinhamento.js';
 import { podeAcessar } from '../../domain/cargos.js';
 import {
@@ -17,9 +16,13 @@ import { exigirCargo } from '../../plugins/auth.js';
 import { Gasto, includeGasto, toGasto } from '../gastos/mapper.js';
 import { ParamsGato } from '../gatos/routes.js';
 import {
+  mesPorExtenso,
   notificarApadrinhamentoNovo,
   notificarSemFalhar,
 } from '../notificacoes/notificar.js';
+import { sincronizarPendentes } from './pagamentos.js';
+import { mesFechado, mesesFechados, situacaoDosMeses } from './situacao.js';
+import type { StatusPagamento } from '../../domain/apadrinhamento.js';
 import type { StatusGato } from '../../domain/gato.js';
 import type { FastifyPluginAsyncZod } from 'fastify-type-provider-zod';
 import type { FastifyRequest } from 'fastify';
@@ -35,6 +38,9 @@ const Apadrinhamento = z.object({
     nome: z.string(),
     fotoUrl: z.string().nullable(),
   }),
+  /** Soma do que falta pagar nos meses fechados */
+  faltaPagarCentavos: z.number(),
+  mesesEmAberto: z.array(z.string()),
 });
 
 const Extrato = z.object({
@@ -42,6 +48,21 @@ const Extrato = z.object({
   totalCentavos: z.number(),
   padrinhosNoMes: z.number(),
   parteCentavos: z.number(),
+  pagoCentavos: z.number(),
+  faltaCentavos: z.number(),
+  /** Mês já encerrado: a parte pode ser paga */
+  fechado: z.boolean(),
+  pagamentos: z.array(
+    z.object({
+      id: z.string(),
+      valorCentavos: z.number(),
+      status: z.enum(STATUS_PAGAMENTO),
+      /** Só enquanto pendente: para retomar o pagamento */
+      checkoutUrl: z.string().nullable(),
+      pagoEm: z.date().nullable(),
+      criadoEm: z.date(),
+    }),
+  ),
   itens: z.array(Gasto),
 });
 
@@ -50,7 +71,8 @@ const Params = z.object({ id: z.uuid() });
 const hojeUtc = () => paraData(deData(new Date()));
 
 export const apadrinhamentosRoutes: FastifyPluginAsyncZod = async (app) => {
-  const { prisma } = app.deps;
+  const { prisma, pagamentos, env } = app.deps;
+  const agora = () => app.deps.agora?.() ?? new Date();
 
   /** O próprio padrinho (ou a equipe, se permitido) acessa; para os demais, "não existe". */
   async function buscarAcessivel(
@@ -150,8 +172,14 @@ export const apadrinhamentosRoutes: FastifyPluginAsyncZod = async (app) => {
         },
         orderBy: [{ inicio: 'desc' }],
       });
+      const hoje = agora();
+      const situacoes = await Promise.all(
+        lista.map((ap) =>
+          situacaoDosMeses(prisma, ap, mesesFechados(ap, hoje)),
+        ),
+      );
       return lista
-        .map((ap) => ({
+        .map((ap, i) => ({
           id: ap.id,
           ativo: ap.fim === null,
           inicio: deData(ap.inicio),
@@ -162,6 +190,13 @@ export const apadrinhamentosRoutes: FastifyPluginAsyncZod = async (app) => {
             nome: ap.gato.nome,
             fotoUrl: ap.gato.fotos[0]?.url ?? null,
           },
+          faltaPagarCentavos: situacoes[i]!.reduce(
+            (soma, m) => soma + m.faltaCentavos,
+            0,
+          ),
+          mesesEmAberto: situacoes[i]!.filter((m) => m.faltaCentavos > 0).map(
+            (m) => m.mes,
+          ),
         }))
         .sort((a, b) => Number(b.ativo) - Number(a.ativo));
     },
@@ -194,33 +229,128 @@ export const apadrinhamentosRoutes: FastifyPluginAsyncZod = async (app) => {
         );
       }
 
+      const pendentes = await prisma.pagamentoApadrinhamento.findMany({
+        where: { apadrinhamentoId: ap.id, mes, status: 'pendente' },
+      });
+      await sincronizarPendentes(app.deps, pendentes, request.log);
+
       const { inicio, fimExclusivo } = intervaloDoMes(mes);
-      const [gastos, apadrinhamentosDoGato] = await Promise.all([
+      const [gastos, [situacao], pagamentosDoMes] = await Promise.all([
         prisma.gasto.findMany({
           where: { gatoId: ap.gatoId, data: { gte: inicio, lt: fimExclusivo } },
           include: includeGasto,
           orderBy: [{ data: 'desc' }, { criadoEm: 'desc' }],
         }),
-        prisma.apadrinhamento.findMany({
-          where: { gatoId: ap.gatoId, inicio: { lt: fimExclusivo } },
-          select: { inicio: true, fim: true },
+        situacaoDosMeses(prisma, ap, [mes]),
+        prisma.pagamentoApadrinhamento.findMany({
+          where: { apadrinhamentoId: ap.id, mes },
+          orderBy: { criadoEm: 'desc' },
         }),
       ]);
-      const totalCentavos = gastos.reduce(
-        (soma, g) => soma + g.valorCentavos,
-        0,
-      );
-      const padrinhosNoMes = apadrinhamentosDoGato.filter((a) =>
-        ativoNoPeriodo(a, inicio, fimExclusivo),
-      ).length;
 
       return {
-        mes,
-        totalCentavos,
-        padrinhosNoMes,
-        parteCentavos: parteDoPadrinho(totalCentavos, padrinhosNoMes),
+        ...situacao!,
+        fechado: mesFechado(mes, agora()),
+        pagamentos: pagamentosDoMes.map((p) => ({
+          id: p.id,
+          valorCentavos: p.valorCentavos,
+          status: p.status as StatusPagamento,
+          checkoutUrl: p.status === 'pendente' ? p.checkoutUrl : null,
+          pagoEm: p.pagoEm,
+          criadoEm: p.criadoEm,
+        })),
         itens: gastos.map(toGasto),
       };
+    },
+  );
+
+  app.post(
+    '/apadrinhamentos/:id/pagamentos',
+    {
+      onRequest: exigirCargo('cliente'),
+      schema: {
+        tags: ['apadrinhamento'],
+        summary:
+          'Paga a parte de um mês fechado: cria o checkout do Mercado Pago (pix, cartão ou boleto)',
+        security: [{ sessao: [] }],
+        params: Params,
+        body: z.object({ mes: MesISO }),
+        response: { 201: z.object({ checkoutUrl: z.string() }) },
+      },
+    },
+    async (request, reply) => {
+      const usuario = request.usuario!;
+      const ap = await prisma.apadrinhamento.findUnique({
+        where: { id: request.params.id },
+        include: { gato: { select: { nome: true } } },
+      });
+      // Só o próprio padrinho paga a parte dele.
+      if (!ap || ap.userId !== usuario.id)
+        throw naoEncontrado('Apadrinhamento');
+
+      const { mes } = request.body;
+      if (mes < mesDe(ap.inicio) || (ap.fim && mes > mesDe(ap.fim))) {
+        throw new HttpError(
+          400,
+          'Este mês está fora do período do apadrinhamento.',
+        );
+      }
+      if (!mesFechado(mes, agora())) {
+        throw new HttpError(
+          400,
+          'Só dá para pagar depois que o mês terminar (ainda podem entrar gastos).',
+        );
+      }
+
+      const pendentes = await prisma.pagamentoApadrinhamento.findMany({
+        where: { apadrinhamentoId: ap.id, mes, status: 'pendente' },
+        orderBy: { criadoEm: 'desc' },
+      });
+      await sincronizarPendentes(app.deps, pendentes, request.log);
+      const [situacao] = await situacaoDosMeses(prisma, ap, [mes]);
+      const falta = situacao!.faltaCentavos;
+      if (falta === 0) throw conflito('Não há valor a pagar neste mês.');
+
+      // Clique repetido: reaproveita o checkout ainda aberto com o mesmo valor.
+      const aberto = await prisma.pagamentoApadrinhamento.findFirst({
+        where: {
+          apadrinhamentoId: ap.id,
+          mes,
+          status: 'pendente',
+          valorCentavos: falta,
+          checkoutUrl: { not: null },
+        },
+        orderBy: { criadoEm: 'desc' },
+      });
+      if (aberto?.checkoutUrl) {
+        return reply.status(201).send({ checkoutUrl: aberto.checkoutUrl });
+      }
+
+      const local = await prisma.pagamentoApadrinhamento.create({
+        data: { apadrinhamentoId: ap.id, mes, valorCentavos: falta },
+      });
+      try {
+        const checkout = await pagamentos.criarCheckout({
+          titulo: `Apadrinhamento de ${ap.gato.nome} — ${mesPorExtenso(mes)}`,
+          referencia: local.id,
+          emailPagador: usuario.email,
+          valorCentavos: falta,
+          urlRetorno: `${env.WEB_ORIGIN}/pt-BR/app/apadrinhamentos/${ap.id}?mes=${mes}`,
+        });
+        await prisma.pagamentoApadrinhamento.update({
+          where: { id: local.id },
+          data: {
+            mpPreferenciaId: checkout.id,
+            checkoutUrl: checkout.checkoutUrl,
+          },
+        });
+        return reply.status(201).send({ checkoutUrl: checkout.checkoutUrl });
+      } catch (err) {
+        await prisma.pagamentoApadrinhamento
+          .delete({ where: { id: local.id } })
+          .catch(() => undefined);
+        throw err;
+      }
     },
   );
 

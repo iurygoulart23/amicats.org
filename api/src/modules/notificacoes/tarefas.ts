@@ -30,11 +30,12 @@ export const tarefasRoutes: FastifyPluginAsyncZod = async (app) => {
       schema: {
         tags: ['tarefas'],
         summary:
-          'Doses atrasadas, retornos e resumos por e-mail (rodar a cada 15 min)',
+          'Doses atrasadas, retornos, partes do mês dos padrinhos e resumos por e-mail (rodar a cada 15 min)',
         response: {
           200: z.object({
             dosesAtrasadas: z.number(),
             retornos: z.number(),
+            partes: z.number(),
             emails: z.number(),
           }),
         },

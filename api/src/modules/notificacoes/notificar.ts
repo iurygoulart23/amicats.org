@@ -6,7 +6,9 @@ export type TipoNotificacao =
   | 'apadrinhamento_novo'
   | 'dose_atrasada'
   | 'retorno_proximo'
-  | 'assinatura_nova';
+  | 'assinatura_nova'
+  | 'parte_do_mes'
+  | 'pagamento_aprovado';
 
 export type NovaNotificacao = {
   userId: string;
@@ -42,10 +44,18 @@ export async function notificarSemFalhar(
   }
 }
 
-const reais = (centavos: number) =>
+export const reais = (centavos: number) =>
   new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(
     centavos / 100,
   );
+
+/** AAAA-MM → "setembro de 2026" */
+export const mesPorExtenso = (mes: string) =>
+  new Intl.DateTimeFormat('pt-BR', {
+    month: 'long',
+    year: 'numeric',
+    timeZone: 'UTC',
+  }).format(new Date(`${mes}-01T00:00:00Z`));
 
 export async function notificarGastoNovo(
   prisma: PrismaClient,
@@ -102,5 +112,40 @@ export async function notificarApadrinhamentoNovo(
         link: `/app/gatos/${ap.gatoId}?aba=gastos`,
         chave: `apadrinhamento:${ap.id}`,
       })),
+  );
+}
+
+export async function notificarPagamentoAprovado(
+  prisma: PrismaClient,
+  pagamento: {
+    id: string;
+    apadrinhamentoId: string;
+    mes: string;
+    valorCentavos: number;
+  },
+) {
+  const [adms, ap] = await Promise.all([
+    prisma.user.findMany({
+      where: { cargo: 'adm', ativo: true },
+      select: { id: true },
+    }),
+    prisma.apadrinhamento.findUniqueOrThrow({
+      where: { id: pagamento.apadrinhamentoId },
+      include: {
+        gato: { select: { nome: true } },
+        user: { select: { nome: true } },
+      },
+    }),
+  ]);
+  return notificar(
+    prisma,
+    adms.map((adm) => ({
+      userId: adm.id,
+      tipo: 'pagamento_aprovado',
+      titulo: `Pagamento recebido: ${ap.gato.nome}`,
+      mensagem: `${ap.user.nome} pagou ${reais(pagamento.valorCentavos)} referente a ${mesPorExtenso(pagamento.mes)}.`,
+      link: `/app/gatos/${ap.gatoId}?aba=gastos`,
+      chave: `pagamento:${pagamento.id}`,
+    })),
   );
 }
