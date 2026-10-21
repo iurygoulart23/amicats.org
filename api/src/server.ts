@@ -8,6 +8,7 @@ import {
   createMercadoPagoGateway,
 } from './lib/mercadopago.js';
 import { createGatewaySimulado } from './lib/mercadopago-simulado.js';
+import { createCaixaDev } from './lib/caixa-dev.js';
 
 const env = loadEnv();
 const prisma = new PrismaClient();
@@ -37,6 +38,8 @@ const pagamentos = simuladorMp
     ? createMercadoPagoGateway(env.MP_ACCESS_TOKEN)
     : createGatewayDesativado();
 
+const caixaDev = env.CAIXA_DEV ? createCaixaDev() : undefined;
+
 const app = await buildApp(
   {
     env,
@@ -44,10 +47,13 @@ const app = await buildApp(
     storage,
     pagamentos,
     simuladorMp,
+    caixaDev,
     // Sem Resend configurado, os e-mails (com os links) vão para o log do app.
-    mailer: env.RESEND_API_KEY
-      ? createResendMailer(env.RESEND_API_KEY, env.MAIL_FROM)
-      : { enviar: (email) => createLogMailer(app.log).enviar(email) },
+    mailer: caixaDev
+      ? caixaDev.mailer
+      : env.RESEND_API_KEY
+        ? createResendMailer(env.RESEND_API_KEY, env.MAIL_FROM)
+        : { enviar: (email) => createLogMailer(app.log).enviar(email) },
   },
   { logger: true, trustProxy: true },
 );

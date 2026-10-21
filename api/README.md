@@ -109,6 +109,10 @@ test/               # setup do Vitest e helpers (fakes, login)
 
 Com `MP_SIMULADO=true` no `.env`, a API usa um Mercado Pago de mentira. O "checkout" é uma página da própria API (`/dev/mercadopago/checkout/:id`) com o botão "Simular pagamento aprovado", que ativa a assinatura, registra a cobrança e volta para o site. Os dados do simulador ficam em memória. A API se recusa a subir com `MP_SIMULADO=true` em produção.
 
+### Caixa de e-mails de desenvolvimento
+
+Com `CAIXA_DEV=true`, os e-mails (convites, redefinição de senha, resumo diário) ficam guardados em memória e podem ser lidos em `GET /dev/emails?para=<e-mail>`. É o que os testes ponta a ponta do site (`npm run e2e`, na raiz) usam para seguir links de convite. Assim como o simulador, é proibido em produção.
+
 ## Fotos (Backblaze B2)
 
 O navegador envia o arquivo direto para o bucket:

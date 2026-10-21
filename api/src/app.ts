@@ -28,6 +28,7 @@ import { tarefasRoutes } from './modules/notificacoes/tarefas.js';
 import { clubeRoutes } from './modules/clube/routes.js';
 import { webhookMercadoPagoRoutes } from './modules/clube/webhook.js';
 import { devMercadoPagoRoutes } from './modules/clube/dev-mercadopago.js';
+import { devEmailsRoutes } from './modules/dev-emails.js';
 import {
   veterinarioGatoRoutes,
   veterinarioRoutes,
@@ -39,6 +40,7 @@ import type { Mailer } from './lib/mailer.js';
 import type { Storage } from './lib/storage.js';
 import type { GatewayPagamentos } from './lib/mercadopago.js';
 import type { SimuladorMp } from './lib/mercadopago-simulado.js';
+import type { CaixaDev } from './lib/caixa-dev.js';
 
 export type AppDeps = {
   env: Env;
@@ -46,6 +48,8 @@ export type AppDeps = {
   mailer: Mailer;
   storage: Storage;
   pagamentos: GatewayPagamentos;
+  /** Só em desenvolvimento, com CAIXA_DEV=true: e-mails em memória */
+  caixaDev?: CaixaDev;
   /** Só em desenvolvimento, com MP_SIMULADO=true: checkout de mentira */
   simuladorMp?: SimuladorMp;
   /** Relógio injetável (testes de tarefas que dependem da hora) */
@@ -149,6 +153,9 @@ export async function buildApp(
   await app.register(tarefasRoutes, { prefix: '/tarefas' });
   await app.register(clubeRoutes, { prefix: '/clube' });
   await app.register(webhookMercadoPagoRoutes, { prefix: '/webhooks' });
+  if (deps.caixaDev) {
+    await app.register(devEmailsRoutes(deps.caixaDev), { prefix: '/dev' });
+  }
   if (deps.simuladorMp) {
     await app.register(devMercadoPagoRoutes(deps.simuladorMp), {
       prefix: '/dev/mercadopago',

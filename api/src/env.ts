@@ -28,6 +28,11 @@ const EnvSchema = z.object({
   TAREFAS_TOKEN: vazioComoUndefined,
   MP_ACCESS_TOKEN: vazioComoUndefined,
   MP_WEBHOOK_SECRET: vazioComoUndefined,
+  /** Guarda os e-mails em memória e expõe em /dev/emails (nunca em produção) */
+  CAIXA_DEV: z
+    .string()
+    .optional()
+    .transform((v) => v === 'true'),
   /** Mercado Pago de mentira para desenvolvimento (nunca em produção) */
   MP_SIMULADO: z
     .string()
@@ -35,13 +40,21 @@ const EnvSchema = z.object({
     .transform((v) => v === 'true'),
 });
 
-const EnvValidado = EnvSchema.refine(
-  (e) => !(e.MP_SIMULADO && e.NODE_ENV === 'production'),
-  {
-    message: 'MP_SIMULADO não pode ser usado em produção.',
-    path: ['MP_SIMULADO'],
-  },
-);
+/** Ferramentas de desenvolvimento que nunca podem ligar em produção. */
+const SO_DESENVOLVIMENTO = ['MP_SIMULADO', 'CAIXA_DEV'] as const;
+
+const EnvValidado = EnvSchema.superRefine((e, ctx) => {
+  if (e.NODE_ENV !== 'production') return;
+  for (const chave of SO_DESENVOLVIMENTO) {
+    if (e[chave]) {
+      ctx.addIssue({
+        code: 'custom',
+        path: [chave],
+        message: `${chave} não pode ser usado em produção.`,
+      });
+    }
+  }
+});
 
 export type Env = z.infer<typeof EnvSchema>;
 
