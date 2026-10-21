@@ -3,6 +3,11 @@ import { buildApp } from './app.js';
 import { loadEnv } from './env.js';
 import { createLogMailer, createResendMailer } from './lib/mailer.js';
 import { createDisabledStorage, createS3Storage } from './lib/storage.js';
+import {
+  createGatewayDesativado,
+  createMercadoPagoGateway,
+} from './lib/mercadopago.js';
+import { createGatewaySimulado } from './lib/mercadopago-simulado.js';
 
 const env = loadEnv();
 const prisma = new PrismaClient();
@@ -23,11 +28,22 @@ const storage =
       })
     : createDisabledStorage();
 
+const simuladorMp = env.MP_SIMULADO
+  ? createGatewaySimulado(`http://localhost:${env.PORT}`)
+  : undefined;
+const pagamentos = simuladorMp
+  ? simuladorMp.gateway
+  : env.MP_ACCESS_TOKEN
+    ? createMercadoPagoGateway(env.MP_ACCESS_TOKEN)
+    : createGatewayDesativado();
+
 const app = await buildApp(
   {
     env,
     prisma,
     storage,
+    pagamentos,
+    simuladorMp,
     // Sem Resend configurado, os e-mails (com os links) vão para o log do app.
     mailer: env.RESEND_API_KEY
       ? createResendMailer(env.RESEND_API_KEY, env.MAIL_FROM)

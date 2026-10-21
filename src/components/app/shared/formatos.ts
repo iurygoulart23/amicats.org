@@ -62,3 +62,11 @@ export function hojeNoAbrigo(agora = new Date()): string {
     agora,
   );
 }
+
+/** "21/11/2026" de um instante ISO, no dia do abrigo (evita trocar o dia perto da meia-noite UTC). */
+export function formatarDataAbrigo(iso: string): string {
+  return new Intl.DateTimeFormat('pt-BR', {
+    dateStyle: 'short',
+    timeZone: FUSO_ABRIGO,
+  }).format(new Date(iso));
+}

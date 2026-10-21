@@ -2264,3 +2264,105 @@ msgstr ""
 
 msgid "Receber por e-mail um resumo diário das notificações"
 msgstr ""
+
+msgid "Aguardando pagamento"
+msgstr ""
+
+msgid "Aprovada"
+msgstr ""
+
+msgid "Assinante"
+msgstr ""
+
+msgid "Assinante desde"
+msgstr ""
+
+msgid "Assinantes"
+msgstr ""
+
+msgid "Assinantes ativos"
+msgstr ""
+
+msgid "Assinar"
+msgstr ""
+
+msgid "Assinar o Clube Amicats"
+msgstr ""
+
+msgid "Assinaturas"
+msgstr ""
+
+msgid "Assinaturas do clube, receita mensal e faixas."
+msgstr ""
+
+msgid "Cancelada"
+msgstr ""
+
+msgid "Cancelar assinatura"
+msgstr ""
+
+msgid "Cancelar sua assinatura do Clube Amicats? As cobranças mensais param."
+msgstr ""
+
+msgid "Concluir pagamento"
+msgstr ""
+
+msgid "Contribua todo mês no cartão e ajude a manter o abrigo."
+msgstr ""
+
+msgid "Escolha sua faixa"
+msgstr ""
+
+msgid "Escolher outra faixa"
+msgstr ""
+
+msgid "Faixa"
+msgstr ""
+
+msgid "Faixas"
+msgstr ""
+
+msgid "Falta concluir o pagamento no Mercado Pago. Se você já concluiu, a confirmação pode levar alguns minutos."
+msgstr ""
+
+msgid "Mudar o valor de uma faixa vale só para novas assinaturas; quem já assina continua pagando o valor da adesão."
+msgstr ""
+
+msgid "Nenhuma assinatura ainda."
+msgstr ""
+
+msgid "O pagamento é feito na página do Mercado Pago: a Amicats não vê nem guarda os dados do seu cartão."
+msgstr ""
+
+msgid "Ordem"
+msgstr ""
+
+msgid "Pausada"
+msgstr ""
+
+msgid "Pendente"
+msgstr ""
+
+msgid "Próxima cobrança em"
+msgstr ""
+
+msgid "Receita mensal recorrente"
+msgstr ""
+
+msgid "Recusada"
+msgstr ""
+
+msgid "Sua assinatura foi cancelada. Quando quiser, é só escolher uma faixa de novo."
+msgstr ""
+
+msgid "Todas"
+msgstr ""
+
+msgid "Uma contribuição mensal no cartão que mantém o abrigo funcionando. Em breve, assinantes concorrem a sorteios mensais."
+msgstr ""
+
+msgid "Valor mensal (R$)"
+msgstr ""
+
+msgid "mês"
+msgstr ""

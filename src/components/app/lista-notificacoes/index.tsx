@@ -1,6 +1,12 @@
 import { useNavigate } from '@tanstack/react-router';
 import { useLingui } from '@lingui/react/macro';
-import { CalendarClock, HeartHandshake, Pill, Receipt } from 'lucide-react';
+import {
+  CalendarClock,
+  Gift,
+  HeartHandshake,
+  Pill,
+  Receipt,
+} from 'lucide-react';
 import type { LucideIcon } from 'lucide-react';
 import type { Notificacao, TipoNotificacao } from '@/integrations/api/types';
 import { cn } from '@/components/layout/shared/helpers/class.helper';
@@ -18,6 +24,7 @@ const ICONES: Record<TipoNotificacao, LucideIcon> = {
   apadrinhamento_novo: HeartHandshake,
   dose_atrasada: Pill,
   retorno_proximo: CalendarClock,
+  assinatura_nova: Gift,
 };
 
 function quandoFoi(iso: string, locale: string) {

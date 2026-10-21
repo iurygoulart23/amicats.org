@@ -139,12 +139,24 @@ _Avoid_: newsletter, digest
 Tarefa periódica que procura doses atrasadas e retornos próximos, gera as notificações e envia os resumos por e-mail.
 _Avoid_: cron, job, rotina
 
-## Clube (próximas fases)
+## Clube Amicats
 
 **Clube Amicats**:
-Programa de assinatura recorrente em que o assinante escolhe o valor mensal e concorre a sorteios.
-_Avoid_: clube de assinatura, associação
+Programa de assinatura mensal em que a pessoa escolhe uma faixa de valor e é cobrada no cartão todo mês pelo Mercado Pago. Os sorteios entre assinantes vêm numa próxima fase.
+_Avoid_: clube de assinatura, associação, mensalidade
+
+**Faixa**:
+Um plano do clube, com nome e valor mensal fixos, mantido pelo adm (ex.: Amigo, R$ 20).
+_Avoid_: plano (no texto para o público), pacote, nível
+
+**Assinatura**:
+O vínculo de uma conta com uma faixa do clube. Começa pendente (até a pessoa concluir o pagamento no Mercado Pago) e pode ficar ativa, pausada ou cancelada. Guarda o valor da faixa no momento da adesão.
+_Avoid_: inscrição, plano, recorrência
 
 **Assinante**:
-Conta com assinatura ativa no Clube Amicats.
-_Avoid_: associado, sócio
+Conta com assinatura ativa.
+_Avoid_: associado, sócio, membro
+
+**Cobrança**:
+Cada pagamento mensal de uma assinatura feito pelo Mercado Pago, aprovado ou recusado.
+_Avoid_: fatura, parcela, mensalidade

@@ -85,10 +85,24 @@ async function seedGatos() {
   );
 }
 
+/** Faixas iniciais do Clube Amicats (nomes provisórios; o adm edita no painel). */
+async function seedFaixasClube() {
+  if ((await prisma.planoClube.count()) > 0) return;
+  await prisma.planoClube.createMany({
+    data: [
+      { nome: 'Amigo', valorCentavos: 2000, ordem: 1 },
+      { nome: 'Protetor', valorCentavos: 5000, ordem: 2 },
+      { nome: 'Guardião', valorCentavos: 10000, ordem: 3 },
+    ],
+  });
+  console.info('faixas do clube criadas');
+}
+
 try {
   await seedAdm();
   await seedTags();
   await seedGatos();
+  await seedFaixasClube();
 } finally {
   await prisma.$disconnect();
 }

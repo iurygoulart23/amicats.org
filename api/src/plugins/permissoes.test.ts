@@ -54,6 +54,12 @@ const ROTAS: Array<[string, string, Cargo]> = [
   ['GET', '/notificacoes/contagem', 'cliente'],
   ['POST', `/notificacoes/${ID}/lida`, 'cliente'],
   ['POST', '/notificacoes/ler-todas', 'cliente'],
+  ['POST', '/clube/planos', 'adm'],
+  ['PATCH', `/clube/planos/${ID}`, 'adm'],
+  ['POST', '/clube/assinaturas', 'cliente'],
+  ['GET', '/clube/minha', 'cliente'],
+  ['POST', '/clube/minha/cancelar', 'cliente'],
+  ['GET', '/clube/assinaturas', 'adm'],
   ['PATCH', '/auth/me', 'cliente'],
   ['POST', '/auth/trocar-senha', 'cliente'],
 ];

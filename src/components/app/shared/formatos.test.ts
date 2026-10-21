@@ -1,6 +1,7 @@
 import { describe, expect, it } from 'vitest';
 import {
   datetimeLocalParaIso,
+  formatarDataAbrigo,
   formatarHoraAbrigo,
   formatarMes,
   formatarReais,
@@ -33,5 +34,10 @@ describe('formatos', () => {
     );
     // 02:00 UTC do dia 22 ainda é dia 21 em Campo Grande.
     expect(hojeNoAbrigo(new Date('2026-10-22T02:00:00Z'))).toBe('2026-10-21');
+  });
+
+  it('mostra datas de instantes no dia do abrigo', () => {
+    // 02:00 UTC do dia 22 ainda é dia 21 em Campo Grande.
+    expect(formatarDataAbrigo('2026-11-22T02:00:00.000Z')).toBe('21/11/2026');
   });
 });

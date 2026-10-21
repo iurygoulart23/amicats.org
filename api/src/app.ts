@@ -25,6 +25,9 @@ import { prescricoesRoutes } from './modules/medicacao/prescricoes.js';
 import { agendaRoutes } from './modules/medicacao/agenda.js';
 import { notificacoesRoutes } from './modules/notificacoes/routes.js';
 import { tarefasRoutes } from './modules/notificacoes/tarefas.js';
+import { clubeRoutes } from './modules/clube/routes.js';
+import { webhookMercadoPagoRoutes } from './modules/clube/webhook.js';
+import { devMercadoPagoRoutes } from './modules/clube/dev-mercadopago.js';
 import {
   veterinarioGatoRoutes,
   veterinarioRoutes,
@@ -34,12 +37,17 @@ import type { FastifyServerOptions } from 'fastify';
 import type { Env } from './env.js';
 import type { Mailer } from './lib/mailer.js';
 import type { Storage } from './lib/storage.js';
+import type { GatewayPagamentos } from './lib/mercadopago.js';
+import type { SimuladorMp } from './lib/mercadopago-simulado.js';
 
 export type AppDeps = {
   env: Env;
   prisma: PrismaClient;
   mailer: Mailer;
   storage: Storage;
+  pagamentos: GatewayPagamentos;
+  /** Só em desenvolvimento, com MP_SIMULADO=true: checkout de mentira */
+  simuladorMp?: SimuladorMp;
   /** Relógio injetável (testes de tarefas que dependem da hora) */
   agora?: () => Date;
 };
@@ -73,10 +81,15 @@ export async function buildApp(
   // de um navegador precisam ter a origem do site.
   app.addHook('onRequest', async (request) => {
     const origin = request.headers.origin;
+    // O checkout simulado (só em desenvolvimento) é uma página da própria API.
+    const checkoutSimulado =
+      deps.simuladorMp !== undefined &&
+      request.url.startsWith('/dev/mercadopago/');
     if (
       !METODOS_SEGUROS.has(request.method) &&
       origin &&
-      origin !== deps.env.WEB_ORIGIN
+      origin !== deps.env.WEB_ORIGIN &&
+      !checkoutSimulado
     ) {
       throw new HttpError(403, 'Origem não permitida.');
     }
@@ -134,6 +147,13 @@ export async function buildApp(
   await app.register(veterinarioRoutes, { prefix: '/veterinario' });
   await app.register(notificacoesRoutes, { prefix: '/notificacoes' });
   await app.register(tarefasRoutes, { prefix: '/tarefas' });
+  await app.register(clubeRoutes, { prefix: '/clube' });
+  await app.register(webhookMercadoPagoRoutes, { prefix: '/webhooks' });
+  if (deps.simuladorMp) {
+    await app.register(devMercadoPagoRoutes(deps.simuladorMp), {
+      prefix: '/dev/mercadopago',
+    });
+  }
 
   return app;
 }

@@ -9,6 +9,7 @@ const TIPOS = [
   'apadrinhamento_novo',
   'dose_atrasada',
   'retorno_proximo',
+  'assinatura_nova',
 ] as const;
 
 const Notificacao = z.object({

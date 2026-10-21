@@ -203,7 +203,11 @@ export type Retorno = EventoVet & {
 };
 
 export type TipoNotificacao =
-  'gasto_novo' | 'apadrinhamento_novo' | 'dose_atrasada' | 'retorno_proximo';
+  | 'gasto_novo'
+  | 'apadrinhamento_novo'
+  | 'dose_atrasada'
+  | 'retorno_proximo'
+  | 'assinatura_nova';
 
 export type Notificacao = {
   id: string;
@@ -214,4 +218,49 @@ export type Notificacao = {
   link: string | null;
   lida: boolean;
   criadoEm: string;
+};
+
+export type PlanoClube = {
+  id: string;
+  nome: string;
+  descricao: string;
+  valorCentavos: number;
+  ativo: boolean;
+  ordem: number;
+};
+
+export type StatusAssinatura = 'pendente' | 'ativa' | 'pausada' | 'cancelada';
+
+export type MinhaAssinatura = {
+  id: string;
+  status: StatusAssinatura;
+  valorCentavos: number;
+  plano: { id: string; nome: string };
+  /** Só enquanto pendente: link para concluir o pagamento no Mercado Pago */
+  checkoutUrl: string | null;
+  proximaCobranca: string | null;
+  ativadaEm: string | null;
+  canceladaEm: string | null;
+  criadoEm: string;
+  cobrancas: Array<{
+    id: string;
+    valorCentavos: number;
+    status: 'aprovada' | 'recusada' | 'pendente';
+    data: string;
+  }>;
+};
+
+export type AssinaturasClube = {
+  ativas: number;
+  receitaMensalCentavos: number;
+  itens: Array<{
+    id: string;
+    status: StatusAssinatura;
+    valorCentavos: number;
+    plano: { id: string; nome: string };
+    assinante: { id: string; nome: string; email: string };
+    ativadaEm: string | null;
+    proximaCobranca: string | null;
+    criadoEm: string;
+  }>;
 };

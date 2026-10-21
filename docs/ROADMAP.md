@@ -67,9 +67,9 @@ Repositório único (`amicats.org`):
 
 ## Fase 3 — Pagamentos (Mercado Pago)
 
-- ⬜ Integração com Mercado Pago: credenciais e webhooks assinados
-- ⬜ Clube Amicats: assinatura recorrente (Preapproval) no cartão, com o assinante escolhendo o valor, mensal ou anual
-- ⬜ Assinante pode gerenciar a assinatura: trocar valor ou cartão, cancelar
+- 🧪 Integração com Mercado Pago: adapter, webhook com assinatura `x-signature` validada, simulador para desenvolvimento. ⏸️ Falta: a ONG liberar o acesso de desenvolvedor da conta (credenciais de teste) para validar com o Mercado Pago de verdade
+- 🧪 Clube Amicats: assinatura mensal no cartão em faixas fixas (R$ 20 / R$ 50 / R$ 100, editáveis pelo adm), com checkout na página do Mercado Pago
+- 🧪 Assinante vê status, próxima cobrança e histórico de cobranças, e cancela pela plataforma. Trocar de faixa = cancelar e assinar de novo; trocar o cartão é feito no Mercado Pago
 - ⬜ Pagamento dos gastos de apadrinhamento
 - ⬜ Doações avulsas: pix, crédito, boleto
 - ⬜ Histórico de pagamentos (cliente) e conciliação (adm)
@@ -112,13 +112,14 @@ Repositório único (`amicats.org`):
 
 ## Histórico de entregas
 
-| Data       | Feature                                                                                                                                                                                     | Repositório | Observações                                                                                       |
-| ---------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------- | ------------------------------------------------------------------------------------------------- |
-| 2026-10-20 | Fase 2 (parte 3): notificações (sininho, página, resumo diário por e-mail, verificação de pendências)                                                                                       | api/ + site | API 102 testes; fluxo E2E de notificações (5 passos); ainda não publicado                         |
-| 2026-10-20 | Fase 2 (parte 2): medicação (prescrições, remédios do dia, doses dadas/puladas) e veterinário (eventos e retornos)                                                                          | api/ + site | API 92 testes; fluxo E2E de medicação (7 passos) + tela de celular conferida; ainda não publicado |
-| 2026-10-20 | Fase 2 (parte 1): gastos por gato, apadrinhamento com divisão igual, estimativa de custo, selo, área do padrinho, botão Apadrinhe da home levando ao fluxo                                  | api/ + site | API 75 testes; site +5 testes; fluxo E2E de apadrinhamento (9 passos); ainda não publicado        |
-| 2026-10-20 | Site Fase 1: área logada `/app` (login, cadastro, painel por cargo, gestão de gatos com fotos/tags/saúde, pessoas, tags, minha conta), catálogo da home vindo da API, link Entrar na navbar | site        | 12 testes novos + fluxo E2E com os 3 cargos; ainda não publicado                                  |
-| 2026-10-20 | Backend Fase 1: contas e cargos, autocadastro, gestão de usuários, gatos, fotos, tags, histórico de saúde, catálogo público, seed com os 20 gatos do site                                   | api/        | 57 testes; ainda não publicado                                                                    |
+| Data       | Feature                                                                                                                                                                                     | Repositório | Observações                                                                                                                     |
+| ---------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------- | ------------------------------------------------------------------------------------------------------------------------------- |
+| 2026-10-21 | Fase 3 (parte 1): Clube Amicats — faixas, assinatura via checkout do Mercado Pago, webhook, cobranças, cancelamento, painel de assinantes e receita mensal, simulador para desenvolvimento  | api/ + site | API 123 testes; fluxo E2E do clube com simulador (6 passos); falta validar com credenciais do Mercado Pago; ainda não publicado |
+| 2026-10-20 | Fase 2 (parte 3): notificações (sininho, página, resumo diário por e-mail, verificação de pendências)                                                                                       | api/ + site | API 102 testes; fluxo E2E de notificações (5 passos); ainda não publicado                                                       |
+| 2026-10-20 | Fase 2 (parte 2): medicação (prescrições, remédios do dia, doses dadas/puladas) e veterinário (eventos e retornos)                                                                          | api/ + site | API 92 testes; fluxo E2E de medicação (7 passos) + tela de celular conferida; ainda não publicado                               |
+| 2026-10-20 | Fase 2 (parte 1): gastos por gato, apadrinhamento com divisão igual, estimativa de custo, selo, área do padrinho, botão Apadrinhe da home levando ao fluxo                                  | api/ + site | API 75 testes; site +5 testes; fluxo E2E de apadrinhamento (9 passos); ainda não publicado                                      |
+| 2026-10-20 | Site Fase 1: área logada `/app` (login, cadastro, painel por cargo, gestão de gatos com fotos/tags/saúde, pessoas, tags, minha conta), catálogo da home vindo da API, link Entrar na navbar | site        | 12 testes novos + fluxo E2E com os 3 cargos; ainda não publicado                                                                |
+| 2026-10-20 | Backend Fase 1: contas e cargos, autocadastro, gestão de usuários, gatos, fotos, tags, histórico de saúde, catálogo público, seed com os 20 gatos do site                                   | api/        | 57 testes; ainda não publicado                                                                                                  |
 
 ## Pendências conhecidas
 

@@ -1,9 +1,12 @@
 import type { FastifyBaseLogger } from 'fastify';
 import type { PrismaClient } from '@prisma/client';
 
-/** 'gasto_novo' | 'apadrinhamento_novo' | 'dose_atrasada' | 'retorno_proximo' */
 export type TipoNotificacao =
-  'gasto_novo' | 'apadrinhamento_novo' | 'dose_atrasada' | 'retorno_proximo';
+  | 'gasto_novo'
+  | 'apadrinhamento_novo'
+  | 'dose_atrasada'
+  | 'retorno_proximo'
+  | 'assinatura_nova';
 
 export type NovaNotificacao = {
   userId: string;

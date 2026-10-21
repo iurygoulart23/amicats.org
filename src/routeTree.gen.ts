@@ -24,10 +24,12 @@ import { Route as LocaleQueroAjudarIndexRouteImport } from './routes/$locale/que
 import { Route as LocaleSejaUmParceiroIndexRouteImport } from './routes/$locale/seja-um-parceiro/index'
 import { Route as LocaleAppPainelIndexRouteImport } from './routes/$locale/app/_painel/index'
 import { Route as LocaleAppPainelAdminRouteRouteImport } from './routes/$locale/app/_painel/admin/route'
+import { Route as LocaleAppPainelClubeRouteImport } from './routes/$locale/app/_painel/clube'
 import { Route as LocaleAppPainelGatosRouteRouteImport } from './routes/$locale/app/_painel/gatos/route'
 import { Route as LocaleAppPainelMinhaContaRouteImport } from './routes/$locale/app/_painel/minha-conta'
 import { Route as LocaleAppPainelNotificacoesRouteImport } from './routes/$locale/app/_painel/notificacoes'
 import { Route as LocaleAppPainelRemediosRouteImport } from './routes/$locale/app/_painel/remedios'
+import { Route as LocaleAppPainelAdminClubeRouteImport } from './routes/$locale/app/_painel/admin/clube'
 import { Route as LocaleAppPainelAdminTagsRouteImport } from './routes/$locale/app/_painel/admin/tags'
 import { Route as LocaleAppPainelApadrinhamentosIndexRouteImport } from './routes/$locale/app/_painel/apadrinhamentos/index'
 import { Route as LocaleAppPainelApadrinhamentosApadrinhamentoIdRouteImport } from './routes/$locale/app/_painel/apadrinhamentos/$apadrinhamentoId'
@@ -114,6 +116,11 @@ const LocaleAppPainelAdminRouteRoute =
     path: '/admin',
     getParentRoute: () => LocaleAppPainelRoute,
   } as any)
+const LocaleAppPainelClubeRoute = LocaleAppPainelClubeRouteImport.update({
+  id: '/clube',
+  path: '/clube',
+  getParentRoute: () => LocaleAppPainelRoute,
+} as any)
 const LocaleAppPainelGatosRouteRoute =
   LocaleAppPainelGatosRouteRouteImport.update({
     id: '/gatos',
@@ -137,6 +144,12 @@ const LocaleAppPainelRemediosRoute = LocaleAppPainelRemediosRouteImport.update({
   path: '/remedios',
   getParentRoute: () => LocaleAppPainelRoute,
 } as any)
+const LocaleAppPainelAdminClubeRoute =
+  LocaleAppPainelAdminClubeRouteImport.update({
+    id: '/clube',
+    path: '/clube',
+    getParentRoute: () => LocaleAppPainelAdminRouteRoute,
+  } as any)
 const LocaleAppPainelAdminTagsRoute =
   LocaleAppPainelAdminTagsRouteImport.update({
     id: '/tags',
@@ -207,10 +220,12 @@ export interface FileRoutesByFullPath {
   '/$locale/seja-um-parceiro/': typeof LocaleSejaUmParceiroIndexRoute
   '/$locale/app/admin': typeof LocaleAppPainelAdminRouteRouteWithChildren
   '/$locale/app/gatos': typeof LocaleAppPainelGatosRouteRouteWithChildren
+  '/$locale/app/clube': typeof LocaleAppPainelClubeRoute
   '/$locale/app/minha-conta': typeof LocaleAppPainelMinhaContaRoute
   '/$locale/app/notificacoes': typeof LocaleAppPainelNotificacoesRoute
   '/$locale/app/remedios': typeof LocaleAppPainelRemediosRoute
   '/$locale/app/': typeof LocaleAppPainelIndexRoute
+  '/$locale/app/admin/clube': typeof LocaleAppPainelAdminClubeRoute
   '/$locale/app/admin/tags': typeof LocaleAppPainelAdminTagsRoute
   '/$locale/app/apadrinhamentos/$apadrinhamentoId': typeof LocaleAppPainelApadrinhamentosApadrinhamentoIdRoute
   '/$locale/app/apadrinhar/$slug': typeof LocaleAppPainelApadrinharSlugRoute
@@ -234,9 +249,11 @@ export interface FileRoutesByTo {
   '/$locale/quero-ajudar': typeof LocaleQueroAjudarIndexRoute
   '/$locale/seja-um-parceiro': typeof LocaleSejaUmParceiroIndexRoute
   '/$locale/app/admin': typeof LocaleAppPainelAdminRouteRouteWithChildren
+  '/$locale/app/clube': typeof LocaleAppPainelClubeRoute
   '/$locale/app/minha-conta': typeof LocaleAppPainelMinhaContaRoute
   '/$locale/app/notificacoes': typeof LocaleAppPainelNotificacoesRoute
   '/$locale/app/remedios': typeof LocaleAppPainelRemediosRoute
+  '/$locale/app/admin/clube': typeof LocaleAppPainelAdminClubeRoute
   '/$locale/app/admin/tags': typeof LocaleAppPainelAdminTagsRoute
   '/$locale/app/apadrinhamentos/$apadrinhamentoId': typeof LocaleAppPainelApadrinhamentosApadrinhamentoIdRoute
   '/$locale/app/apadrinhar/$slug': typeof LocaleAppPainelApadrinharSlugRoute
@@ -264,10 +281,12 @@ export interface FileRoutesById {
   '/$locale/seja-um-parceiro/': typeof LocaleSejaUmParceiroIndexRoute
   '/$locale/app/_painel/admin': typeof LocaleAppPainelAdminRouteRouteWithChildren
   '/$locale/app/_painel/gatos': typeof LocaleAppPainelGatosRouteRouteWithChildren
+  '/$locale/app/_painel/clube': typeof LocaleAppPainelClubeRoute
   '/$locale/app/_painel/minha-conta': typeof LocaleAppPainelMinhaContaRoute
   '/$locale/app/_painel/notificacoes': typeof LocaleAppPainelNotificacoesRoute
   '/$locale/app/_painel/remedios': typeof LocaleAppPainelRemediosRoute
   '/$locale/app/_painel/': typeof LocaleAppPainelIndexRoute
+  '/$locale/app/_painel/admin/clube': typeof LocaleAppPainelAdminClubeRoute
   '/$locale/app/_painel/admin/tags': typeof LocaleAppPainelAdminTagsRoute
   '/$locale/app/_painel/apadrinhamentos/$apadrinhamentoId': typeof LocaleAppPainelApadrinhamentosApadrinhamentoIdRoute
   '/$locale/app/_painel/apadrinhar/$slug': typeof LocaleAppPainelApadrinharSlugRoute
@@ -295,10 +314,12 @@ export interface FileRouteTypes {
     | '/$locale/seja-um-parceiro/'
     | '/$locale/app/admin'
     | '/$locale/app/gatos'
+    | '/$locale/app/clube'
     | '/$locale/app/minha-conta'
     | '/$locale/app/notificacoes'
     | '/$locale/app/remedios'
     | '/$locale/app/'
+    | '/$locale/app/admin/clube'
     | '/$locale/app/admin/tags'
     | '/$locale/app/apadrinhamentos/$apadrinhamentoId'
     | '/$locale/app/apadrinhar/$slug'
@@ -322,9 +343,11 @@ export interface FileRouteTypes {
     | '/$locale/quero-ajudar'
     | '/$locale/seja-um-parceiro'
     | '/$locale/app/admin'
+    | '/$locale/app/clube'
     | '/$locale/app/minha-conta'
     | '/$locale/app/notificacoes'
     | '/$locale/app/remedios'
+    | '/$locale/app/admin/clube'
     | '/$locale/app/admin/tags'
     | '/$locale/app/apadrinhamentos/$apadrinhamentoId'
     | '/$locale/app/apadrinhar/$slug'
@@ -351,10 +374,12 @@ export interface FileRouteTypes {
     | '/$locale/seja-um-parceiro/'
     | '/$locale/app/_painel/admin'
     | '/$locale/app/_painel/gatos'
+    | '/$locale/app/_painel/clube'
     | '/$locale/app/_painel/minha-conta'
     | '/$locale/app/_painel/notificacoes'
     | '/$locale/app/_painel/remedios'
     | '/$locale/app/_painel/'
+    | '/$locale/app/_painel/admin/clube'
     | '/$locale/app/_painel/admin/tags'
     | '/$locale/app/_painel/apadrinhamentos/$apadrinhamentoId'
     | '/$locale/app/_painel/apadrinhar/$slug'
@@ -479,6 +504,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof LocaleAppPainelAdminRouteRouteImport
       parentRoute: typeof LocaleAppPainelRoute
     }
+    '/$locale/app/_painel/clube': {
+      id: '/$locale/app/_painel/clube'
+      path: '/clube'
+      fullPath: '/$locale/app/clube'
+      preLoaderRoute: typeof LocaleAppPainelClubeRouteImport
+      parentRoute: typeof LocaleAppPainelRoute
+    }
     '/$locale/app/_painel/gatos': {
       id: '/$locale/app/_painel/gatos'
       path: '/gatos'
@@ -506,6 +538,13 @@ declare module '@tanstack/react-router' {
       fullPath: '/$locale/app/remedios'
       preLoaderRoute: typeof LocaleAppPainelRemediosRouteImport
       parentRoute: typeof LocaleAppPainelRoute
+    }
+    '/$locale/app/_painel/admin/clube': {
+      id: '/$locale/app/_painel/admin/clube'
+      path: '/clube'
+      fullPath: '/$locale/app/admin/clube'
+      preLoaderRoute: typeof LocaleAppPainelAdminClubeRouteImport
+      parentRoute: typeof LocaleAppPainelAdminRouteRoute
     }
     '/$locale/app/_painel/admin/tags': {
       id: '/$locale/app/_painel/admin/tags'
@@ -574,6 +613,7 @@ declare module '@tanstack/react-router' {
 }
 
 interface LocaleAppPainelAdminRouteRouteChildren {
+  LocaleAppPainelAdminClubeRoute: typeof LocaleAppPainelAdminClubeRoute
   LocaleAppPainelAdminTagsRoute: typeof LocaleAppPainelAdminTagsRoute
   LocaleAppPainelAdminUsuariosUserIdRoute: typeof LocaleAppPainelAdminUsuariosUserIdRoute
   LocaleAppPainelAdminUsuariosIndexRoute: typeof LocaleAppPainelAdminUsuariosIndexRoute
@@ -581,6 +621,7 @@ interface LocaleAppPainelAdminRouteRouteChildren {
 
 const LocaleAppPainelAdminRouteRouteChildren: LocaleAppPainelAdminRouteRouteChildren =
   {
+    LocaleAppPainelAdminClubeRoute: LocaleAppPainelAdminClubeRoute,
     LocaleAppPainelAdminTagsRoute: LocaleAppPainelAdminTagsRoute,
     LocaleAppPainelAdminUsuariosUserIdRoute:
       LocaleAppPainelAdminUsuariosUserIdRoute,
@@ -614,6 +655,7 @@ const LocaleAppPainelGatosRouteRouteWithChildren =
 interface LocaleAppPainelRouteChildren {
   LocaleAppPainelAdminRouteRoute: typeof LocaleAppPainelAdminRouteRouteWithChildren
   LocaleAppPainelGatosRouteRoute: typeof LocaleAppPainelGatosRouteRouteWithChildren
+  LocaleAppPainelClubeRoute: typeof LocaleAppPainelClubeRoute
   LocaleAppPainelMinhaContaRoute: typeof LocaleAppPainelMinhaContaRoute
   LocaleAppPainelNotificacoesRoute: typeof LocaleAppPainelNotificacoesRoute
   LocaleAppPainelRemediosRoute: typeof LocaleAppPainelRemediosRoute
@@ -626,6 +668,7 @@ interface LocaleAppPainelRouteChildren {
 const LocaleAppPainelRouteChildren: LocaleAppPainelRouteChildren = {
   LocaleAppPainelAdminRouteRoute: LocaleAppPainelAdminRouteRouteWithChildren,
   LocaleAppPainelGatosRouteRoute: LocaleAppPainelGatosRouteRouteWithChildren,
+  LocaleAppPainelClubeRoute: LocaleAppPainelClubeRoute,
   LocaleAppPainelMinhaContaRoute: LocaleAppPainelMinhaContaRoute,
   LocaleAppPainelNotificacoesRoute: LocaleAppPainelNotificacoesRoute,
   LocaleAppPainelRemediosRoute: LocaleAppPainelRemediosRoute,

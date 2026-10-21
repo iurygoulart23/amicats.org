@@ -85,16 +85,14 @@ export function DonationCard({ locale }: Props) {
           </div>
 
           <div className="mt-4 grid grid-cols-1 gap-2">
-            <a
-              className="btn btn-outline btn-disabled flex items-center gap-2 pointer-events-none"
-              target="_blank"
-              rel="noreferrer"
-              aria-disabled="true"
+            <Link
+              to="/$locale/app/clube"
+              params={{ locale }}
+              className="btn btn-primary flex items-center gap-2"
             >
               <Repeat className="h-4 w-4" />
-              <Trans>Doação Recorrente</Trans>
-              <div className='badge badge-accent badge-xs text-white'><Trans>Em breve</Trans></div>
-            </a>
+              <Trans>Assinar o Clube Amicats</Trans>
+            </Link>
             <a
               className="btn btn-outline flex items-center gap-2"
               href={recurring2}

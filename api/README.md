@@ -62,7 +62,7 @@ src/
   domain/           # regras puras (cargos, gato)
   lib/              # adapters: senha, tokens, mailer (Resend), storage (B2/S3)
   plugins/auth.ts   # sessão por cookie → request.usuario, exigirCargo()
-  modules/          # auth, users, gatos, tags, saude, fotos, gastos, apadrinhamentos, medicacao, notificacoes, publico
+  modules/          # auth, users, gatos, tags, saude, fotos, gastos, apadrinhamentos, medicacao, notificacoes, clube, publico
 prisma/             # schema, migrations e seed
 test/               # setup do Vitest e helpers (fakes, login)
 ```
@@ -89,6 +89,25 @@ test/               # setup do Vitest e helpers (fakes, login)
 - **Em produção**, agende a chamada a cada 15 minutos (Cloud Scheduler, cron, etc.):
   `curl -X POST -H "x-tarefa-token: $TAREFAS_TOKEN" https://api.amicats.org/tarefas/verificar-pendencias`
 - **Local:** com a API rodando, `npm run tarefas:pendencias`.
+
+## Clube Amicats (Mercado Pago)
+
+- **Faixas** (`/clube/planos`): valores mensais fixos mantidos pelo adm. O seed cria Amigo (R$ 20), Protetor (R$ 50) e Guardião (R$ 100). Mudar o valor de uma faixa não afeta quem já assina: a assinatura guarda o valor da adesão.
+- **Assinar** (`POST /clube/assinaturas`): cria uma assinatura sem plano associado (`POST /preapproval`, `status: pending`) e devolve o `init_point`. O site redireciona para o checkout do Mercado Pago, e **o cartão nunca passa pela API**.
+- **Status:** chega por dois caminhos. O webhook atualiza ativação, pausa, cancelamento e cada cobrança. Além disso, `GET /clube/minha` consulta o Mercado Pago quando a assinatura ainda está pendente (cobre o retorno do checkout e ambientes sem webhook).
+- **Webhook:** `POST /webhooks/mercadopago`, tópicos _Planos e assinaturas_. A assinatura `x-signature` é validada com HMAC-SHA256 (`MP_WEBHOOK_SECRET`), com tolerância de 15 min contra reenvio. O aviso nunca é usado como verdade: a API sempre consulta o Mercado Pago.
+
+### Configuração
+
+1. No painel do Mercado Pago (Suas integrações), crie a aplicação e copie o **Access Token** para `MP_ACCESS_TOKEN`. Use as credenciais de teste antes das de produção.
+2. Em **Webhooks**, cadastre `https://api.amicats.org/webhooks/mercadopago`, marque os eventos de assinaturas e copie a **assinatura secreta** para `MP_WEBHOOK_SECRET`.
+3. Sem `MP_ACCESS_TOKEN`, as rotas de pagamento respondem 503.
+
+> ⚠️ Ainda não validado com credenciais reais: a integração foi feita com base nos tipos do SDK oficial e na documentação de webhooks, e testada com um gateway falso. No primeiro teste com credenciais de teste, confira em especial se o Mercado Pago exige que o e-mail da conta de quem paga seja igual ao `payer_email` enviado.
+
+### Desenvolvimento sem credenciais
+
+Com `MP_SIMULADO=true` no `.env`, a API usa um Mercado Pago de mentira. O "checkout" é uma página da própria API (`/dev/mercadopago/checkout/:id`) com o botão "Simular pagamento aprovado", que ativa a assinatura, registra a cobrança e volta para o site. Os dados do simulador ficam em memória. A API se recusa a subir com `MP_SIMULADO=true` em produção.
 
 ## Fotos (Backblaze B2)
 

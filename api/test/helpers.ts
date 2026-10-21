@@ -5,6 +5,12 @@ import { hashSenha } from '../src/lib/password.js';
 import type { Cargo } from '../src/domain/cargos.js';
 import type { Email, Mailer } from '../src/lib/mailer.js';
 import type { Storage } from '../src/lib/storage.js';
+import type {
+  AssinaturaMp,
+  CobrancaMp,
+  GatewayPagamentos,
+  NovaAssinaturaMp,
+} from '../src/lib/mercadopago.js';
 
 process.loadEnvFile('.env.test');
 
@@ -45,17 +51,81 @@ export function createFakeStorage(): FakeStorage {
   };
 }
 
+export type FakeGateway = GatewayPagamentos & {
+  criadas: Array<NovaAssinaturaMp & { id: string }>;
+  canceladas: Array<string>;
+  /** Simula o que o Mercado Pago responderia sobre uma assinatura */
+  definirStatus: (id: string, status: string, proximaCobranca?: Date) => void;
+  /** Simula uma cobrança mensal registrada no Mercado Pago */
+  registrarCobranca: (cobranca: CobrancaMp) => void;
+};
+
+export function createFakeGateway(): FakeGateway {
+  const assinaturas = new Map<string, AssinaturaMp>();
+  const cobrancas = new Map<string, CobrancaMp>();
+  const criadas: FakeGateway['criadas'] = [];
+  const canceladas: Array<string> = [];
+  const buscar = (id: string) => {
+    const a = assinaturas.get(id);
+    if (!a)
+      return Promise.reject(
+        new Error(`assinatura ${id} não existe no gateway falso`),
+      );
+    return Promise.resolve({ ...a });
+  };
+  return {
+    criadas,
+    canceladas,
+    criarAssinatura(dados) {
+      const id = `mp-${crypto.randomUUID()}`;
+      criadas.push({ ...dados, id });
+      const a: AssinaturaMp = {
+        id,
+        status: 'pending',
+        externalReference: dados.referencia,
+        checkoutUrl: `https://mp.test/checkout?preapproval_id=${id}`,
+        proximaCobranca: null,
+      };
+      assinaturas.set(id, a);
+      return Promise.resolve({ ...a });
+    },
+    obterAssinatura: buscar,
+    cancelarAssinatura(id) {
+      canceladas.push(id);
+      const a = assinaturas.get(id);
+      if (a) a.status = 'cancelled';
+      return Promise.resolve();
+    },
+    obterCobranca(id) {
+      const c = cobrancas.get(id);
+      return c
+        ? Promise.resolve(c)
+        : Promise.reject(new Error(`cobrança ${id} não existe`));
+    },
+    definirStatus(id, status, proximaCobranca) {
+      const a = assinaturas.get(id)!;
+      a.status = status;
+      a.proximaCobranca = proximaCobranca ?? a.proximaCobranca;
+    },
+    registrarCobranca(c) {
+      cobrancas.set(c.id, c);
+    },
+  };
+}
+
 export async function createTestApp(opcoes: { agora?: () => Date } = {}) {
   const mailer = createFakeMailer();
   const storage = createFakeStorage();
+  const pagamentos = createFakeGateway();
   const app = await buildApp({
     env,
     prisma,
     mailer,
     storage,
+    pagamentos,
     agora: opcoes.agora,
   });
-  return { app, mailer, storage };
+  return { app, mailer, storage, pagamentos };
 }
 
 type TestApp = Awaited<ReturnType<typeof createTestApp>>['app'];

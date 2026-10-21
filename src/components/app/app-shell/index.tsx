@@ -2,6 +2,7 @@ import { Link, useNavigate } from '@tanstack/react-router';
 import { useLingui } from '@lingui/react/macro';
 import {
   Cat,
+  Gift,
   HeartHandshake,
   Home,
   LogOut,
@@ -68,6 +69,12 @@ export function AppShell({ me, locale, children }: AppShellProps) {
       cargo: 'cliente',
     },
     {
+      to: `/${locale}/app/clube`,
+      label: t`Clube Amicats`,
+      icone: Gift,
+      cargo: 'cliente',
+    },
+    {
       to: `/${locale}/app/admin/usuarios`,
       label: t`Pessoas`,
       icone: Users,
@@ -77,6 +84,12 @@ export function AppShell({ me, locale, children }: AppShellProps) {
       to: `/${locale}/app/admin/tags`,
       label: t`Tags`,
       icone: Tags,
+      cargo: 'adm',
+    },
+    {
+      to: `/${locale}/app/admin/clube`,
+      label: t`Assinantes`,
+      icone: Gift,
       cargo: 'adm',
     },
     {

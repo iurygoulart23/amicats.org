@@ -2224,3 +2224,105 @@ msgstr "See all"
 
 msgid "Receber por e-mail um resumo diário das notificações"
 msgstr "Receive a daily email summary of notifications"
+
+msgid "Aguardando pagamento"
+msgstr "Awaiting payment"
+
+msgid "Aprovada"
+msgstr "Approved"
+
+msgid "Assinante"
+msgstr "Subscriber"
+
+msgid "Assinante desde"
+msgstr "Subscriber since"
+
+msgid "Assinantes"
+msgstr "Subscribers"
+
+msgid "Assinantes ativos"
+msgstr "Active subscribers"
+
+msgid "Assinar"
+msgstr "Subscribe"
+
+msgid "Assinar o Clube Amicats"
+msgstr "Join the Amicats Club"
+
+msgid "Assinaturas"
+msgstr "Subscriptions"
+
+msgid "Assinaturas do clube, receita mensal e faixas."
+msgstr "Club subscriptions, monthly revenue and tiers."
+
+msgid "Cancelada"
+msgstr "Cancelled"
+
+msgid "Cancelar assinatura"
+msgstr "Cancel subscription"
+
+msgid "Cancelar sua assinatura do Clube Amicats? As cobranças mensais param."
+msgstr "Cancel your Amicats Club subscription? Monthly charges will stop."
+
+msgid "Concluir pagamento"
+msgstr "Complete payment"
+
+msgid "Contribua todo mês no cartão e ajude a manter o abrigo."
+msgstr "Contribute monthly by card and help keep the shelter running."
+
+msgid "Escolha sua faixa"
+msgstr "Choose your tier"
+
+msgid "Escolher outra faixa"
+msgstr "Choose another tier"
+
+msgid "Faixa"
+msgstr "Tier"
+
+msgid "Faixas"
+msgstr "Tiers"
+
+msgid "Falta concluir o pagamento no Mercado Pago. Se você já concluiu, a confirmação pode levar alguns minutos."
+msgstr "You still need to complete the payment on Mercado Pago. If you already did, confirmation may take a few minutes."
+
+msgid "Mudar o valor de uma faixa vale só para novas assinaturas; quem já assina continua pagando o valor da adesão."
+msgstr "Changing a tier's amount only applies to new subscriptions; current subscribers keep paying the amount they signed up for."
+
+msgid "Nenhuma assinatura ainda."
+msgstr "No subscriptions yet."
+
+msgid "O pagamento é feito na página do Mercado Pago: a Amicats não vê nem guarda os dados do seu cartão."
+msgstr "Payment happens on Mercado Pago's page: Amicats never sees or stores your card details."
+
+msgid "Ordem"
+msgstr "Order"
+
+msgid "Pausada"
+msgstr "Paused"
+
+msgid "Pendente"
+msgstr "Pending"
+
+msgid "Próxima cobrança em"
+msgstr "Next charge on"
+
+msgid "Receita mensal recorrente"
+msgstr "Monthly recurring revenue"
+
+msgid "Recusada"
+msgstr "Declined"
+
+msgid "Sua assinatura foi cancelada. Quando quiser, é só escolher uma faixa de novo."
+msgstr "Your subscription was cancelled. Whenever you like, just choose a tier again."
+
+msgid "Todas"
+msgstr "All"
+
+msgid "Uma contribuição mensal no cartão que mantém o abrigo funcionando. Em breve, assinantes concorrem a sorteios mensais."
+msgstr "A monthly card contribution that keeps the shelter running. Soon, subscribers will enter monthly prize draws."
+
+msgid "Valor mensal (R$)"
+msgstr "Monthly amount (R$)"
+
+msgid "mês"
+msgstr "month"

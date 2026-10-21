@@ -76,10 +76,17 @@ function PainelInicio() {
     },
     {
       titulo: t`Clube Amicats`,
-      descricao: t`Assinatura mensal com sorteios. Em breve!`,
+      descricao: t`Contribua todo mês no cartão e ajude a manter o abrigo.`,
+      to: `/${locale}/app/clube`,
       icone: Gift,
       cargo: 'cliente',
-      emBreve: true,
+    },
+    {
+      titulo: t`Assinantes`,
+      descricao: t`Assinaturas do clube, receita mensal e faixas.`,
+      to: `/${locale}/app/admin/clube`,
+      icone: Gift,
+      cargo: 'adm',
     },
   ];
 
