@@ -8,7 +8,8 @@ export default defineConfig({
   test: {
     environment: 'jsdom',
     // A API (api/) tem a própria suíte, que roda contra Postgres: `cd api && npm test`.
-    exclude: [...configDefaults.exclude, 'api/**'],
+    // e2e/ são testes Playwright: `npm run e2e`.
+    exclude: [...configDefaults.exclude, 'api/**', 'e2e/**'],
     setupFiles: ['src/test/setup.ts', 'src/test/setupNodeGlobals.ts'],
     globals: true,
     alias: {

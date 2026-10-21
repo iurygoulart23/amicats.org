@@ -14,3 +14,9 @@ todos.json
 
 .vscode/
 .vscode/launch.json
+
+# Playwright (npm run e2e)
+playwright-report/
+test-results/
+blob-report/
+playwright/.auth/

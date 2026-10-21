@@ -30,7 +30,10 @@ const config = defineConfig({
     },
   },
   plugins: [
-    devtools(),
+    devtools({
+      // O e2e sobe um segundo servidor de dev; o event bus (porta fixa) fica só no primeiro.
+      eventBusConfig: { enabled: process.env.DEVTOOLS_EVENT_BUS !== 'false' },
+    }),
     nitro(),
     // this is the plugin that enables path aliases
     viteTsConfigPaths({

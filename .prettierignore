@@ -9,3 +9,5 @@ src/routeTree.gen.ts
 *.lock
 api/dist/**
 api/prisma/migrations/**
+playwright-report/**
+test-results/**

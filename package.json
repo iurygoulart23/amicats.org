@@ -14,7 +14,10 @@
     "lingui:extract": "lingui extract",
     "lingui:compile": "lingui compile",
     "storybook": "storybook dev -p 6006",
-    "build-storybook": "storybook build"
+    "build-storybook": "storybook build",
+    "e2e": "DB_TEMP_NOME=amicats-db-e2e DB_TEMP_PORTA=5435 SEED_ADMIN_EMAIL=admin@amicats.org SEED_ADMIN_SENHA=troque-esta-senha npm --prefix api run db:temp && playwright test",
+    "e2e:ui": "DB_TEMP_NOME=amicats-db-e2e DB_TEMP_PORTA=5435 SEED_ADMIN_EMAIL=admin@amicats.org SEED_ADMIN_SENHA=troque-esta-senha npm --prefix api run db:temp && playwright test --ui",
+    "e2e:stop": "DB_TEMP_NOME=amicats-db-e2e npm --prefix api run db:temp:stop"
   },
   "dependencies": {
     "@faker-js/faker": "^10.0.0",
@@ -51,6 +54,7 @@
     "@lingui/loader": "^6.9.0",
     "@lingui/macro": "5.9.5",
     "@lingui/vite-plugin": "^6.9.0",
+    "@playwright/test": "^1.64.1",
     "@tanstack/devtools-vite": "^0.3.11",
     "@tanstack/eslint-config": "^0.3.0",
     "@testing-library/dom": "^10.4.0",
