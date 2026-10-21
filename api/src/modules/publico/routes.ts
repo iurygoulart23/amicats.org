@@ -4,6 +4,8 @@ import { naoEncontrado } from '../../lib/errors.js';
 import { Paginacao, paginado, skipTake } from '../../lib/paginacao.js';
 import { includeGato, toGato } from '../gatos/mapper.js';
 import { GatoPublico } from '../gatos/schemas.js';
+import { resumoApoio } from '../apadrinhamentos/resumo.js';
+import type { ResumoApoio } from '../apadrinhamentos/resumo.js';
 import type { Prisma } from '@prisma/client';
 import type { FastifyPluginAsyncZod } from 'fastify-type-provider-zod';
 
@@ -21,6 +23,7 @@ const visivel: Prisma.GatoWhereInput = {
 // Monta o objeto público campo a campo: dado interno novo no Gato não vaza por acidente.
 function toGatoPublico(
   g: Parameters<typeof toGato>[0],
+  apoio: ResumoApoio = { padrinhos: 0, custoMensalEstimadoCentavos: null },
 ): z.infer<typeof GatoPublico> {
   const gato = toGato(g);
   return {
@@ -35,6 +38,8 @@ function toGatoPublico(
     descricaoEn: gato.descricaoEn,
     fotos: gato.fotos,
     tags: gato.tags.filter((t) => t.ativa).map(({ ativa: _ativa, ...t }) => t),
+    padrinhos: apoio.padrinhos,
+    custoMensalEstimadoCentavos: apoio.custoMensalEstimadoCentavos,
   };
 }
 
@@ -74,7 +79,15 @@ export const publicoRoutes: FastifyPluginAsyncZod = async (app) => {
         }),
         prisma.gato.count({ where }),
       ]);
-      return { itens: itens.map(toGatoPublico), total, ...pag };
+      const apoio = await resumoApoio(
+        prisma,
+        itens.map((g) => g.id),
+      );
+      return {
+        itens: itens.map((g) => toGatoPublico(g, apoio.get(g.id))),
+        total,
+        ...pag,
+      };
     },
   );
 
@@ -94,7 +107,8 @@ export const publicoRoutes: FastifyPluginAsyncZod = async (app) => {
         include: includeGato,
       });
       if (!gato) throw naoEncontrado('Gato');
-      return toGatoPublico(gato);
+      const apoio = await resumoApoio(prisma, [gato.id]);
+      return toGatoPublico(gato, apoio.get(gato.id));
     },
   );
 };

@@ -51,8 +51,15 @@ export const authRoutes: FastifyPluginAsyncZod = async (app) => {
         rateLimit: {
           max: 5,
           timeWindow: '1 minute',
+          // preValidation: o body já foi lido, então a chave é IP + e-mail (e não só o IP,
+          // o que bloquearia todo mundo atrás da mesma rede).
+          hook: 'preValidation',
           keyGenerator: (request) =>
-            `${request.ip}:${(request.body as { email?: string } | undefined)?.email ?? ''}`,
+            `${request.ip}:${String(
+              (request.body as { email?: unknown } | undefined)?.email ?? '',
+            )
+              .trim()
+              .toLowerCase()}`,
         },
       },
       schema: {

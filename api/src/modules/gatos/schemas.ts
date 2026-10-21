@@ -66,4 +66,8 @@ export const GatoPublico = Gato.pick({
   fotos: true,
 }).extend({
   tags: z.array(TagDoGato.omit({ ativa: true })),
+  /** Padrinhos ativos (selo "apadrinhado" quando > 0) */
+  padrinhos: z.number(),
+  /** Média mensal dos gastos nos últimos 3 meses completos */
+  custoMensalEstimadoCentavos: z.number().nullable(),
 });
