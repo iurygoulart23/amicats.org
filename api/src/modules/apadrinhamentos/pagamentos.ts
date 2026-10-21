@@ -11,7 +11,7 @@ import type { PagamentoMp } from '../../lib/mercadopago.js';
 
 const Referencia = z.uuid();
 /** Checkouts abandonados há mais tempo que isso não são mais consultados ao abrir o extrato. */
-const DIAS_SINCRONIZAR = 30;
+export const DIAS_SINCRONIZAR = 30;
 
 /**
  * Aplica no banco o que o Mercado Pago diz sobre um pagamento (idempotente).

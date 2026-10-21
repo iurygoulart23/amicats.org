@@ -43,6 +43,58 @@ export function atualizacaoDoPagamento(local: PagamentoLocal, mp: PagamentoMp) {
   };
 }
 
+/** Origem de um pagamento no histórico e na conciliação. */
+export const TIPOS_PAGAMENTO = ['clube', 'apadrinhamento', 'doacao'] as const;
+export type TipoPagamento = (typeof TIPOS_PAGAMENTO)[number];
+
+/** Status da cobrança do Clube ('aprovada'…) no mesmo vocabulário dos outros pagamentos. */
+export function statusDaCobrancaNoHistorico(status: string): StatusPagamento {
+  if (status === 'aprovada') return 'aprovado';
+  if (status === 'recusada') return 'recusado';
+  return 'pendente';
+}
+
+/**
+ * Entra no histórico? Checkout aberto e nunca pago (pendente sem pagamento no
+ * Mercado Pago) não é pagamento: é só alguém que desistiu na página de pagamento.
+ */
+export function entraNoHistorico(p: PagamentoLocal) {
+  return p.status !== 'pendente' || p.mpPagamentoId !== null;
+}
+
+/** Totais da conciliação: o que entrou (aprovado) por origem e quantos pedem atenção. */
+export function resumoDosPagamentos(
+  itens: Array<{
+    tipo: TipoPagamento;
+    status: StatusPagamento;
+    valorCentavos: number;
+  }>,
+) {
+  const aprovadoPorTipo: Record<TipoPagamento, number> = {
+    clube: 0,
+    apadrinhamento: 0,
+    doacao: 0,
+  };
+  const quantidade: Record<StatusPagamento, number> = {
+    pendente: 0,
+    aprovado: 0,
+    recusado: 0,
+    estornado: 0,
+  };
+  for (const p of itens) {
+    quantidade[p.status] += 1;
+    if (p.status === 'aprovado') aprovadoPorTipo[p.tipo] += p.valorCentavos;
+  }
+  return {
+    aprovadoCentavos:
+      aprovadoPorTipo.clube +
+      aprovadoPorTipo.apadrinhamento +
+      aprovadoPorTipo.doacao,
+    aprovadoPorTipo,
+    quantidade,
+  };
+}
+
 /** Prefixo da referência (external_reference) dos checkouts de doação. */
 const PREFIXO_DOACAO = 'doacao:';
 
