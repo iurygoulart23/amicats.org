@@ -1,3 +1,4 @@
+import { execFileSync } from 'node:child_process';
 import { expect } from '@playwright/test';
 import type {
   APIRequestContext,
@@ -90,8 +91,33 @@ export async function verificarPendencias(request: APIRequestContext) {
   return (await res.json()) as {
     dosesAtrasadas: number;
     retornos: number;
+    partes: number;
     emails: number;
   };
+}
+
+/**
+ * Roda SQL direto no banco descartável do e2e (container do `npm run e2e`).
+ * Só para preparar o que a interface não permite, como datas no passado.
+ */
+export function sql(comando: string) {
+  return execFileSync(
+    'docker',
+    [
+      'exec',
+      'amicats-db-e2e',
+      'psql',
+      '-U',
+      'amicats',
+      '-d',
+      'amicats',
+      '-v',
+      'ON_ERROR_STOP=1',
+      '-tAc',
+      comando,
+    ],
+    { encoding: 'utf8' },
+  ).trim();
 }
 
 /** Dia (AAAA-MM-DD) no horário do abrigo, deslocado em dias. */
