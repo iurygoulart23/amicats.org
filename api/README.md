@@ -62,7 +62,7 @@ src/
   domain/           # regras puras (cargos, gato)
   lib/              # adapters: senha, tokens, mailer (Resend), storage (B2/S3)
   plugins/auth.ts   # sessão por cookie → request.usuario, exigirCargo()
-  modules/          # auth, users, gatos, tags, saude, fotos, gastos, apadrinhamentos, medicacao, notificacoes, clube, doacoes, publico
+  modules/          # auth, users, gatos, tags, saude, fotos, gastos, apadrinhamentos, medicacao, notificacoes, clube, doacoes, pagamentos, publico
 prisma/             # schema, migrations e seed
 test/               # setup do Vitest e helpers (fakes, login)
 ```
@@ -99,6 +99,14 @@ test/               # setup do Vitest e helpers (fakes, login)
 - **Doar** (`POST /doacoes`, aberta, limite de 10 por IP a cada 15 min): `{ valorCentavos, nome?, email? }`. Sem login, nome e e-mail são obrigatórios; logado, valem os da conta (e a doação fica ligada a ela). Mínimo R$ 5,00. Cria um checkout de pagamento único do Mercado Pago (pix, cartão ou boleto) com a referência `doacao:<id>` e devolve o `init_point`. O retorno vai para `/pt-BR/doar/obrigado?doacao=<id>` no site.
 - **Situação** (`GET /doacoes/:id`, aberta): status, valor e data do pagamento, sem dados de quem doou. Enquanto pendente, consulta o Mercado Pago.
 - **Aprovada:** avisa os adms e envia um e-mail de agradecimento (uma vez só). Mesmas regras de status do pagamento da parte do padrinho (`src/domain/pagamento.ts`).
+
+## Histórico de pagamentos e conciliação
+
+Os pagamentos ficam em três tabelas (cobranças do Clube, pagamentos da parte do padrinho e doações); `src/modules/pagamentos/historico.ts` junta as três numa lista só, no vocabulário de `src/domain/pagamento.ts` (`pendente`, `aprovado`, `recusado`, `estornado`). Checkout aberto e nunca pago não entra: não é pagamento.
+
+- **Meus pagamentos** (`GET /pagamentos/meus`, cliente): cobranças do Clube, parte do padrinho e doações feitas logado, do mais recente ao mais antigo. Sem dados de conciliação (id no Mercado Pago).
+- **Conciliação** (`GET /pagamentos`, adm): todos os pagamentos com quem pagou e o id no Mercado Pago, filtros `tipo` (`clube` | `apadrinhamento` | `doacao`), `status` e `mes` (AAAA-MM, pela data do pagamento) e um resumo: total aprovado por origem e quantos estão em cada status.
+- **Reconsultar pendentes** (`POST /pagamentos/conciliar`, adm, 5 por minuto): consulta no Mercado Pago o que está pendente (doações, partes e assinaturas dos últimos 30 dias e cobranças do Clube) e aplica o que mudou, para quando o webhook se perde ou atrasa. Devolve `{ consultados, atualizados }`.
 
 ## Clube Amicats (Mercado Pago)
 

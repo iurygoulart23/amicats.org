@@ -148,7 +148,7 @@ Workflow TDD recomendado:
 
 ### Testes ponta a ponta (Playwright)
 
-Os roteiros em `e2e/` percorrem os fluxos principais no navegador, com site e API de verdade: cargos e convite de voluntário, cadastro de gato e catálogo público, apadrinhamento, medicação e retornos veterinários, notificações e resumo por e-mail, e assinatura do Clube Amicats.
+Os roteiros em `e2e/` percorrem os fluxos principais no navegador, com site e API de verdade: cargos e convite de voluntário, cadastro de gato e catálogo público, apadrinhamento, medicação e retornos veterinários, notificações e resumo por e-mail, assinatura do Clube Amicats, pagamento da parte do padrinho, doação avulsa e histórico de pagamentos com a conciliação do adm.
 
 ```bash
 npx playwright install chromium   # só na primeira vez

@@ -182,3 +182,17 @@ _Avoid_: contribuição, oferta, pagamento (para o registro)
 **Agradecimento**:
 E-mail enviado uma única vez para quem doou, quando a doação é aprovada.
 _Avoid_: recibo, comprovante
+
+## Pagamentos
+
+**Pagamento**:
+Qualquer dinheiro que entrou (ou tentou entrar) pelo Mercado Pago: cobrança do Clube, pagamento da parte do padrinho ou doação. Pendente, aprovado, recusado ou estornado. Checkout aberto e nunca pago não é pagamento.
+_Avoid_: transação, lançamento (lançamento é de gasto)
+
+**Origem** (do pagamento):
+De onde o pagamento vem: Clube, apadrinhamento ou doação.
+_Avoid_: categoria (categoria é de gasto)
+
+**Conciliação**:
+Conferência, pelo adm, dos pagamentos registrados na Amicats com o Mercado Pago: lista com filtros, total recebido por origem e a reconsulta dos pendentes.
+_Avoid_: auditoria, fechamento
