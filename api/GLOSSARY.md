@@ -172,3 +172,13 @@ _Avoid_: associado, sócio, membro
 **Cobrança**:
 Cada pagamento mensal de uma assinatura feito pelo Mercado Pago, aprovado ou recusado.
 _Avoid_: fatura, parcela, mensalidade
+
+## Doações
+
+**Doação**:
+Contribuição avulsa de qualquer valor (mínimo R$ 5) para a ONG, paga no checkout do Mercado Pago (pix, cartão ou boleto). Não exige conta: sem login, a pessoa informa nome e e-mail. Pode ficar pendente, aprovada, recusada ou estornada.
+_Avoid_: contribuição, oferta, pagamento (para o registro)
+
+**Agradecimento**:
+E-mail enviado uma única vez para quem doou, quando a doação é aprovada.
+_Avoid_: recibo, comprovante

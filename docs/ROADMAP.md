@@ -73,7 +73,7 @@ Repositório único (`amicats.org`):
 - 🧪 Clube Amicats: assinatura mensal no cartão em faixas fixas (R$ 20 / R$ 50 / R$ 100, editáveis pelo adm), com checkout na página do Mercado Pago
 - 🧪 Assinante vê status, próxima cobrança e histórico de cobranças, e cancela pela plataforma. Trocar de faixa = cancelar e assinar de novo; trocar o cartão é feito no Mercado Pago
 - 🧪 Pagamento da parte do padrinho: depois que o mês fecha, o padrinho paga o que falta da parte dele pelo checkout do Mercado Pago (pix, cartão ou boleto). Gasto lançado depois aparece como diferença a pagar. Aviso para o padrinho quando o mês fecha e para os adms quando o pagamento é aprovado. No painel do Mercado Pago, o webhook precisa do evento _Pagamentos_ além de _Assinaturas_
-- ⬜ Doações avulsas: pix, crédito, boleto
+- 🧪 Doações avulsas: página pública `/doar` (sem precisar de conta; logado usa os dados da conta) com valores sugeridos ou outro valor (mínimo R$ 5), checkout do Mercado Pago (pix, cartão ou boleto), página de obrigado que acompanha a confirmação, e-mail de agradecimento e aviso aos adms. O botão "Doe por Boleto — Em breve" do Quero ajudar agora leva para lá
 - ⬜ Histórico de pagamentos (cliente) e conciliação (adm)
 
 ## Fase 4 — Clube Amicats
@@ -116,6 +116,7 @@ Repositório único (`amicats.org`):
 
 | Data       | Feature                                                                                                                                                                                     | Repositório | Observações                                                                                                                                |
 | ---------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------- | ------------------------------------------------------------------------------------------------------------------------------------------ |
+| 2026-10-21 | Fase 3 (parte 3): doações avulsas (página `/doar`, checkout do Mercado Pago, obrigado, agradecimento por e-mail, aviso aos adms)                                                            | api/ + site | API 146 testes; e2e 9 testes (novo roteiro de doação com simulador); falta validar com credenciais do Mercado Pago; ainda não publicado    |
 | 2026-10-21 | Fase 3 (parte 2): pagamento da parte do padrinho em meses fechados (Checkout Pro do Mercado Pago), falta pagar no extrato e na lista, webhook de pagamentos, aviso mensal e aviso aos adms  | api/ + site | API 137 testes; e2e 8 testes (novo roteiro de pagamento com simulador); falta validar com credenciais do Mercado Pago; ainda não publicado |
 | 2026-10-21 | Testes ponta a ponta com Playwright (`e2e/`): cargos e convite, gatos e catálogo, apadrinhamento, medicação e veterinário (incl. tela de celular), notificações e e-mail, Clube Amicats     | site + api/ | 7 testes passando; API ganhou `CAIXA_DEV` (e-mails em memória em `/dev/emails`, proibido em produção); API 126 testes                      |
 | 2026-10-21 | Fase 3 (parte 1): Clube Amicats — faixas, assinatura via checkout do Mercado Pago, webhook, cobranças, cancelamento, painel de assinantes e receita mensal, simulador para desenvolvimento  | api/ + site | API 123 testes; fluxo E2E do clube com simulador (6 passos); falta validar com credenciais do Mercado Pago; ainda não publicado            |
@@ -132,5 +133,5 @@ Repositório único (`amicats.org`):
 - **Lingui com versões misturadas na `hom`:** CLI, loader e plugin do Vite estão na v6, mas core, react e macro continuam na v5. As versões calculam os IDs das mensagens de jeito diferente: rodar `npm run lingui:extract` com o CLI v6 reescreve os catálogos e quebra traduções que já existiam (ex.: "Faça login"). Até alinhar tudo na mesma versão, edite os `.po` sem rodar o extract da v6.
 
 - Carrossel de gatos da home (`gatos-carousel`) gera aviso de hidratação no SSR: o número de cards depende do `window` no primeiro render (já existia antes da API).
-- 4 testes do site já falhavam antes da Fase 1 (footer, quero-ajudar, seja-um-parceiro): esperam textos/links que mudaram.
+- 3 testes do site já falhavam antes da Fase 1 (footer e seja-um-parceiro): esperam textos/links que mudaram. O do quero-ajudar foi corrigido junto com as doações.
 - **Ordem de deploy:** o catálogo da home agora vem da API. Publicar o site só depois da API estar no ar com o seed rodado, senão a seção de gatos fica vazia.

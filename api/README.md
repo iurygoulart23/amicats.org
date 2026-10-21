@@ -62,7 +62,7 @@ src/
   domain/           # regras puras (cargos, gato)
   lib/              # adapters: senha, tokens, mailer (Resend), storage (B2/S3)
   plugins/auth.ts   # sessão por cookie → request.usuario, exigirCargo()
-  modules/          # auth, users, gatos, tags, saude, fotos, gastos, apadrinhamentos, medicacao, notificacoes, clube, publico
+  modules/          # auth, users, gatos, tags, saude, fotos, gastos, apadrinhamentos, medicacao, notificacoes, clube, doacoes, publico
 prisma/             # schema, migrations e seed
 test/               # setup do Vitest e helpers (fakes, login)
 ```
@@ -94,12 +94,18 @@ test/               # setup do Vitest e helpers (fakes, login)
   `curl -X POST -H "x-tarefa-token: $TAREFAS_TOKEN" https://api.amicats.org/tarefas/verificar-pendencias`
 - **Local:** com a API rodando, `npm run tarefas:pendencias`.
 
+## Doações avulsas
+
+- **Doar** (`POST /doacoes`, aberta, limite de 10 por IP a cada 15 min): `{ valorCentavos, nome?, email? }`. Sem login, nome e e-mail são obrigatórios; logado, valem os da conta (e a doação fica ligada a ela). Mínimo R$ 5,00. Cria um checkout de pagamento único do Mercado Pago (pix, cartão ou boleto) com a referência `doacao:<id>` e devolve o `init_point`. O retorno vai para `/pt-BR/doar/obrigado?doacao=<id>` no site.
+- **Situação** (`GET /doacoes/:id`, aberta): status, valor e data do pagamento, sem dados de quem doou. Enquanto pendente, consulta o Mercado Pago.
+- **Aprovada:** avisa os adms e envia um e-mail de agradecimento (uma vez só). Mesmas regras de status do pagamento da parte do padrinho (`src/domain/pagamento.ts`).
+
 ## Clube Amicats (Mercado Pago)
 
 - **Faixas** (`/clube/planos`): valores mensais fixos mantidos pelo adm. O seed cria Amigo (R$ 20), Protetor (R$ 50) e Guardião (R$ 100). Mudar o valor de uma faixa não afeta quem já assina: a assinatura guarda o valor da adesão.
 - **Assinar** (`POST /clube/assinaturas`): cria uma assinatura sem plano associado (`POST /preapproval`, `status: pending`) e devolve o `init_point`. O site redireciona para o checkout do Mercado Pago, e **o cartão nunca passa pela API**.
 - **Status:** chega por dois caminhos. O webhook atualiza ativação, pausa, cancelamento e cada cobrança. Além disso, `GET /clube/minha` consulta o Mercado Pago quando a assinatura ainda está pendente (cobre o retorno do checkout e ambientes sem webhook).
-- **Webhook:** `POST /webhooks/mercadopago`, tópicos _Planos e assinaturas_ (Clube) e _Pagamentos_ (parte do padrinho; cobranças do Clube também chegam como `payment` e são ignoradas por não terem pagamento correspondente). A assinatura `x-signature` é validada com HMAC-SHA256 (`MP_WEBHOOK_SECRET`), com tolerância de 15 min contra reenvio. O aviso nunca é usado como verdade: a API sempre consulta o Mercado Pago.
+- **Webhook:** `POST /webhooks/mercadopago`, tópicos _Planos e assinaturas_ (Clube) e _Pagamentos_ (parte do padrinho e doações; cobranças do Clube também chegam como `payment` e são ignoradas por não terem pagamento correspondente). A assinatura `x-signature` é validada com HMAC-SHA256 (`MP_WEBHOOK_SECRET`), com tolerância de 15 min contra reenvio. O aviso nunca é usado como verdade: a API sempre consulta o Mercado Pago.
 
 ### Configuração
 
